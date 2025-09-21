@@ -33,27 +33,31 @@
 
 ### 1. Pin Dependency Versions
 
-> On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.2.4`, `1.3.0`, `1.6.2`, etc. Read more: [NPM About semantic versioning](https://docs.npmjs.com/about-semantic-versioning) and try out the [npm SemVer Calculator](https://semver.npmjs.com/)
->
-> To avoid installing freshly compromised packages, it is advised of pinning exact versions (e.g., `"my-package": "1.2.3"`). **_However_**, our direct dependencies also have their own dependencies (_transitive_ dependencies). Even if we pin our direct dependencies, their transitive dependencies might still use broad version range operators (like `^` or `~`).
+> On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.2.4`, `1.3.0`, `1.6.2`, etc. Read more: [NPM About semantic versioning](https://docs.npmjs.com/about-semantic-versioning) and try out the [npm SemVer Calculator](https://semver.npmjs.com/). To avoid installing freshly compromised packages, it is often advised to pin exact versions (e.g., `"my-package": "1.2.3"`).
 
-In CLI, use `--save-exact` or `-E` flag to pin exact version during installation: `npm install --save-exact react`
+Here's how to use the save exact flag to pin exact version in various package managers:
 
-For `bun`, use `--exact/-E` e.g., `bun add --exact react`
+```sh
+npm install --save-exact react
 
-For `deno`, manually specify exact version, e.g., `deno add npm:react@19.1.1`
+pnpm add --save-exact react
 
-For `pnpm`, use `--save-exact/-E`, e.g., `pnpm add -E react`
+yarn add --save-exact react
 
-For `yarn`, use `--save-exact/-E`, e.g., `yarn add -E react`
+bun add --exact react
+
+deno add npm:react@19.1.1
+```
 
 We can also update this setting in configuration files (e.g., [`.npmrc`](https://docs.npmjs.com/cli/v11/configuring-npm/npmrc)), with either `save-exact` or [`save-prefix`](https://docs.npmjs.com/cli/v11/using-npm/config#save-prefix) alike key and value pairs:
 
-For `npm`, run `npm config set save-exact=true`
+```sh
+npm config set save-exact=true
 
-For `pnpm`, run `pnpm config set save-exact true`
+pnpm config set save-exact true
 
-For `yarn`, run `yarn config set defaultSemverRangePrefix ""`
+yarn config set defaultSemverRangePrefix ""
+```
 
 For `bun`, the config file is `bunfig.toml` and corresponding config is:
 
@@ -62,19 +66,65 @@ For `bun`, the config file is `bunfig.toml` and corresponding config is:
 exact = true
 ```
 
+#### Override the transitive dependencies
+
+> **_However_**, our direct dependencies also have their own dependencies (_transitive_ dependencies). Even if we pin our direct dependencies, their transitive dependencies might still use broad version range operators (like `^` or `~`). The solution is to override the transitive dependencies: https://docs.npmjs.com/cli/v11/configuring-npm/package-json#overrides
+
+In `package.json`, if we have the following `overrides` field:
+
+```json
+{
+  "dependencies": {
+    "library-a": "^3.0.0"
+  },
+  "overrides": {
+    "lodash": "4.17.21"
+  }
+}
+```
+
+- Let's assume that `⁠library-a`'s `⁠package.json` has a dependency on `"lodash": "^4.17.0"`
+- Without the `⁠overrides` section, `⁠npm` might install `⁠lodash@4.17.22` (or any of the latest `⁠4.x.x` versions) as a transitive dependency of `⁠library-a`
+- However, by adding `"overrides": { "lodash": "4.17.21" }`, we are telling `⁠npm` that anywhere `⁠lodash` appears in the dependency tree, it must be resolved to exactly version `⁠4.17.21`
+
+For `pnpm`, we can also define the `overrides` field in the `pnpm-workspace.yaml` file: https://pnpm.io/settings#overrides
+
+For `yarn`, the `resolutions` field is introduced before the `overrides` field, and it also offers a similar functionality: https://yarnpkg.com/configuration/manifest#resolutions
+
+```json
+{
+  "resolutions": {
+    "lodash": "4.17.21"
+  }
+}
+```
+
+```sh
+# yarn also provide a cli to set the resolution: https://yarnpkg.com/cli/set/resolution
+yarn set resolution <descriptor> <resolution>
+```
+
+For `bun`, it supports either the `overrides` field or the `resolutions` field: https://bun.com/docs/install/overrides
+
+For `deno`, see https://github.com/denoland/deno/issues/28664 for more details.
+
 ### 2. Include Lockfiles
 
 > Ensure to commit package managers lockfiles to `git` and share between different environments. Different lockfiles are: `package-lock.json` for `npm`, `pnpm-lock.yaml` for `pnpm`, `bun.lock` for `bun`, `yarn.lock` for `yarn` and `deno.lock` for `deno`.
 >
 > In automated environments such as continuous integration and deployments, we should install the exact dependencies as defined in the lockfile.
 
-For `npm`, run `npm ci`
+```sh
+npm ci
 
-For `bun`, run `bun install --frozen-lockfile`
+bun install --frozen-lockfile
 
-For `yarn`, run `yarn install --frozen-lockfile`
+yarn install --frozen-lockfile
 
-For `deno`, run `deno install --frozen` or set the following in a `deno.json` file:
+deno install --frozen
+```
+
+For `deno`, we can also set the following in a `deno.json` file:
 
 ```json
 {
@@ -90,9 +140,11 @@ For `deno`, run `deno install --frozen` or set the following in a `deno.json` fi
 >
 > Lifecycle scripts are a common strategy from malicious actors. For example, the "Shai-Hulud" worms[^3] edit the `package.json` file to add a `postinstall` script that would then steal credentials.
 
-For `npm`, run `npm config set ignore-scripts true --global`
+```sh
+npm config set ignore-scripts true --global
 
-For `yarn`, run `yarn config set enableScripts false`
+yarn config set enableScripts false
+```
 
 For `bun`, `deno` and `pnpm`, they are disabled by default.
 
@@ -105,14 +157,18 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 
 > We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the [`minimumReleaseAge` option](https://pnpm.io/settings#minimumreleaseage), which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
 
-For `pnpm`, run `pnpm config set minimumReleaseAge <minutes>`. There's also a `minimumReleaseAgeExclude` option to exclude certain packages from the minimum release age.
-
-For `npm`, there is [a proposal](https://github.com/npm/cli/issues/8570) to add `minimumReleaseAge` option and `minimumReleaseAgeExclude` option. But we can already achieve a similar restriction by using the `--before` flag.
-
 ```sh
+pnpm config set minimumReleaseAge <minutes>
+
 # only install packages published at least 1 day ago
 npm install --before="$(date -v -1d)"
+
+yarn config set npmMinimalAgeGate <minutes>
 ```
+
+For `pnpm`, there's also a `minimumReleaseAgeExclude` option to exclude certain packages from the minimum release age.
+
+For `npm`, there is [a proposal](https://github.com/npm/cli/issues/8570) to add `minimumReleaseAge` option and `minimumReleaseAgeExclude` option.
 
 For `yarn`, config options `npmMinimalAgeGate` and `npmPreapprovedPackages` are implemented since [`v4.10.0`](https://github.com/yarnpkg/berry/releases/tag/%40yarnpkg%2Fcli%2F4.10.0).
 
@@ -298,30 +354,16 @@ Here are some private registries that you might find useful:
 
 > Many package managers provide audit functionality to scan your project's dependencies for known security vulnerabilities, show a report and recommend the best way to fix them.
 
-For `npm`, we can use the `npm audit` command: https://docs.npmjs.com/cli/v11/commands/npm-audit
-
 ```sh
 npm audit # audit dependencies
 npm audit fix # automatically install any compatible updates
 npm audit signatures # verify the signatures of the dependencies
-```
 
-For `pnpm`, we can use the `pnpm audit` command: https://pnpm.io/cli/audit
-
-```sh
 pnpm audit
 pnpm audit --fix
-```
 
-For `bun`, we can use the `bun audit` command: https://bun.com/docs/install/audit
-
-```sh
 bun audit
-```
 
-For `yarn`, we can use the `yarn npm audit` command: https://yarnpkg.com/cli/npm/audit
-
-```sh
 yarn npm audit
 yarn npm audit --recursive # audit transitive dependencies
 ```

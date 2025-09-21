@@ -3,7 +3,7 @@
 # NPM Security Best Practices
 
 > [!NOTE]  
-> The NPM ecosystem is no stranger to compromises[^1][^2], supply-chain attacks[^3], malwares[^4][^5], spams[^6], phishing[^7], incidents[^8] or even trolls[^9]. In this repositroy, I have consolidated a list of information you might find useful in securing yourself against these incidents.
+> The NPM ecosystem is no stranger to compromises[^1][^2], supply-chain attacks[^3], malware[^4][^5], spam[^6], phishing[^7], incidents[^8] or even trolls[^9]. In this repository, I have consolidated a list of information you might find useful in securing yourself against these incidents.
 >
 > Feel free to submit a Pull Request, or reach out to me on [Twitter](https://x.com/bodadotsh)!
 
@@ -86,7 +86,7 @@ For `deno`, run `deno install --frozen` or set the following in a `deno.json` fi
 
 ### 3. Disable Lifecycle Scripts
 
-> Lifecylce scripts are special scripts that happen in addition to the `pre<event>`, `post<event>`, and `<event>` scripts. For instance, `preinstall` is run before `install` is run and `postinstall` is run after `install` is run. Read more: [How npm handles the "scripts" field](https://docs.npmjs.com/cli/v11/using-npm/scripts#life-cycle-scripts)
+> Lifecycle scripts are special scripts that happen in addition to the `pre<event>`, `post<event>`, and `<event>` scripts. For instance, `preinstall` is run before `install` is run and `postinstall` is run after `install` is run. Read more: [How npm handles the "scripts" field](https://docs.npmjs.com/cli/v11/using-npm/scripts#life-cycle-scripts)
 >
 > Lifecycle scripts are a common strategy from malicious actors. For example, the "Shai-Hulud" worms[^3] edit the `package.json` file to add a `postinstall` script that would then steal credentials.
 
@@ -296,7 +296,7 @@ Here are some private registries that you might find useful:
 
 #### Audit
 
-> Many package mangaers provide audit to scan your project's dependencies for known security vulnerabilities, provides a report and recommends the best way to fix them.
+> Many package managers provide audit functionality to scan your project's dependencies for known security vulnerabilities, show a report and recommend the best way to fix them.
 
 For `npm`, we can use the `npm audit` command: https://docs.npmjs.com/cli/v11/commands/npm-audit
 
@@ -350,11 +350,11 @@ Socket.dev is a security platform designed to protect JavaScript projects by sca
 
 ### 12. Donate to OSS
 
-> Maintainer burnout is a significant problem in the open-source community. Many popular `npm` packages are maintained by volunteers who work in their spare time, often without any compensation. Overtime, this can lead to exhaustion and a lack of motivation, making them more susceptible to social engineering where a malicious actor pretends to be a helpful contributor and eventually inject malicious code.
+> Maintainer burnout is a significant problem in the open-source community. Many popular `npm` packages are maintained by volunteers who work in their spare time, often without any compensation. Over time, this can lead to exhaustion and a lack of motivation, making them more susceptible to social engineering where a malicious actor pretends to be a helpful contributor and eventually injects malicious code.
 
 > In 2018, the `event-stream` package was compromised due to the maintainer giving access to a malicious actor[^13]. Another example outside the JavaScript ecosystem is the XZ Utils incident[^14] in 2024 where a malicious actor worked for over three years to attain a position of trust.
 
-> OSS donations also helps create a more sustainable model for open-source development. Foundations can help support the business, marketing, legal, technical assistance and direct support behind hundreds of open source projects that so many rely upon[^15].
+> OSS donations also help create a more sustainable model for open-source development. Foundations can help support the business, marketing, legal, technical assistance and direct support behind hundreds of open source projects that so many rely upon[^15].
 
 In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org/) was founded in 2019 from a merger of JS Foundation and Node.js Foundation. But here are few platforms where you can also directly donate to OSS maintainers:
 
@@ -377,9 +377,3 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org/) was fo
 [^13]: https://github.com/dominictarr/event-stream/issues/116
 [^14]: https://en.wikipedia.org/wiki/XZ_Utils_backdoor
 [^15]: https://openssf.org/blog/2024/04/15/open-source-security-openssf-and-openjs-foundations-issue-alert-for-social-engineering-takeovers-of-open-source-projects/
-test
-test
-test
-test
-test
-test

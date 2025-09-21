@@ -177,7 +177,9 @@ For `bun`, it is discussed here: https://github.com/oven-sh/bun/issues/22679
 For `deno`, an draft proposal is here: https://github.com/denoland/deno/pull/30752
 
 > [!TIP]
-> Renovate CLI (https://github.com/renovatebot/renovate) also provides the [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
+> Renovate CLI (https://github.com/renovatebot/renovate) also includes a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
+>
+> Step Security (https://www.stepsecurity.io) introduced a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature to fail any PR that adds a recently published package.
 
 ### 5. Permission Model
 

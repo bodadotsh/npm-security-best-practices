@@ -345,7 +345,7 @@ Here are some private registries that you might find useful:
 - GitHub Packages https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry
 - Verdaccio https://github.com/verdaccio/verdaccio
 - Vlt https://www.vlt.sh/
-- JFrog Artifactory https://jfrog.com/artifactory/
+- JFrog Artifactory https://jfrog.com/integrations/npm-registry
 - Sonatype: https://help.sonatype.com/en/npm-registry.html
 
 ### 11. Audit, Monitor and Security Tools
@@ -386,7 +386,7 @@ GitHub offers several services that can help protect against `npm` malwares, inc
 
 #### Socket.dev
 
-https://socket.dev/
+https://socket.dev
 
 Socket.dev is a security platform designed to protect JavaScript projects by scanning and securing dependencies from malicious and vulnerable code. It offers various tools such as GitHub App, "Safe NPM" CLI tool, Web Extension, and VSCode Extension. Watch their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY) for more details.
 
@@ -398,11 +398,11 @@ Socket.dev is a security platform designed to protect JavaScript projects by sca
 
 > OSS donations also help create a more sustainable model for open-source development. Foundations can help support the business, marketing, legal, technical assistance and direct support behind hundreds of open source projects that so many rely upon[^15].
 
-In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org/) was founded in 2019 from a merger of JS Foundation and Node.js Foundation. But here are few platforms where you can also directly donate to OSS maintainers:
+In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was founded in 2019 from a merger of JS Foundation and Node.js Foundation. But here are few platforms where you can also directly donate to OSS maintainers:
 
 - GitHub Sponsors https://github.com/sponsors
 - Open Collective https://opencollective.com
-- Thanks.dev https://thanks.dev/home
+- Thanks.dev https://thanks.dev
 
 [^1]: https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised
 [^2]: https://socket.dev/blog/nx-packages-compromised

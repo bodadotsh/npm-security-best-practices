@@ -33,7 +33,7 @@
 
 ### 1. Pin Dependency Versions
 
-> On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.2.4`, `1.3.0`, `1.6.2`, etc. Read more: [NPM About semantic versioning](https://docs.npmjs.com/about-semantic-versioning) and try out the [npm SemVer Calculator](https://semver.npmjs.com/). To avoid installing freshly compromised packages, it is often advised to pin exact versions (e.g., `"my-package": "1.2.3"`).
+> On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.2.4`, `1.3.0`, `1.6.2`, etc. See https://docs.npmjs.com/about-semantic-versioning and try out the npm SemVer Calculator (https://semver.npmjs.com). To avoid installing freshly compromised packages, it is often advised to pin exact versions (e.g., `"my-package": "1.2.3"`).
 
 Here's how to use the save exact flag to pin exact version in various package managers:
 
@@ -136,7 +136,7 @@ For `deno`, we can also set the following in a `deno.json` file:
 
 ### 3. Disable Lifecycle Scripts
 
-> Lifecycle scripts are special scripts that happen in addition to the `pre<event>`, `post<event>`, and `<event>` scripts. For instance, `preinstall` is run before `install` is run and `postinstall` is run after `install` is run. Read more: [How npm handles the "scripts" field](https://docs.npmjs.com/cli/v11/using-npm/scripts#life-cycle-scripts)
+> Lifecycle scripts are special scripts that happen in addition to the `pre<event>`, `post<event>`, and `<event>` scripts. For instance, `preinstall` is run before `install` is run and `postinstall` is run after `install` is run. See how npm handles the "scripts" field: https://docs.npmjs.com/cli/v11/using-npm/scripts#life-cycle-scripts
 >
 > Lifecycle scripts are a common strategy from malicious actors. For example, the "Shai-Hulud" worms[^3] edit the `package.json` file to add a `postinstall` script that would then steal credentials.
 
@@ -155,7 +155,7 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 
 ### 4. Set Minimal Release Age
 
-> We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the [`minimumReleaseAge` option](https://pnpm.io/settings#minimumreleaseage), which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
+> We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the `minimumReleaseAge` option: https://pnpm.io/settings#minimumreleaseage, which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
 
 ```sh
 pnpm config set minimumReleaseAge <minutes>
@@ -183,7 +183,7 @@ For `deno`, an draft proposal is here: https://github.com/denoland/deno/pull/307
 
 > In the latest LTS version of `nodejs`, we can use the Permission model to control what system resources a process has access to or what actions the process can take with those resources. **_However_**, this does not provide security guarantees in the presence of malicious code. Malicious code can still bypass the permission model and execute arbitrary code without the restrictions imposed by the permission model.
 
-Read more about the Node.js permission model: https://nodejs.org/docs/latest/api/permissions.html
+Read about the Node.js permission model: https://nodejs.org/docs/latest/api/permissions.html
 
 ```sh
 # by default, granted full access
@@ -199,7 +199,7 @@ node --permission --allow-fs-read=* --allow-fs-write=* index.js
 npx --node-options="--permission" <package-name>
 ```
 
-Deno enables permissions by default. Read more: https://docs.deno.com/runtime/fundamentals/security/
+Deno enables permissions by default. See https://docs.deno.com/runtime/fundamentals/security/
 
 ```sh
 # by default, restrict access
@@ -239,9 +239,9 @@ Here are some resources that you might find useful:
 
 ### 7. Enable 2FA
 
+https://docs.npmjs.com/about-two-factor-authentication
+
 > Two factor authentication (2FA) adds an extra layer of authentication to your `npm` account. 2FA is not required by default, but it is a good practice to enable it.
->
-> Read more: https://docs.npmjs.com/about-two-factor-authentication
 
 ```sh
 # ensure that 2FA is enabled for auth and writes (this is the default)
@@ -250,9 +250,9 @@ npm profile enable-2fa auth-and-writes
 
 ### 8. Create Tokens with Limited Access
 
+https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens
+
 > An access token is a common way to authenticate to `npm` when using the API or the `npm` CLI.
->
-> Read more: https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens
 
 ```sh
 npm token create # for a read and publish token
@@ -270,6 +270,8 @@ npm token create --read-only --cidr=[list] # for a CIDR-restricted read-only tok
 > - Don't use the same token for multiple purposes
 
 ### 8. Generate Provenance Statements
+
+https://docs.npmjs.com/generating-provenance-statements
 
 > The _provenance attestation_ is established by publicly providing a link to a package's source code and build instructions from the build environment. This allows developers to verify where and how your package was built before they download it.
 >
@@ -294,8 +296,6 @@ To publish without evoking the `npm publish` command, we can do one of the follo
   "provenance": true
 }
 ```
-
-Read more: https://docs.npmjs.com/generating-provenance-statements
 
 ### 9. Review Published Files
 
@@ -374,9 +374,9 @@ https://github.com/security
 
 GitHub offers several services that can help protect against `npm` malwares, including:
 
-- **Dependabot:** This tool automatically scans your project's dependencies, including `npm` packages, for known vulnerabilities. Read more: https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide
-- **Software Bill of Materials (SBOMs):** GitHub allows you to export an SBOM for your repository directly from its dependency graph. An SBOM provides a comprehensive list of all your project's dependencies, including transitive ones (dependencies of your dependencies). Read more: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/exporting-a-software-bill-of-materials-for-your-repository
-- **Code Scanning:** Code scanning can also help identify potential vulnerabilities or suspicious patterns that might arise from integrating compromised `npm` packages. Read more: https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning
+- [Dependabot](https://docs.github.com/en/code-security/getting-started/dependabot-quickstart-guide): This tool automatically scans your project's dependencies, including `npm` packages, for known vulnerabilities.
+- [Software Bill of Materials (SBOMs)](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/exporting-a-software-bill-of-materials-for-your-repository): GitHub allows you to export an SBOM for your repository directly from its dependency graph. An SBOM provides a comprehensive list of all your project's dependencies, including transitive ones (dependencies of your dependencies).
+- [Code Scanning](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning): Code scanning can also help identify potential vulnerabilities or suspicious patterns that might arise from integrating compromised `npm` packages.
 
 > [!WARNING]
 > If you spot vulnerabilities or issues in NPM or Github, please report them using the following links:

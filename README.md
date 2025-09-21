@@ -22,12 +22,12 @@
 - [For Maintainers](#for-maintainers)
   - [7. Enable 2FA](#7-enable-2fa)
   - [8. Create tokens with limited access](#8-create-tokens-with-limited-access)
-  - [8. Generate provenance statements](#8-generate-provenance-statements)
-  - [9. Review published files](#9-review-published-files)
+  - [9. Generate provenance statements](#9-generate-provenance-statements)
+  - [10. Review published files](#10-review-published-files)
 - [Miscellaneous](#miscellaneous)
-  - [10. Use private registry](#10-use-private-registry)
-  - [11. Audit, monitor and security tools](#11-audit-monitor-and-security-tools)
-  - [12. Donate to OSS](#12-donate-to-oss)
+  - [11. Use private registry](#11-use-private-registry)
+  - [12. Audit, monitor and security tools](#12-audit-monitor-and-security-tools)
+  - [13. Support OSS](#13-support-oss)
 
 ## For Developers
 
@@ -269,7 +269,7 @@ npm token create --read-only --cidr=[list] # for a CIDR-restricted read-only tok
 > - Select between read-only or read and write access
 > - Don't use the same token for multiple purposes
 
-### 8. Generate Provenance Statements
+### 9. Generate Provenance Statements
 
 https://docs.npmjs.com/generating-provenance-statements
 
@@ -297,7 +297,7 @@ To publish without evoking the `npm publish` command, we can do one of the follo
 }
 ```
 
-### 9. Review Published Files
+### 10. Review Published Files
 
 > Limiting the files in an npm package helps prevent malware by reducing the attack surface, and it avoids accidental leaking of sensitive data
 
@@ -336,7 +336,7 @@ Also, run `npm publish --dry-run` to see what would be happen when we run the pu
 
 ## Miscellaneous
 
-### 10. Use Private Registry
+### 11. Use Private Registry
 
 > Private package registries are a great way for organizations to manage their own dependencies, and can acts as a proxy to the public `npm` registry. Organizations can enforce security policies and vet packages before they are used in a project.
 
@@ -348,7 +348,7 @@ Here are some private registries that you might find useful:
 - JFrog Artifactory https://jfrog.com/integrations/npm-registry
 - Sonatype: https://help.sonatype.com/en/npm-registry.html
 
-### 11. Audit, Monitor and Security Tools
+### 12. Audit, Monitor and Security Tools
 
 #### Audit
 
@@ -390,7 +390,13 @@ https://socket.dev
 
 Socket.dev is a security platform designed to protect JavaScript projects by scanning and securing dependencies from malicious and vulnerable code. It offers various tools such as GitHub App, "Safe NPM" CLI tool, Web Extension, and VSCode Extension. Watch their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY) for more details.
 
-### 12. Donate to OSS
+#### Snyk
+
+https://snyk.io
+
+Snyk offers a suite of tools to fix vulnerabilities in open source dependencies, including a CLI to run vulnerability scans on local machine, IDE integrations to embed into development environment, and API to integrate with Snyk programmatically. For example, you can [test public npm packages before use](https://docs.snyk.io/developer-tools/snyk-cli/scan-and-maintain-projects-using-the-cli/test-public-npm-packages-before-use) or [create automatic PRs for known vulnerabilities](https://docs.snyk.io/scan-with-snyk/pull-requests/snyk-pull-or-merge-requests/create-automatic-prs-for-backlog-issues-and-known-vulnerabilities-backlog-prs).
+
+### 13. Support OSS
 
 > Maintainer burnout is a significant problem in the open-source community. Many popular `npm` packages are maintained by volunteers who work in their spare time, often without any compensation. Over time, this can lead to exhaustion and a lack of motivation, making them more susceptible to social engineering where a malicious actor pretends to be a helpful contributor and eventually injects malicious code.
 

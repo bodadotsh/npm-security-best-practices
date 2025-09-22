@@ -35,6 +35,28 @@
 
 ## For Developers
 
+> [!TIP]
+> Here's a sample `.npmrc` file with the config options mentioned below:
+>
+> ```
+> ignore-scripts=true
+> provenance=true
+> save-exact=true
+> save-prefix=''
+> ```
+>
+> See the [`.npmrc`](.npmrc) file included in this repository for a complete example.
+>
+> Consult different package managers documentation to see if they offer similar configuration options:
+>
+> `bunfig.toml`: https://bun.com/docs/runtime/bunfig
+>
+> `pnpm-workspace.yaml`: https://pnpm.io/settings
+>
+> `.yarnrc.yaml`: https://yarnpkg.com/configuration/yarnrc
+>
+> `deno.json`: https://docs.deno.com/runtime/fundamentals/configuration
+
 ### 1. Pin Dependency Versions
 
 > On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.2.4`, `1.3.0`, `1.6.2`, etc. See https://docs.npmjs.com/about-semantic-versioning and try out the npm SemVer Calculator (https://semver.npmjs.com). To avoid installing freshly compromised packages, it is often advised to pin exact versions (e.g., `"my-package": "1.2.3"`).

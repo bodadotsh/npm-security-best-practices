@@ -45,17 +45,12 @@
 > save-prefix=''
 > ```
 >
-> See the [`.npmrc`](.npmrc) file included in this repository for a complete example.
+> See the [`.npmrc`](.npmrc) file included in this repository for a complete example. Consult different package managers documentation to see if they offer similar configuration options:
 >
-> Consult different package managers documentation to see if they offer similar configuration options:
->
-> `bunfig.toml`: https://bun.com/docs/runtime/bunfig
->
-> `pnpm-workspace.yaml`: https://pnpm.io/settings
->
-> `.yarnrc.yaml`: https://yarnpkg.com/configuration/yarnrc
->
-> `deno.json`: https://docs.deno.com/runtime/fundamentals/configuration
+> - `bunfig.toml`: https://bun.com/docs/runtime/bunfig
+> - `pnpm-workspace.yaml`: https://pnpm.io/settings
+> - `.yarnrc.yaml`: https://yarnpkg.com/configuration/yarnrc
+> - `deno.json`: https://docs.deno.com/runtime/fundamentals/configuration
 
 ### 1. Pin Dependency Versions
 

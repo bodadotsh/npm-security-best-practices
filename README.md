@@ -323,6 +323,8 @@ To publish without evoking the `npm publish` command, we can do one of the follo
 > [!TIP]
 > When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. See announcement https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/ and https://docs.npmjs.com/trusted-publishers
 
+For those interested in [Reproducible Builds](https://reproducible-builds.org), check out OSS Rebuild (https://github.com/google/oss-rebuild) and Supply-chain Levels for Software Artifacts (SLSA) framework (https://slsa.dev).
+
 ### 10. Review Published Files
 
 > Limiting the files in an npm package helps prevent malware by reducing the attack surface, and it avoids accidental leaking of sensitive data

@@ -346,10 +346,10 @@ The `files` field in `package.json` is used to specify the files that should be 
 >
 > The `.npmignore` file works just like a `.gitignore`. If there is a `.gitignore` file, and `.npmignore` is missing, `.gitignore`'s contents will be used instead.
 
-We can run `npx pack --dry-run` to see the contents that will be included in the published version of the package.
+We can run `npm pack --dry-run` to see the contents that will be included in the published version of the package.
 
 ```sh
-> npx pack --dry-run
+> npm pack --dry-run
 npm notice Tarball Contents
 npm notice 1.1kB LICENSE
 npm notice 1.9kB README.md

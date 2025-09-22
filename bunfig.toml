@@ -1,0 +1,12 @@
+# https://bun.com/docs/runtime/bunfig
+
+[install]
+exact = true
+# frozenLockfile = true
+
+[install.lockfile]
+save = true
+
+[install.security]
+# run `bun add -d @acme/bun-security-scanner` to install the scanner
+scanner = "@acme/bun-security-scanner"

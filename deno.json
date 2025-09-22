@@ -1,0 +1,9 @@
+{
+  "$schema": "https://github.com/denoland/deno/blob/main/cli/schemas/config-file.v1.json",
+  "lock": {
+    "frozen": true
+  },
+  "publish": {
+    "include": ["dist/", "README.md", "deno.json"]
+  }
+}

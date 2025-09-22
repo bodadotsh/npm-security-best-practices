@@ -36,7 +36,7 @@
 ## For Developers
 
 > [!TIP]
-> Here's a sample `.npmrc` file with the config options mentioned below:
+> Here's a [sample `.npmrc` file](.npmrc) with the config options mentioned below:
 >
 > ```
 > ignore-scripts=true
@@ -45,32 +45,28 @@
 > save-prefix=''
 > ```
 >
-> See the [`.npmrc`](.npmrc) file included in this repository for a complete example. Consult different package managers documentation to see if they offer similar configuration options:
+> And other configuration files examples are here:
 >
-> - `bunfig.toml`: https://bun.com/docs/runtime/bunfig
-> - `pnpm-workspace.yaml`: https://pnpm.io/settings
-> - `.yarnrc.yaml`: https://yarnpkg.com/configuration/yarnrc
-> - `deno.json`: https://docs.deno.com/runtime/fundamentals/configuration
+> - [`bunfig.toml`](bunfig.toml)
+> - [`pnpm-workspace.yaml`](pnpm-workspace.yaml)
+> - [`deno.json`](deno.json)
+> - [`.yarnrc.yaml`](.yarnrc.yaml)
 
 ### 1. Pin Dependency Versions
 
-> On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.2.4`, `1.3.0`, `1.6.2`, etc. See https://docs.npmjs.com/about-semantic-versioning and try out the npm SemVer Calculator (https://semver.npmjs.com). To avoid installing freshly compromised packages, it is often advised to pin exact versions (e.g., `"my-package": "1.2.3"`).
+> On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.6.2`, etc. See https://docs.npmjs.com/about-semantic-versioning and try out the npm SemVer Calculator (https://semver.npmjs.com).
 
-Here's how to use the save exact flag to pin exact version in various package managers:
+Here's how to pin exact version in various package managers:
 
 ```sh
 npm install --save-exact react
-
 pnpm add --save-exact react
-
 yarn add --save-exact react
-
 bun add --exact react
-
 deno add npm:react@19.1.1
 ```
 
-We can also update this setting in configuration files (e.g., [`.npmrc`](https://docs.npmjs.com/cli/v11/configuring-npm/npmrc)), with either `save-exact` or [`save-prefix`](https://docs.npmjs.com/cli/v11/using-npm/config#save-prefix) alike key and value pairs:
+We can also update this setting in configuration files (e.g., [`.npmrc`](https://docs.npmjs.com/cli/v11/configuring-npm/npmrc)), with either [`save-exact`](https://docs.npmjs.com/cli/v11/using-npm/config#save-exact) or [`save-prefix`](https://docs.npmjs.com/cli/v11/using-npm/config#save-prefix) key and value pairs:
 
 ```sh
 npm config set save-exact=true
@@ -137,11 +133,8 @@ For `deno`, see https://github.com/denoland/deno/issues/28664 for more details.
 
 ```sh
 npm ci
-
 bun install --frozen-lockfile
-
 yarn install --frozen-lockfile
-
 deno install --frozen
 ```
 
@@ -350,7 +343,7 @@ The `files` field in `package.json` is used to specify the files that should be 
 >
 > The `.npmignore` file works just like a `.gitignore`. If there is a `.gitignore` file, and `.npmignore` is missing, `.gitignore`'s contents will be used instead.
 
-We can run `npm pack --dry-run` to see the contents that will be included in the published version of the package.
+Run `npm pack --dry-run` or `npm publish --dry-run` to see what would happen when we run the pack or publish command.
 
 ```sh
 > npm pack --dry-run
@@ -362,7 +355,16 @@ npm notice 700B package.json
 npm notice Tarball Details
 ```
 
-Also, run `npm publish --dry-run` to see what would be happen when we run the publish command.
+In `deno.json`, use the `publish.include` and `publish.exclude` fields to specify the files that should be included or excluded:
+
+```json
+{
+  "publish": {
+    "include": ["dist/", "README.md", "deno.json"],
+    "exclude": ["**/*.test.*"]
+  }
+}
+```
 
 ## Miscellaneous
 
@@ -418,7 +420,7 @@ GitHub offers several services that can help protect against `npm` malwares, inc
 
 https://socket.dev
 
-Socket.dev is a security platform designed to protect JavaScript projects by scanning and securing dependencies from malicious and vulnerable code. It offers various tools such as GitHub App, "Safe NPM" CLI tool, Web Extension, and VSCode Extension. Watch their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY) for more details.
+Socket.dev is a security platform that protects code from both vulnerable and malicious dependencies. It offers various tools such as a [GitHub App](https://socket.dev/features/github) scans pull requests, [CLI tool](https://socket.dev/features/cli), [web extension](https://socket.dev/features/web-extension), [VSCode extension](https://docs.socket.dev/docs/socket-for-vs-code) and more. Here's their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY).
 
 #### Snyk
 

@@ -1,0 +1,16 @@
+# https://pnpm.io/settings
+
+minimumReleaseAge: 1440
+savePrefix: ''
+
+# The following options can be used to enforce stricter rules
+#
+# catalogMode: strict
+# cleanupUnusedCatalogs: true
+# engineStrict: true
+# linkWorkspacePackages: true
+# packageManagerStrictVersion: true
+# preferWorkspacePackages: true
+# preferWorkspacePackages: true
+# strictDepBuilds: true
+# strictPeerDependencies: true

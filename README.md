@@ -324,7 +324,7 @@ To publish without evoking the `npm publish` command, we can do one of the follo
 > [!TIP]
 > When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. See announcement https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/ and https://docs.npmjs.com/trusted-publishers
 
-For those interested in [Reproducible Builds](https://reproducible-builds.org), check out OSS Rebuild (https://github.com/google/oss-rebuild) and Supply-chain Levels for Software Artifacts (SLSA) framework (https://slsa.dev).
+For those interested in [Reproducible Builds](https://reproducible-builds.org), check out OSS Rebuild (https://github.com/google/oss-rebuild) and the Supply-chain Levels for Software Artifacts (SLSA) framework (https://slsa.dev).
 
 ### 10. Review Published Files
 
@@ -431,7 +431,7 @@ Snyk offers a suite of tools to fix vulnerabilities in open source dependencies,
 
 > In 2018, the `event-stream` package was compromised due to the maintainer giving access to a malicious actor[^13]. Another example outside the JavaScript ecosystem is the XZ Utils incident[^14] in 2024 where a malicious actor worked for over three years to attain a position of trust.
 
-> OSS donations also help create a more sustainable model for open-source development. Foundations can help support the business, marketing, legal, technical assistance and direct support behind hundreds of open source projects that so many rely upon[^15].
+> OSS donations also help create a more sustainable model for open-source development. Foundations can help support the business, marketing, legal, technical assistance and direct support behind hundreds of open source projects that so many rely upon[^15][^16].
 
 In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was founded in 2019 from a merger of JS Foundation and Node.js Foundation to support some of the most important JS projects. And few other platforms are listed below where you can donate and support the OSS you use everyday:
 
@@ -455,3 +455,4 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 [^13]: https://github.com/dominictarr/event-stream/issues/116
 [^14]: https://en.wikipedia.org/wiki/XZ_Utils_backdoor
 [^15]: https://openssf.org/blog/2024/04/15/open-source-security-openssf-and-openjs-foundations-issue-alert-for-social-engineering-takeovers-of-open-source-projects/
+[^16]: https://xkcd.com/2347

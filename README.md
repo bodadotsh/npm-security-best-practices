@@ -258,6 +258,7 @@ Here are some resources that you might find useful:
 - https://blog.greenroots.info/10-lesser-known-web-apis-you-may-want-to-use
 - https://github.com/you-dont-need/You-Dont-Need-Momentjs
 - Visualise NPM dependencies: https://npmgraph.js.org
+- Knip (remove unused dependencies): https://github.com/webpro-nl/knip
 
 ## For Maintainers
 

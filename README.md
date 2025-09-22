@@ -50,7 +50,7 @@
 > - [`bunfig.toml`](bunfig.toml)
 > - [`pnpm-workspace.yaml`](pnpm-workspace.yaml)
 > - [`deno.json`](deno.json)
-> - [`.yarnrc.yaml`](.yarnrc.yaml)
+> - [`.yarnrc.yml`](.yarnrc.yml)
 
 ### 1. Pin Dependency Versions
 

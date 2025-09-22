@@ -433,11 +433,12 @@ Snyk offers a suite of tools to fix vulnerabilities in open source dependencies,
 
 > OSS donations also help create a more sustainable model for open-source development. Foundations can help support the business, marketing, legal, technical assistance and direct support behind hundreds of open source projects that so many rely upon[^15].
 
-In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was founded in 2019 from a merger of JS Foundation and Node.js Foundation. But here are few platforms where you can also directly donate to OSS maintainers:
+In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was founded in 2019 from a merger of JS Foundation and Node.js Foundation to support some of the most important JS projects. And few other platforms are listed below where you can donate and support the OSS you use everyday:
 
 - GitHub Sponsors https://github.com/sponsors
 - Open Collective https://opencollective.com
 - Thanks.dev https://thanks.dev
+- Open Source Pledge https://opensourcepledge.com
 
 [^1]: https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised
 [^2]: https://socket.dev/blog/nx-packages-compromised

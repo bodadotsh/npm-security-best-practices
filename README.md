@@ -257,6 +257,7 @@ Here are some resources that you might find useful:
 - https://lyra.horse/blog/2025/08/you-dont-need-js
 - https://blog.greenroots.info/10-lesser-known-web-apis-you-may-want-to-use
 - https://github.com/you-dont-need/You-Dont-Need-Momentjs
+- Visualise NPM dependencies: https://npmgraph.js.org
 
 ## For Maintainers
 

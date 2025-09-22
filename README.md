@@ -10,6 +10,10 @@
 > [!TIP]
 > This repository covers `npm`, `bun`, `deno`, `pnpm`, `yarn` and more.
 
+<a href="https://news.ycombinator.com/item?id=45326754">
+<img src="https://img.shields.io/badge/hacker%20news%20discussion-ff6600" alt="hn discussion"/>
+</a>
+
 ## Table of Contents
 
 - [For Developers](#for-developers)

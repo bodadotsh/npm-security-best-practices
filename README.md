@@ -21,7 +21,7 @@
   - [2. Include lockfiles](#2-include-lockfiles)
   - [3. Disable lifecycle scripts](#3-disable-lifecycle-scripts)
   - [4. Set minimal release age](#4-set-minimal-release-age)
-  - [5. Permission Model](#5-permission-model)
+  - [5. Permission model](#5-permission-model)
   - [6. Reduce external dependencies](#6-reduce-external-dependencies)
 - [For Maintainers](#for-maintainers)
   - [7. Enable 2FA](#7-enable-2fa)
@@ -29,7 +29,7 @@
   - [9. Generate provenance statements](#9-generate-provenance-statements)
   - [10. Review published files](#10-review-published-files)
 - [Miscellaneous](#miscellaneous)
-  - [11. NPM Organization](#11-npm-organization)
+  - [11. NPM organization](#11-npm-organization)
   - [12. Use private registry](#12-use-private-registry)
   - [13. Audit, monitor and security tools](#13-audit-monitor-and-security-tools)
   - [14. Support OSS](#14-support-oss)
@@ -191,10 +191,11 @@ For `bun`, it is discussed here: https://github.com/oven-sh/bun/issues/22679
 
 For `deno`, an draft proposal is here: https://github.com/denoland/deno/pull/30752
 
-> [!TIP]
-> Renovate CLI (https://github.com/renovatebot/renovate) also includes a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
->
-> Step Security (https://www.stepsecurity.io) introduced a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature to fail any PR that adds a recently published package.
+Examples of other tools that offer similar functionality:
+
+- npm-check-updates (https://github.com/raineorshine/npm-check-updates) has the `--cooldown` flag.
+- Renovate CLI (https://github.com/renovatebot/renovate) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
+- Step Security (https://www.stepsecurity.io) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
 
 ### 5. Permission Model
 

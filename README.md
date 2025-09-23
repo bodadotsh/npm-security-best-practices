@@ -160,6 +160,10 @@ yarn config set enableScripts false
 
 For `bun`, `deno` and `pnpm`, they are disabled by default.
 
+> [!NOTE]
+>
+> For `bun`, the [top 500 npm packages](https://github.com/oven-sh/bun/blob/main/src/install/default-trusted-dependencies.txt) with lifecycle scripts are allowed by default. 
+
 > [!TIP]
 > We can combine many of the flags above. For example, the following `npm` command would install only production dependencies as defined in the lockfile and ignore lifecycle scripts:
 >

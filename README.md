@@ -273,6 +273,10 @@ npm profile enable-2fa auth-and-writes
 | Manual           | Set each package access to `Require 2FA` and `Disable Tokens`                                                                                 |
 | Automatic        | Set each package access to `Require two-factor authentication` OR `Single factor automation tokens` OR `Single factor granular access tokens` |
 
+> [!IMPORTANT]
+>
+> Use WebAuthn instead of ime-based one-time password (TOTP)[^17]
+
 ### 8. Create Tokens with Limited Access
 
 https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens
@@ -324,10 +328,15 @@ To publish without evoking the `npm publish` command, we can do one of the follo
 }
 ```
 
-> [!TIP]
-> When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. See announcement https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/ and https://docs.npmjs.com/trusted-publishers
-
 For those interested in [Reproducible Builds](https://reproducible-builds.org), check out OSS Rebuild (https://github.com/google/oss-rebuild) and the Supply-chain Levels for Software Artifacts (SLSA) framework (https://slsa.dev).
+
+#### Trusted Publishing
+
+When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. This is called **trusted publishers** and read the GitHub announcement here: https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/ and https://docs.npmjs.com/trusted-publishers
+
+> [!IMPORTANT]
+>
+> It is actually recommended to use npm trusted publishing instead of tokens[^17].
 
 ### 10. Review Published Files
 
@@ -479,3 +488,4 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 [^14]: https://en.wikipedia.org/wiki/XZ_Utils_backdoor
 [^15]: https://openssf.org/blog/2024/04/15/open-source-security-openssf-and-openjs-foundations-issue-alert-for-social-engineering-takeovers-of-open-source-projects/
 [^16]: https://xkcd.com/2347
+[^17]: https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain

@@ -29,9 +29,10 @@
   - [9. Generate provenance statements](#9-generate-provenance-statements)
   - [10. Review published files](#10-review-published-files)
 - [Miscellaneous](#miscellaneous)
-  - [11. Use private registry](#11-use-private-registry)
-  - [12. Audit, monitor and security tools](#12-audit-monitor-and-security-tools)
-  - [13. Support OSS](#13-support-oss)
+  - [11. NPM Organization](#11-npm-organization)
+  - [12. Use private registry](#12-use-private-registry)
+  - [13. Audit, monitor and security tools](#13-audit-monitor-and-security-tools)
+  - [14. Support OSS](#14-support-oss)
 
 ## For Developers
 
@@ -266,6 +267,11 @@ https://docs.npmjs.com/about-two-factor-authentication
 npm profile enable-2fa auth-and-writes
 ```
 
+| Automation level | Package publishing access                                                                                                                     |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Manual           | Set each package access to `Require 2FA` and `Disable Tokens`                                                                                 |
+| Automatic        | Set each package access to `Require two-factor authentication` OR `Single factor automation tokens` OR `Single factor granular access tokens` |
+
 ### 8. Create Tokens with Limited Access
 
 https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens
@@ -279,13 +285,15 @@ npm token create --cidr=[list] # for a CIDR-restricted read and publish token
 npm token create --read-only --cidr=[list] # for a CIDR-restricted read-only token
 ```
 
-> [!TIP]
+> [!IMPORTANT]
+> Granular Access Tokens should be used instead of Legacy Tokens. Legacy tokens cannot be scoped and don't automatically expire. They're considered dangerous to use.
 >
 > - Restrict token to specific packages, scopes, and organizations
-> - Set a token expiration date
+> - Set a token expiration date (e.g., annually)
 > - Limit token access based on IP address ranges (CIDR notation)
 > - Select between read-only or read and write access
 > - Don't use the same token for multiple purposes
+> - Descriptive token names
 
 ### 9. Generate Provenance Statements
 
@@ -368,7 +376,18 @@ In `deno.json`, use the `publish.include` and `publish.exclude` fields to specif
 
 ## Miscellaneous
 
-### 11. Use Private Registry
+### 11. NPM Organization
+
+https://docs.npmjs.com/organizations
+
+At the organization level, best practices are:
+
+- Enable `Require 2FA` at the Organization Level
+- Minimise the number of `npm` Organization members
+- If multiple package teams in same organization, set the `developers` Team permission for all packages to `READ`
+- Create separate Teams to manage permissions for each package
+
+### 12. Use Private Registry
 
 > Private package registries are a great way for organizations to manage their own dependencies, and can acts as a proxy to the public `npm` registry. Organizations can enforce security policies and vet packages before they are used in a project.
 
@@ -380,7 +399,7 @@ Here are some private registries that you might find useful:
 - JFrog Artifactory https://jfrog.com/integrations/npm-registry
 - Sonatype: https://help.sonatype.com/en/npm-registry.html
 
-### 12. Audit, Monitor and Security Tools
+### 13. Audit, Monitor and Security Tools
 
 #### Audit
 
@@ -428,7 +447,7 @@ https://snyk.io
 
 Snyk offers a suite of tools to fix vulnerabilities in open source dependencies, including a CLI to run vulnerability scans on local machine, IDE integrations to embed into development environment, and API to integrate with Snyk programmatically. For example, you can [test public npm packages before use](https://docs.snyk.io/developer-tools/snyk-cli/scan-and-maintain-projects-using-the-cli/test-public-npm-packages-before-use) or [create automatic PRs for known vulnerabilities](https://docs.snyk.io/scan-with-snyk/pull-requests/snyk-pull-or-merge-requests/create-automatic-prs-for-backlog-issues-and-known-vulnerabilities-backlog-prs).
 
-### 13. Support OSS
+### 14. Support OSS
 
 > Maintainer burnout is a significant problem in the open-source community. Many popular `npm` packages are maintained by volunteers who work in their spare time, often without any compensation. Over time, this can lead to exhaustion and a lack of motivation, making them more susceptible to social engineering where a malicious actor pretends to be a helpful contributor and eventually injects malicious code.
 

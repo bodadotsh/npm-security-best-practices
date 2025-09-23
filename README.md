@@ -71,9 +71,7 @@ We can also update this setting in configuration files (e.g., [`.npmrc`](https:/
 
 ```sh
 npm config set save-exact=true
-
 pnpm config set save-exact true
-
 yarn config set defaultSemverRangePrefix ""
 ```
 
@@ -157,7 +155,6 @@ For `deno`, we can also set the following in a `deno.json` file:
 
 ```sh
 npm config set ignore-scripts true --global
-
 yarn config set enableScripts false
 ```
 
@@ -275,7 +272,7 @@ npm profile enable-2fa auth-and-writes
 
 > [!IMPORTANT]
 >
-> Use WebAuthn instead of ime-based one-time password (TOTP)[^17]
+> It is advised to configure a security-key that support [WebAuthn](https://caniuse.com/?search=webauthn), instead of time-based one-time password (TOTP)[^17]
 
 ### 8. Create Tokens with Limited Access
 
@@ -332,11 +329,11 @@ For those interested in [Reproducible Builds](https://reproducible-builds.org), 
 
 #### Trusted Publishing
 
-When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. This is called **trusted publishers** and read the GitHub announcement here: https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/ and https://docs.npmjs.com/trusted-publishers
+When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. This is called **trusted publishing** and read the GitHub announcement here: https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/ and https://docs.npmjs.com/trusted-publishers
 
 > [!IMPORTANT]
 >
-> It is actually recommended to use npm trusted publishing instead of tokens[^17].
+> It is recommended to use trusted publishing instead of tokens[^17].
 
 ### 10. Review Published Files
 
@@ -355,10 +352,8 @@ The `files` field in `package.json` is used to specify the files that should be 
 
 > [!TIP]
 >
-> The `.npmignore` file can also be used to exclude files from the published package.
->
-> It will not override the `"files"` field, but in subdirectories it will.
->
+> The `.npmignore` file can also be used to exclude files from the published package. It will not override the `"files"` field, but in subdirectories it will.
+> 
 > The `.npmignore` file works just like a `.gitignore`. If there is a `.gitignore` file, and `.npmignore` is missing, `.gitignore`'s contents will be used instead.
 
 Run `npm pack --dry-run` or `npm publish --dry-run` to see what would happen when we run the pack or publish command.

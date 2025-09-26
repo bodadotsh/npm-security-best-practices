@@ -11,5 +11,6 @@ savePrefix: ''
 # linkWorkspacePackages: true
 # packageManagerStrictVersion: true
 # preferWorkspacePackages: true
+# resolutionMode: time-based # https://stackoverflow.com/a/74935908
 # strictDepBuilds: true
 # strictPeerDependencies: true

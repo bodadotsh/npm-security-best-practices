@@ -147,6 +147,12 @@ For `deno`, we can also set the following in a `deno.json` file:
 }
 ```
 
+> [!TIP]
+>
+> When dealing with merge conflicts in lockfiles, it is _not_ necessary to delete the lockfile. When dependencies (including transitive) are defined with version range operators (`^`, `~`, etc), re-building the lockfile from scratch can result in unexpected updates. 
+> 
+> Modern package managers have built-in conflict resolutions[^18][^19], just [checkout main and re-run `install`](https://github.com/yarnpkg/yarn/issues/1776#issuecomment-269539948). `pnpm` also allows [Git Branch Lockfiles](https://pnpm.io/git_branch_lockfiles) where it creates a new lockfile based on branch name, and automatically merge it back into the main lockfile later.
+
 ### 3. Disable Lifecycle Scripts
 
 > Lifecycle scripts are special scripts that happen in addition to the `pre<event>`, `post<event>`, and `<event>` scripts. For instance, `preinstall` is run before `install` is run and `postinstall` is run after `install` is run. See how npm handles the "scripts" field: https://docs.npmjs.com/cli/v11/using-npm/scripts#life-cycle-scripts
@@ -404,6 +410,7 @@ Here are some private registries that you might find useful:
 
 - GitHub Packages https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry
 - Verdaccio https://github.com/verdaccio/verdaccio
+  - See Verdaccio best practices: https://verdaccio.org/docs/best/ 
 - Vlt https://www.vlt.sh/
 - JFrog Artifactory https://jfrog.com/integrations/npm-registry
 - Sonatype: https://help.sonatype.com/en/npm-registry.html
@@ -488,3 +495,5 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 [^15]: https://openssf.org/blog/2024/04/15/open-source-security-openssf-and-openjs-foundations-issue-alert-for-social-engineering-takeovers-of-open-source-projects/
 [^16]: https://xkcd.com/2347
 [^17]: https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain
+[^18]: https://stackoverflow.com/questions/54124033/deleting-package-lock-json-to-resolve-conflicts-quickly
+[^19]: https://pnpm.io/git#merge-conflicts

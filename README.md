@@ -149,8 +149,8 @@ For `deno`, we can also set the following in a `deno.json` file:
 
 > [!TIP]
 >
-> When dealing with merge conflicts in lockfiles, it is _not_ necessary to delete the lockfile. When dependencies (including transitive) are defined with version range operators (`^`, `~`, etc), re-building the lockfile from scratch can result in unexpected updates. 
-> 
+> When dealing with merge conflicts in lockfiles, it is _not_ necessary to delete the lockfile. When dependencies (including transitive) are defined with version range operators (`^`, `~`, etc), re-building the lockfile from scratch can result in unexpected updates.
+>
 > Modern package managers have built-in conflict resolutions[^18][^19], just [checkout main and re-run `install`](https://github.com/yarnpkg/yarn/issues/1776#issuecomment-269539948). `pnpm` also allows [Git Branch Lockfiles](https://pnpm.io/git_branch_lockfiles) where it creates a new lockfile based on branch name, and automatically merge it back into the main lockfile later.
 
 ### 3. Disable Lifecycle Scripts
@@ -168,7 +168,7 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 
 > [!NOTE]
 >
-> For `bun`, the [top 500 npm packages](https://github.com/oven-sh/bun/blob/main/src/install/default-trusted-dependencies.txt) with lifecycle scripts are allowed by default. 
+> For `bun`, the [top 500 npm packages](https://github.com/oven-sh/bun/blob/main/src/install/default-trusted-dependencies.txt) with lifecycle scripts are allowed by default.
 
 > [!TIP]
 > We can combine many of the flags above. For example, the following `npm` command would install only production dependencies as defined in the lockfile and ignore lifecycle scripts:
@@ -363,7 +363,7 @@ The `files` field in `package.json` is used to specify the files that should be 
 > [!TIP]
 >
 > The `.npmignore` file can also be used to exclude files from the published package. It will not override the `"files"` field, but in subdirectories it will.
-> 
+>
 > The `.npmignore` file works just like a `.gitignore`. If there is a `.gitignore` file, and `.npmignore` is missing, `.gitignore`'s contents will be used instead.
 
 Run `npm pack --dry-run` or `npm publish --dry-run` to see what would happen when we run the pack or publish command.
@@ -410,7 +410,7 @@ Here are some private registries that you might find useful:
 
 - GitHub Packages https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry
 - Verdaccio https://github.com/verdaccio/verdaccio
-  - See Verdaccio best practices: https://verdaccio.org/docs/best/ 
+  - See Verdaccio best practices: https://verdaccio.org/docs/best/
 - Vlt https://www.vlt.sh/
 - JFrog Artifactory https://jfrog.com/integrations/npm-registry
 - Sonatype: https://help.sonatype.com/en/npm-registry.html
@@ -456,6 +456,18 @@ GitHub offers several services that can help protect against `npm` malwares, inc
 https://socket.dev
 
 Socket.dev is a security platform that protects code from both vulnerable and malicious dependencies. It offers various tools such as a [GitHub App](https://socket.dev/features/github) scans pull requests, [CLI tool](https://socket.dev/features/cli), [web extension](https://socket.dev/features/web-extension), [VSCode extension](https://docs.socket.dev/docs/socket-for-vs-code) and more. Here's their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY).
+
+[Socket Firewall](https://socket.dev/blog/introducing-socket-firewall) is a free tool to block malicious packages at install time:
+
+```sh
+npm i -g sfw
+
+# works for `npm`, `yarn`, `pnpm`
+sfw npm install <package-name>
+
+# example: alias `npm` to `sfw npm` in zsh
+# echo "alias npm='sfw npm'" >> ~/.zshrc
+```
 
 #### Snyk
 

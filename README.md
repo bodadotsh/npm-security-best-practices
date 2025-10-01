@@ -30,7 +30,7 @@
   - [10. Review published files](#10-review-published-files)
 - [Miscellaneous](#miscellaneous)
   - [11. NPM organization](#11-npm-organization)
-  - [12. Use private registry](#12-use-private-registry)
+  - [12. Alternative registry](#12-alternative-registry)
   - [13. Audit, monitor and security tools](#13-audit-monitor-and-security-tools)
   - [14. Support OSS](#14-support-oss)
 
@@ -402,9 +402,26 @@ At the organization level, best practices are:
 - If multiple package teams in same organization, set the `developers` Team permission for all packages to `READ`
 - Create separate Teams to manage permissions for each package
 
-### 12. Use Private Registry
+### 12. Alternative Registry
 
-> Private package registries are a great way for organizations to manage their own dependencies, and can acts as a proxy to the public `npm` registry. Organizations can enforce security policies and vet packages before they are used in a project.
+JSR is a modern JavaScript/TypeScript package registry with backwards compatibility with npm.
+
+> [!NOTE]
+> Not all npm packages are on JSR!
+>
+> Visit https://jsr.io to see if the package is available and read the [npm limitations](https://jsr.io/docs/npm-compatibility#limitations) documentation.
+
+```sh
+deno add jsr:<package-name>
+pnpm add jsr:<package-name> # pnpm 10.9+
+yarn add jsr:<package-name> # yarn 4.9+
+# npm, bun, and older versions of yarn or pnpm
+npx jsr add <package-name> # replace npx with yarn dlx, pnpm dlx, or bunx
+```
+
+#### Private Registry
+
+> Private package registries are a great way for organizations to manage their own dependencies, acts as a proxy to the public `npm` registry, and enforce security policies before they are used in a project.
 
 Here are some private registries that you might find useful:
 
@@ -412,6 +429,7 @@ Here are some private registries that you might find useful:
 - Verdaccio https://github.com/verdaccio/verdaccio
   - See Verdaccio best practices: https://verdaccio.org/docs/best/
 - Vlt https://www.vlt.sh/
+  - [vlt’s Serverless Registry](https://docs.vlt.sh/registry) (VSR) can be deployed to Cloudflare Workers in minutes.
 - JFrog Artifactory https://jfrog.com/integrations/npm-registry
 - Sonatype: https://help.sonatype.com/en/npm-registry.html
 

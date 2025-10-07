@@ -183,7 +183,9 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 pnpm config set minimumReleaseAge <minutes>
 
 # only install packages published at least 1 day ago
-npm install --before="$(date -v -1d)"
+npm install --before="$(date -v -1d)"         # for Mac or BSD users
+npm install --before="$(date -d '1 day ago')" # for Linux users
+
 
 yarn config set npmMinimalAgeGate <minutes>
 ```

@@ -335,7 +335,11 @@ To publish without evoking the `npm publish` command, we can do one of the follo
 }
 ```
 
-For those interested in [Reproducible Builds](https://reproducible-builds.org), check out OSS Rebuild (https://github.com/google/oss-rebuild) and the Supply-chain Levels for Software Artifacts (SLSA) framework (https://slsa.dev).
+Related tools:
+- https://github.com/antfu/open-packages-on-npm (CLI to setup Trusted Publisher for monorepo packages)
+- https://github.com/sxzz/userscripts/blob/main/src/npm-trusted-publisher.md (Userscript to fill the form for Trusted Publisher on npmjs.com)
+
+> For those interested in [Reproducible Builds](https://reproducible-builds.org), check out OSS Rebuild (https://github.com/google/oss-rebuild) and the Supply-chain Levels for Software Artifacts (SLSA) framework (https://slsa.dev).
 
 #### Trusted Publishing
 

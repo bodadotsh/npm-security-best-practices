@@ -474,6 +474,16 @@ GitHub offers several services that can help protect against `npm` malwares, inc
 > - https://docs.npmjs.com/reporting-malware-in-an-npm-package
 > - https://docs.github.com/en/communities/maintaining-your-safety-on-github/reporting-abuse-or-spam#reporting-a-repository
 
+#### OpenSSF Scorecard
+
+https://securityscorecards.dev and https://github.com/ossf/scorecard
+
+Free and open source automated tool that assesses a number of important heuristics ("checks") associated with software security and assigns each check a score of 0-10. Several risks mentioned in this repository are included as part of the checks: Pinned Dependencies, Token Permissions, Packaging, Signed Releases,...
+
+Run the checks:
+1. automatically on code you own using the [GitHub Action](https://github.com/marketplace/actions/ossf-scorecard-action)
+2. manually on your (or somebody else’s) project via the [Command Line](https://github.com/ossf/scorecard#scorecard-command-line-interface)
+
 #### Socket.dev
 
 https://socket.dev

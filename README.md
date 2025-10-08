@@ -186,7 +186,6 @@ pnpm config set minimumReleaseAge <minutes>
 npm install --before="$(date -v -1d)"                               # for Mac or BSD users
 npm install --before="$(date -d '1 days ago' +%Y-%m-%dT%H:%M:%S%z)" # for Linux users
 
-
 yarn config set npmMinimalAgeGate <minutes>
 ```
 
@@ -513,6 +512,7 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 - Open Collective https://opencollective.com
 - Thanks.dev https://thanks.dev
 - Open Source Pledge https://opensourcepledge.com
+- Ecosystem Funds: https://funds.ecosyste.ms
 
 [^1]: https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised
 [^2]: https://socket.dev/blog/nx-packages-compromised

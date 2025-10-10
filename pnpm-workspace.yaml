@@ -1,16 +1,323 @@
 # https://pnpm.io/settings
 
-minimumReleaseAge: 1440
-savePrefix: ''
-
-# The following options can be used to enforce stricter rules
+###############################################################################
+# pnpm-workspace.yaml — Enterprise Defaults (Security-first, ES2024+, pnpm)
 #
-# catalogMode: strict
-# cleanupUnusedCatalogs: true
-# engineStrict: true
-# linkWorkspacePackages: true
-# packageManagerStrictVersion: true
-# preferWorkspacePackages: true
-# resolutionMode: time-based # https://stackoverflow.com/a/74935908
-# strictDepBuilds: true
-# strictPeerDependencies: true
+# Legend used below:
+#  - ✅ recommended default
+#  - 🔐 security‑critical
+#  - ⚠️ situational/conditional
+#  - ❌ avoid/anti‑pattern
+#  - 🏢 workspace/monorepo‑only
+#  - 📦 library‑specific
+#  - 🚀 application/service‑specific
+###############################################################################
+
+########################################
+# Security posture
+# Why: Reduce supply‑chain risk, enforce correctness early, and require
+#      explicit decisions for peers and scripts. These settings fail fast in CI
+#      and local dev, preventing unsafe or accidental changes.
+########################################
+
+# minimumReleaseAge (🔐) — delay adoption of freshly published versions to
+# reduce exposure to compromised releases. Enterprise baseline: 24h.
+# Example: A malicious subdependency published at 12:00 will not be installed
+#          during your 14:00 CI run; it becomes eligible after 24h.
+minimumReleaseAge: 1440            # 🔐 ✅ 24h delay to avoid fresh hijacks
+
+# engineStrict (🔐) — block installs if a dependency declares engines incompatible
+# with the workspace Node. Prevents adding deps that won’t run on your baseline.
+# Example: A dep requires node ">=22"; with nodeVersion: 22.7.0 it installs, but
+#          with nodeVersion: 20 it fails immediately.
+engineStrict: true                 # 🔐 ✅ enforce engines during dependency install
+
+# strictPeerDependencies (🔐) — fail on missing/invalid peers to surface runtime
+# issues (e.g., multiple Reacts) at install time.
+# Example: A plugin declares peer eslint@^9; if not installed or wrong range,
+#          install fails until you add the correct peer.
+strictPeerDependencies: true       # 🔐 ✅ fail on missing/invalid peers
+
+# strictDepBuilds (🔐) — block unreviewed install scripts (pre/install/postinstall)
+# of transitive dependencies by default.
+# Example: If a transitive adds a new postinstall, install fails unless it’s
+#          approved via onlyBuiltDependencies or allow‑list file.
+strictDepBuilds: true              # 🔐 ✅ fail on unreviewed postinstall scripts
+
+# autoInstallPeers (🔐) — do not auto‑add peers. Forces explicit peer decisions
+# in your manifests; avoids silent dependency drift.
+# Example: A library peer on react-dom won’t be auto‑installed; you must list it
+#          explicitly where required.
+autoInstallPeers: false            # 🔐 ✅ require explicit peer decisions (esp. for libs)
+
+########################################
+# Node & package manager control
+# Why: Pin runtime and package manager for deterministic behavior in CI/dev.
+# Notes: packageManagerStrictVersion affects only this repo’s contributors/CI;
+#        it does NOT impact consumers of your published packages.
+########################################
+
+# useNodeVersion — exact Node runtime used by pnpm run/exec in this workspace.
+# Example: Ensures tests/builds run on Node 22.7.0 regardless of developer’s
+#          globally installed Node.
+useNodeVersion: 22.14.0             # ✅ pin runtime used by pnpm run/exec
+
+# nodeVersion — baseline for validating dependency engines. Blocks adding deps
+# that don’t support your runtime.
+# Example: Prevents adding a dep that only supports Node >=24 when baseline is 22.
+nodeVersion: 22.14.0                # ✅ check new deps against node engines
+
+# packageManagerStrict — require pnpm (not npm/yarn) for all workspace tasks.
+# Example: Running npm install will be rejected to avoid lockfile/tool drift.
+packageManagerStrict: true         # ✅ enforce pnpm usage
+
+# packageManagerStrictVersion (🔐) — require the EXACT pnpm version declared in
+# package.json "packageManager". Affects only contributors/CI in this repo.
+# Example: Repo pins pnpm@9.12.0; a contributor with pnpm@10 will auto‑switch
+#          (with managePackageManagerVersions) or be blocked until matching.
+packageManagerStrictVersion: true  # 🔐 ✅ exact pnpm version match (repo‑local)
+
+# managePackageManagerVersions — auto‑download & use the pinned pnpm version
+# from package.json (Corepack‑like behavior) to reduce friction.
+# Example: Developer has pnpm@10 installed; CLI fetches pnpm@9.12.0 on demand.
+managePackageManagerVersions: true # ✅ auto-manage pnpm version in packageManager
+
+########################################
+# Resolution & lockfile
+# Why: Deterministic, headless installs; safer resolution strategy; less churn.
+########################################
+
+# preferFrozenLockfile (🔐) — skip resolution when lockfile satisfies deps; fail
+# if changes would be needed. Great for CI and reproducible builds.
+# Example: pnpm install in CI fails if package.json changed but lockfile wasn’t
+#          updated in the PR.
+preferFrozenLockfile: true         # 🔐 ✅ headless, deterministic installs
+
+# resolutionMode: time-based (🔐) — direct deps lowest; subdeps pinned to
+# versions not newer than the last direct dep publish time (reduces hijack risk).
+# Example: Upgrading eslint updates its subdeps in a bounded, time‑coherent set.
+resolutionMode: time-based         # 🔐 ✅ safer subdep updates (less hijacks)
+
+# registrySupportsTimeField — set true if your registry/mirror provides the
+# "time" field in abbreviated metadata (e.g., Verdaccio ≥ 5.15.1) to speed up
+# time‑based resolution.
+registrySupportsTimeField: false   # ⚠️ set true if Verdaccio ≥5.15.1
+
+# sharedWorkspaceLockfile (🏢) — single lockfile for the monorepo; faster installs
+# and smaller diffs; still preserves pnpm’s strictness at project boundaries.
+sharedWorkspaceLockfile: true      # 🏢 ✅ single lockfile across the monorepo
+
+########################################
+# Workspace linking
+# Why: Optimize monorepo dev experience; prefer local packages; control saved
+# spec format for clarity and exact pinning.
+########################################
+
+# linkWorkspacePackages (🏢) — link local packages instead of downloading.
+# Example: Changes in a local package immediately reflect in dependents.
+linkWorkspacePackages: true        # 🏢 ✅ local linking (symlinks) for speed
+
+# preferWorkspacePackages (🏢) — prefer local over registry when ranges match.
+# Example: Even if registry has a newer version, the local workspace package is
+#          used for development.
+preferWorkspacePackages: true      # 🏢 ✅ prefer local over registry
+
+# saveWorkspaceProtocol (🏢) — save dependencies as workspace:* in package.json.
+# Example: "ui-kit": "workspace:^" shows intent clearly in manifests.
+saveWorkspaceProtocol: true        # 🏢 ✅ write workspace:* specs
+
+# savePrefix (🏢) — how to prefix saved versions; '' pins exact.
+# Example: Adds "workspace:*" plus exact pinning where applicable.
+savePrefix: ''                     # 🏢 ✅ pin exact within workspace
+
+########################################
+# Hoisting / Node linker
+# Why: Favor pnpm’s isolated linker for correctness; allow targeted hoisting for
+# legacy tooling that resolves incorrectly. Avoid exposing phantom deps to app code.
+########################################
+
+# nodeLinker — choose dependency layout. "isolated" = pnpm symlinked virtual store.
+# Example: Use isolated for strictness and compatibility with most tooling.
+nodeLinker: isolated               # ✅ stable, strict node_modules with symlinks
+
+# hoist — enable hoisting into hidden .pnpm/node_modules to help flawed tools.
+# Example: Some linters/loaders expect transitive deps to be findable.
+hoist: true                        # ⚠️ allow controlled hoisting for flawed tools
+
+# hoistPattern — restrict which packages to hoist (minimize surface).
+# Example: Hoist only ESLint and Babel ecosystems.
+hoistPattern:                      # ⚠️ only hoist known phantom-dep offenders
+  - "*eslint*"
+  - "*babel*"
+
+# publicHoistPattern — hoist to the project root node_modules (visible to app
+# code). Keep empty to avoid phantom access.
+publicHoistPattern: []             # 🔐 avoid exposing phantom deps to app code
+
+# shamefullyHoist — blanket public hoist (behaves like npm/yarn classic).
+# Avoid to preserve correctness and least privilege.
+shamefullyHoist: false             # 🔐 ❌ never blanket-hoist
+
+########################################
+# Modules & store
+# Why: Stable virtual store placement; performance via CoW; integrity checks.
+########################################
+
+# virtualStoreDir — where the virtual store lives relative to project root.
+# Example: ".pnpm" shortens stack traces and avoids deep paths.
+virtualStoreDir: .pnpm             # ✅ shorter paths, cleaner stack traces
+
+# virtualStoreDirMaxLength — cap store path segments to avoid Windows path issues.
+virtualStoreDirMaxLength: 120      # ✅ keep windows-safe length
+
+# packageImportMethod — prefer clone/copy‑on‑write when supported; fall back to copy.
+# Example: On Btrfs/APFS, CoW speeds up installs and avoids store mutations.
+packageImportMethod: clone-or-copy # ✅ safe across filesystems (CoW when possible)
+
+# modulesCacheMaxAge — keep orphaned modules cache to speed branch switches/downgrades.
+modulesCacheMaxAge: 10080          # 🧪 reuse orphan cache for faster branch switches
+
+# dlxCacheMaxAge — cache @pnpm/dlx executions for faster tooling runs.
+dlxCacheMaxAge: 1440               # 🧪 speed up pnpm dlx reuse
+
+# verifyStoreIntegrity (🔐) — checksum verify before linking from store to project.
+verifyStoreIntegrity: true         # 🔐 ✅ content check before linking
+
+# storeDir — global content‑addressable store location. Keep on same disk as project
+# for hardlink performance.
+# storeDir: ${XDG_DATA_HOME:-${HOME}/.local/share}/pnpm/store # ✅ predictable
+
+########################################
+# Build script security
+# Why: Minimize risk from transitive install scripts; apply least privilege and
+# explicit allow‑listing.
+########################################
+
+# onlyBuiltDependenciesFile (🔐) — JSON allow‑list of packages permitted to run
+# install scripts. Everything else is blocked.
+# Example file (JSON array): ["fsevents", "@some/native"]
+# onlyBuiltDependenciesFile: node_modules/.pnpm-config/@pnpm/trusted-deps/allow.json # 🔐 ✅ strict allow-list
+
+# neverBuiltDependencies (🔐) — skip building listed packages entirely.
+# Example: fsevents is macOS‑only; safe to ignore on other platforms.
+neverBuiltDependencies:            # 🔐 block native/platform dependent builds unless needed
+  - fsevents
+
+# ignoredBuiltDependencies (🔐) — dependencies that should not run build scripts
+# even if present (e.g., prebuilt binaries).
+# Example: esbuild ships prebuilt; skip building.
+ignoredBuiltDependencies:          # 🔐 skip building deps known to be prebuilt
+  - esbuild
+
+# dangerouslyAllowAllBuilds (🔐) — never enable in enterprise; allows every script.
+dangerouslyAllowAllBuilds: false   # 🔐 ❌ never blanket-allow all scripts
+
+# enablePrePostScripts (🔐) — disable automatic pre/post script hooks; run explicitly
+# in CI or via targeted scripts.
+enablePrePostScripts: false        # 🔐 prefer explicit pnpm run pre/post if needed
+
+# verifyDepsBeforeRun (🔐) — enforce dependency freshness before running scripts.
+# Values: install | warn | prompt | error | false
+# Example: error prevents running tests if node_modules is stale.
+verifyDepsBeforeRun: error         # 🔐 ✅ forbid running scripts on stale node_modules
+
+########################################
+# Peer dependency resolution
+# Why: Ensure single, compatible peer versions and reduce duplication noise.
+########################################
+
+# resolvePeersFromWorkspaceRoot (🏢) — resolve peers from root deps; use one set
+# of peer versions across the monorepo.
+resolvePeersFromWorkspaceRoot: true # 🏢 ✅ single source of truth for peers
+
+# dedupePeerDependents — deduplicate packages post peer resolution when possible.
+# Example: Both projects share webpack with the same resolved peers → one instance.
+dedupePeerDependents: true          # ✅ dedupe when peers are compatible
+
+# peerDependencyRules — control warnings and allowed version ranges for peers.
+# Example (commented):
+# peerDependencyRules:
+#   ignoreMissing:
+#     - "@babel/*"
+#   allowedVersions:
+#     react: "18"
+#   allowAny: []
+peerDependencyRules:
+  ignoreMissing: []                 # 🔐 avoid suppressing warnings unless vetted
+  allowedVersions: []                 # 🔐 set narrowly if needed
+  allowAny: []                      # 🔐 avoid blanket allow
+
+########################################
+# Overrides & extensions
+# Why: Pin or remove risky transitive deps; patch broken manifests via extensions.
+########################################
+
+# overrides (🔐) — force specific versions or remove transitive deps.
+# Examples (commented):
+# overrides:
+#   "minimist": "1.2.8"          # pin fixed version
+#   "foo@1.0.0>bar": "-"         # remove unused optional dep
+overrides: {}                      # 🔐 pin/bisect transitive deps or remove with "-"
+
+# packageExtensions (🔐) — add missing deps/peers to third‑party packages.
+# Example (commented):
+# packageExtensions:
+#   react-redux:
+#     peerDependencies:
+#       react-dom: "*"
+packageExtensions: {}              # 🔐 patch missing peers of third-party packages
+
+# allowedDeprecatedVersions (🔐) — mute deprecation warnings intentionally.
+allowedDeprecatedVersions: {}      # 🔐 whitelist intentionally if necessary
+
+########################################
+# Catalog governance
+# Why: Centralize approved versions via catalog; keep catalog clean over time.
+########################################
+
+# catalogMode — add behavior for dependency catalog usage during pnpm add.
+#   strict: only allow catalog versions; prefer: prefer catalog; manual: default.
+catalogMode: strict                # 🏢 🔐 version catalog is the source of truth
+
+# cleanupUnusedCatalogs — remove unused catalog entries automatically on install.
+cleanupUnusedCatalogs: true        # 🏢 ✅ remove stale catalog entries
+
+########################################
+# CI ergonomics
+# Why: Faster, safer CI runs; enforce required scripts; cross‑platform reliability.
+########################################
+
+# ci — explicitly mark CI environments (usually auto‑detected); included for clarity.
+ci: true                           # ✅ when under CI to optimize defaults
+
+# optimisticRepeatInstall — short‑circuit repeats/no‑op installs.
+optimisticRepeatInstall: true      # ✅ fast no-op for repeat installs
+
+# requiredScripts (🏢) — ensure these scripts exist in each package for repo‑wide
+# commands (e.g., pnpm -r run build).
+requiredScripts:                   # 🏢 enforce available scripts across packages
+  - build
+  - test
+
+# shellEmulator — bash‑like emulator for cross‑platform script portability.
+shellEmulator: true                # ✅ cross-platform script execution
+
+# includeWorkspaceRoot (🏢) — exclude root from recursive runs to avoid side effects.
+includeWorkspaceRoot: false        # 🏢 avoid running recursive scripts at root
+
+# disallowWorkspaceCycles (🏢) — fail install on workspace dependency cycles.
+disallowWorkspaceCycles: true      # 🏢 fail on cycles early
+
+########################################
+# Optional: branch-based lockfiles in high-conflict repos
+# Why: Reduce lockfile merge conflicts by generating per‑branch lockfiles and
+# optionally merging them on specific branches.
+########################################
+
+# gitBranchLockfile — generate pnpm-lock.<branch>.yaml instead of a single lockfile.
+# Enable only when you have automation to merge lockfiles back on main/release.
+gitBranchLockfile: false           # ⚠️ enable only with merge automation
+
+# mergeGitBranchLockfilesBranchPattern — branches on which lockfiles should be
+# merged automatically (pattern list). Keep null when not used.
+mergeGitBranchLockfilesBranchPattern: null

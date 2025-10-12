@@ -195,7 +195,7 @@ For `npm`, there is [a proposal](https://github.com/npm/cli/issues/8570) to add 
 
 For `yarn`, config options `npmMinimalAgeGate` and `npmPreapprovedPackages` are implemented since [`v4.10.0`](https://github.com/yarnpkg/berry/releases/tag/%40yarnpkg%2Fcli%2F4.10.0).
 
-For `bun`, it is discussed here: https://github.com/oven-sh/bun/issues/22679
+For `bun`, the `minimumReleaseAge` and `minimumReleaseAgeExcludes` options are supported since [`v1.3`](https://bun.com/docs/cli/install#minimum-release-age).
 
 For `deno`, an draft proposal is here: https://github.com/denoland/deno/pull/30752
 

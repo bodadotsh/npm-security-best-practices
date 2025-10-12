@@ -4,6 +4,9 @@
 exact = true
 # frozenLockfile = true
 
+minimumReleaseAge = 259200 # seconds
+# minimumReleaseAgeExcludes = ["typescript"]
+
 [install.lockfile]
 save = true
 

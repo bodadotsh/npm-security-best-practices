@@ -21,7 +21,7 @@
   - [2. Include lockfiles](#2-include-lockfiles)
   - [3. Disable lifecycle scripts](#3-disable-lifecycle-scripts)
   - [4. Set minimal release age](#4-set-minimal-release-age)
-  - [5. Permission model](#5-permission-model)
+  - [5. Runtime protection](#5-runtime-protection)
   - [6. Reduce external dependencies](#6-reduce-external-dependencies)
 - [For Maintainers](#for-maintainers)
   - [7. Enable 2FA](#7-enable-2fa)
@@ -205,7 +205,11 @@ Examples of other tools that offer similar functionality:
 - Renovate CLI (https://github.com/renovatebot/renovate) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
 - Step Security (https://www.stepsecurity.io) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
 
-### 5. Permission Model
+### 5. Runtime Protection
+
+Most techniques focus on the _install_ and _build_ phrases, we can add an extra layer of security during the _runtime_ phrase of JavaScript applications.
+
+#### Permission Model
 
 > In the latest LTS version of `nodejs`, we can use the Permission model to control what system resources a process has access to or what actions the process can take with those resources. **_However_**, this does not provide security guarantees in the presence of malicious code. Malicious code can still bypass the permission model and execute arbitrary code without the restrictions imposed by the permission model.
 
@@ -236,6 +240,12 @@ deno run --allow-read script.ts
 ```
 
 For Bun, the permission model is currently discussed [here](https://github.com/oven-sh/bun/discussions/725) and [here](https://github.com/oven-sh/bun/issues/6617).
+
+#### Hardened JavaScript
+
+Companies like MetaMask and Moddable uses https://www.npmjs.com/package/ses and https://github.com/LavaMoat/LavaMoat to enable runtime protections like prevent modifying JavaScript's primordials (Object, String, Number, Array, ...), and limit access to the platform API (window, document, XHR, etc) per-package. These mechanism are also suggested as TC39 proposals like https://github.com/tc39/proposal-compartments 
+
+> Watch [The Attacker is Inside: Javascript Supplychain Security and LavaMoat (~20mins, Nov 2022)](https://youtu.be/Z5Bz0DYga1k) to get a quick high level overview of how this works.
 
 ### 6. Reduce External Dependencies
 

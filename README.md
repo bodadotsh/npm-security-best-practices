@@ -20,8 +20,8 @@
   - [1. Pin dependency versions](#1-pin-dependency-versions)
   - [2. Include lockfiles](#2-include-lockfiles)
   - [3. Disable lifecycle scripts](#3-disable-lifecycle-scripts)
-  - [4. Set minimal release age](#4-set-minimal-release-age)
-  - [5. Runtime protection](#5-runtime-protection)
+  - [4. Preinstall preventions](#4-preinstall-preventions)
+  - [5. Runtime protections](#5-runtime-protections)
   - [6. Reduce external dependencies](#6-reduce-external-dependencies)
 - [For Maintainers](#for-maintainers)
   - [7. Enable 2FA](#7-enable-2fa)
@@ -175,29 +175,71 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 >
 > `npm ci --omit=dev --ignore-scripts`
 
-### 4. Set Minimal Release Age
+### 4. Preinstall Preventions
+
+How do we know and trust that whenever we do `npm install <package-name>`, everything will be fine? We shouldn't. Here's how we can ensure that the `install` command is safer to run:
+
+#### Preinstall Scanners
+
+With Node.js, we can use the following tools to audit packages before installing them:
+
+https://socket.dev/blog/introducing-socket-firewall
+
+```sh
+npm i -g sfw
+# works for `npm`, `yarn`, `pnpm`
+sfw npm install <package-name>
+
+# example: alias `npm` to `sfw npm` in zsh
+# echo "alias npm='sfw npm'" >> ~/.zshrc
+```
+
+https://github.com/lirantal/npq
+
+```sh
+npq install express
+NPQ_PKG_MGR=pnpm npx npq install fastify
+```
+
+With Bun, we can use its [Security Scanner API](https://bun.com/docs/pm/security-scanner-api). Read https://socket.dev/blog/socket-integrates-with-bun-1-3-security-scanner-api on how to integrate Socket with Bun since v1.3+
+
+```sh
+bun add -d @socketsecurity/bun-security-scanner
+```
+
+```toml
+# in bunfig.toml
+[install.security]
+scanner = "@socketsecurity/bun-security-scanner"
+```
+
+#### Set Minimal Release Age
 
 > We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the `minimumReleaseAge` option: https://pnpm.io/settings#minimumreleaseage, which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
 
 ```sh
-pnpm config set minimumReleaseAge <minutes>
-
+npm install --before=2025-10-22
 # only install packages published at least 1 day ago
 npm install --before="$(date -v -1d)"                               # for Mac or BSD users
 npm install --before="$(date -d '1 days ago' +%Y-%m-%dT%H:%M:%S%z)" # for Linux users
 
+# other related flags: minimumReleaseAgeExclude
+pnpm config set minimumReleaseAge <minutes>
+
+# other related flags: npmPreapprovedPackages
 yarn config set npmMinimalAgeGate <minutes>
 ```
 
-For `pnpm`, there's also a `minimumReleaseAgeExclude` option to exclude certain packages from the minimum release age.
-
 For `npm`, there is [a proposal](https://github.com/npm/cli/issues/8570) to add `minimumReleaseAge` option and `minimumReleaseAgeExclude` option.
-
-For `yarn`, config options `npmMinimalAgeGate` and `npmPreapprovedPackages` are implemented since [`v4.10.0`](https://github.com/yarnpkg/berry/releases/tag/%40yarnpkg%2Fcli%2F4.10.0).
 
 For `bun`, the `minimumReleaseAge` and `minimumReleaseAgeExcludes` options are supported since [`v1.3`](https://bun.com/docs/cli/install#minimum-release-age).
 
-For `deno`, an draft proposal is here: https://github.com/denoland/deno/pull/30752
+```toml
+[install]
+minimumReleaseAge = 604800 # 7 days in seconds
+```
+
+For `deno`, they will soon ship a similar feature: https://github.com/denoland/deno/pull/30752
 
 Examples of other tools that offer similar functionality:
 
@@ -205,7 +247,7 @@ Examples of other tools that offer similar functionality:
 - Renovate CLI (https://github.com/renovatebot/renovate) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
 - Step Security (https://www.stepsecurity.io) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
 
-### 5. Runtime Protection
+### 5. Runtime Protections
 
 Most techniques focus on the _install_ and _build_ phrases, we can add an extra layer of security during the _runtime_ phrase of JavaScript applications.
 
@@ -499,18 +541,6 @@ Run the checks:
 https://socket.dev
 
 Socket.dev is a security platform that protects code from both vulnerable and malicious dependencies. It offers various tools such as a [GitHub App](https://socket.dev/features/github) scans pull requests, [CLI tool](https://socket.dev/features/cli), [web extension](https://socket.dev/features/web-extension), [VSCode extension](https://docs.socket.dev/docs/socket-for-vs-code) and more. Here's their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY).
-
-[Socket Firewall](https://socket.dev/blog/introducing-socket-firewall) is a free tool to block malicious packages at install time:
-
-```sh
-npm i -g sfw
-
-# works for `npm`, `yarn`, `pnpm`
-sfw npm install <package-name>
-
-# example: alias `npm` to `sfw npm` in zsh
-# echo "alias npm='sfw npm'" >> ~/.zshrc
-```
 
 #### Snyk
 

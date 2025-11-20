@@ -285,7 +285,7 @@ For Bun, the permission model is currently discussed [here](https://github.com/o
 
 #### Hardened JavaScript
 
-Companies like MetaMask and Moddable uses https://www.npmjs.com/package/ses and https://github.com/LavaMoat/LavaMoat to enable runtime protections like prevent modifying JavaScript's primordials (Object, String, Number, Array, ...), and limit access to the platform API (window, document, XHR, etc) per-package. These mechanism are also suggested as TC39 proposals like https://github.com/tc39/proposal-compartments 
+Companies like MetaMask and Moddable uses https://www.npmjs.com/package/ses and https://github.com/LavaMoat/LavaMoat to enable runtime protections like prevent modifying JavaScript's primordials (Object, String, Number, Array, ...), and limit access to the platform API (window, document, XHR, etc) per-package. These mechanism are also suggested as TC39 proposals like https://github.com/tc39/proposal-compartments
 
 > Watch [The Attacker is Inside: Javascript Supplychain Security and LavaMoat (~20mins, Nov 2022)](https://youtu.be/Z5Bz0DYga1k) to get a quick high level overview of how this works.
 
@@ -339,26 +339,24 @@ npm profile enable-2fa auth-and-writes
 
 ### 8. Create Tokens with Limited Access
 
+> [!IMPORTANT]
+>
+> Prefer _trusted publishing_ over tokens if possible! See [the "trusted publishing" section below](#trusted-publishing) for more details.
+
 https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens
 
-> An access token is a common way to authenticate to `npm` when using the API or the `npm` CLI.
+> At the end of 2025, NPM announced the [sunset of Legacy Tokens](https://github.blog/changelog/2025-09-29-strengthening-npm-security-important-changes-to-authentication-and-token-management/) to improve security. [Granular Access Tokens](https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens) will be the default going forward.
 
-```sh
-npm token create # for a read and publish token
-npm token create --read-only # for a read-only token
-npm token create --cidr=[list] # for a CIDR-restricted read and publish token
-npm token create --read-only --cidr=[list] # for a CIDR-restricted read-only token
-```
+Currently, granular access tokens can only be created on the website: https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-granular-access-tokens-on-the-website (support for creating granular access tokens via npm token CLI command will be added [in the future](https://github.com/orgs/community/discussions/179562)).
 
-> [!IMPORTANT]
-> Granular Access Tokens should be used instead of Legacy Tokens. Legacy tokens cannot be scoped and don't automatically expire. They're considered dangerous to use.
->
-> - Restrict token to specific packages, scopes, and organizations
-> - Set a token expiration date (e.g., annually)
-> - Limit token access based on IP address ranges (CIDR notation)
-> - Select between read-only or read and write access
-> - Don't use the same token for multiple purposes
-> - Descriptive token names
+Here are some best practices when creating tokens:
+
+- Descriptive token names
+- Restrict token to specific packages, scopes, and organizations
+- Set a token expiration date (e.g., annually)
+- Limit token access based on IP address ranges (CIDR notation)
+- Select between read-only or read and write access
+- Don't use the same token for multiple purposes
 
 ### 9. Generate Provenance Statements
 
@@ -392,13 +390,14 @@ To publish without evoking the `npm publish` command, we can do one of the follo
 
 #### Trusted Publishing
 
-When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. This is called **trusted publishing** and read the GitHub announcement here: https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/ and https://docs.npmjs.com/trusted-publishers
+> Use _trusted publishing_ over tokens whenever possible[^17]
 
-> [!IMPORTANT]
->
-> It is recommended to use trusted publishing instead of tokens[^17].
+When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. This is called **trusted publishing** and read the GitHub announcement here: https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/
+
+See https://docs.npmjs.com/trusted-publishers for instructions on how to configure trusted publishing.
 
 Related tools:
+
 - https://github.com/antfu/open-packages-on-npm (CLI to setup Trusted Publisher for monorepo packages)
 - https://github.com/sxzz/userscripts/blob/main/src/npm-trusted-publisher.md (Userscript to fill the form for Trusted Publisher on npmjs.com)
 
@@ -533,6 +532,7 @@ https://securityscorecards.dev and https://github.com/ossf/scorecard
 Free and open source automated tool that assesses a number of important heuristics ("checks") associated with software security and assigns each check a score of 0-10. Several risks mentioned in this repository are included as part of the checks: Pinned Dependencies, Token Permissions, Packaging, Signed Releases,...
 
 Run the checks:
+
 1. automatically on code you own using the [GitHub Action](https://github.com/marketplace/actions/ossf-scorecard-action)
 2. manually on your (or somebody else’s) project via the [Command Line](https://github.com/ossf/scorecard#scorecard-command-line-interface)
 
@@ -565,21 +565,39 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 - Ecosystem Funds: https://funds.ecosyste.ms
 
 [^1]: https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised
+
 [^2]: https://socket.dev/blog/nx-packages-compromised
+
 [^3]: https://socket.dev/blog/ongoing-supply-chain-attack-targets-crowdstrike-npm-packages
+
 [^4]: https://www.reversinglabs.com/blog/malicious-npm-patch-delivers-reverse-shell
+
 [^5]: https://socket.dev/blog/north-korean-apt-lazarus-targets-developers-with-malicious-npm-package
+
 [^6]: https://socket.dev/blog/npm-registry-spam-john-wick
+
 [^7]: https://github.com/duckdb/duckdb-node/security/advisories/GHSA-w62p-hx95-gf2c
+
 [^8]: https://en.wikipedia.org/wiki/Npm_left-pad_incident
+
 [^9]: https://socket.dev/blog/when-everything-becomes-too-much
+
 [^10]: https://nodejs.org/en/learn/typescript/run-natively
+
 [^11]: https://libraries.io/npm
+
 [^12]: https://www.theregister.com/2016/03/29/npmgate_followup
+
 [^13]: https://github.com/dominictarr/event-stream/issues/116
+
 [^14]: https://en.wikipedia.org/wiki/XZ_Utils_backdoor
+
 [^15]: https://openssf.org/blog/2024/04/15/open-source-security-openssf-and-openjs-foundations-issue-alert-for-social-engineering-takeovers-of-open-source-projects/
+
 [^16]: https://xkcd.com/2347
-[^17]: https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain
+
+[^17]: https://docs.npmjs.com/trusted-publishers#prefer-trusted-publishing-over-tokens
+
 [^18]: https://stackoverflow.com/questions/54124033/deleting-package-lock-json-to-resolve-conflicts-quickly
+
 [^19]: https://pnpm.io/git#merge-conflicts

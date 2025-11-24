@@ -243,7 +243,7 @@ For `deno`, they will soon ship a similar feature: https://github.com/denoland/d
 
 Examples of other tools that offer similar functionality:
 
-- npm-check-updates (https://github.com/raineorshine/npm-check-updates) has the `--cooldown` flag.
+- `npm-check-updates` (https://github.com/raineorshine/npm-check-updates) has the `--cooldown/-c` flag, for example: `npx npm-check-updates -i --format group -c 7`
 - Renovate CLI (https://github.com/renovatebot/renovate) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
 - Step Security (https://www.stepsecurity.io) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
 

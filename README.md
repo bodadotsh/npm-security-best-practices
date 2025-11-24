@@ -555,6 +555,8 @@ https://socket.dev
 
 Socket.dev is a security platform that protects code from both vulnerable and malicious dependencies. It offers various tools such as a [GitHub App](https://socket.dev/features/github) scans pull requests, [CLI tool](https://socket.dev/features/cli), [web extension](https://socket.dev/features/web-extension), [VSCode extension](https://docs.socket.dev/docs/socket-for-vs-code) and more. Here's their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY).
 
+Additionally, Socket provides [Socket Firewall Free](https://docs.socket.dev/docs/socket-firewall-free), a free tool thas is intended for use with npm, pnpm, yarn, cargo, pip, and uiv. Prepending your installation command with `sfw` will prevent installation of dependencies that are known to be malicious -- e.g. `sfw npm install lodahs` will fail.
+
 #### Snyk
 
 https://snyk.io

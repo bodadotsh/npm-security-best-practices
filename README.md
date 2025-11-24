@@ -212,13 +212,12 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 
 ### 4. Preinstall Preventions
 
-How do we know and trust that whenever we do `npm install <package-name>`, everything will be fine? We shouldn't. Here's how we can ensure that the `install` command is safer to run:
+> How do we know and trust that whenever we do `npm install <package-name>`, everything will be fine? We shouldn't. Here's how we can ensure that the `install` command is safer to run:
 
 #### Preinstall Scanners
 
-With Node.js, we can use the following tools to audit packages before installing them:
-
-https://socket.dev/blog/introducing-socket-firewall
+> Socket Firewall Free
+> https://socket.dev/blog/introducing-socket-firewall
 
 ```sh
 npm i -g sfw
@@ -229,7 +228,8 @@ sfw npm install <package-name>
 # echo "alias npm='sfw npm'" >> ~/.zshrc
 ```
 
-https://github.com/AikidoSec/safe-chain
+> Aikido Safe Chain
+> https://github.com/AikidoSec/safe-chain
 
 The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `bun`, `bunx`, and `pip` to provide extra checks before installing new packages
 
@@ -237,18 +237,20 @@ The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `
 npm install -g @aikidosec/safe-chain
 ```
 
-https://github.com/lirantal/npq
+> https://github.com/lirantal/npq
 
 ```sh
 npq install express
 NPQ_PKG_MGR=pnpm npx npq install fastify
 ```
 
-With Bun, we can use its [Security Scanner API](https://bun.com/docs/pm/security-scanner-api). Read https://socket.dev/blog/socket-integrates-with-bun-1-3-security-scanner-api on how to integrate Socket with Bun since v1.3+
+With Bun, we can use its [Security Scanner API](https://bun.com/docs/pm/security-scanner-api)
 
 ```sh
 bun add -d @socketsecurity/bun-security-scanner
 ```
+
+From Bun v1.3+, you can [integrate Socket with Bun](https://socket.dev/blog/socket-integrates-with-bun-1-3-security-scanner-api)
 
 ```toml
 # in bunfig.toml
@@ -559,7 +561,7 @@ yarn npm audit --recursive # audit transitive dependencies
 
 #### GitHub
 
-https://github.com/security
+> https://github.com/security
 
 GitHub offers several services that can help protect against `npm` malwares, including:
 
@@ -575,7 +577,7 @@ GitHub offers several services that can help protect against `npm` malwares, inc
 
 #### OpenSSF Scorecard
 
-https://securityscorecards.dev and https://github.com/ossf/scorecard
+> https://securityscorecards.dev and https://github.com/ossf/scorecard
 
 Free and open source automated tool that assesses a number of important heuristics ("checks") associated with software security and assigns each check a score of 0-10. Several risks mentioned in this repository are included as part of the checks: Pinned Dependencies, Token Permissions, Packaging, Signed Releases,...
 
@@ -586,13 +588,13 @@ Run the checks:
 
 #### Socket.dev
 
-https://socket.dev
+> https://socket.dev
 
-Socket.dev is a security platform that protects code from both vulnerable and malicious dependencies. It offers various tools such as a [GitHub App](https://socket.dev/features/github) scans pull requests, [CLI tool](https://socket.dev/features/cli), [web extension](https://socket.dev/features/web-extension), [VSCode extension](https://docs.socket.dev/docs/socket-for-vs-code) and more. Here's their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY).
+Socket.dev is a security platform that protects code from both vulnerable and malicious dependencies. It offers various tools such as a [GitHub App](https://socket.dev/features/github) scans pull requests, [CLI tool](https://socket.dev/features/cli), [web extension](https://socket.dev/features/web-extension), [VSCode extension](https://docs.socket.dev/docs/socket-for-vs-code) and more. Here's their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY). Plus the Socket Firewall `sfw` tool in the [Preinstall Scanners section](https://github.com/bodadotsh/npm-security-best-practices/tree/main?tab=readme-ov-file#preinstall-scanners).
 
 #### Snyk
 
-https://snyk.io
+> https://snyk.io
 
 Snyk offers a suite of tools to fix vulnerabilities in open source dependencies, including a CLI to run vulnerability scans on local machine, IDE integrations to embed into development environment, and API to integrate with Snyk programmatically. For example, you can [test public npm packages before use](https://docs.snyk.io/developer-tools/snyk-cli/scan-and-maintain-projects-using-the-cli/test-public-npm-packages-before-use) or [create automatic PRs for known vulnerabilities](https://docs.snyk.io/scan-with-snyk/pull-requests/snyk-pull-or-merge-requests/create-automatic-prs-for-backlog-issues-and-known-vulnerabilities-backlog-prs).
 

@@ -614,6 +614,10 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 - Open Source Pledge https://opensourcepledge.com
 - Ecosystem Funds: https://funds.ecosyste.ms
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=bodadotsh/npm-security-best-practices&type=date&legend=top-left)](https://www.star-history.com/#bodadotsh/npm-security-best-practices&type=date&legend=top-left)
+
 [^1]: https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised
 
 [^2]: https://socket.dev/blog/nx-packages-compromised

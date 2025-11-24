@@ -16,6 +16,8 @@
 
 ## Table of Contents
 
+- [Got Compromised?](#got-compromised)
+  - [0. Immediate actions to take](#0-immediate-actions-to-take)
 - [For Developers](#for-developers)
   - [1. Pin dependency versions](#1-pin-dependency-versions)
   - [2. Include lockfiles](#2-include-lockfiles)
@@ -33,6 +35,39 @@
   - [12. Alternative registry](#12-alternative-registry)
   - [13. Audit, monitor and security tools](#13-audit-monitor-and-security-tools)
   - [14. Support OSS](#14-support-oss)
+
+## Got Compromised?
+
+### 0. Immediate Actions to take
+
+> [!CAUTION]
+> In the case of a npm supply chain compromise, here's what you can do immediately:
+> 
+> **Remove and replace compromised packages**
+>
+> ```sh
+> npm cache clean --force # remove other package manager's cache too
+> rm -rf node_modules
+> ```
+> 
+> Downgrade and pin dependencies to a known clean version, or remove them entirely. 
+> 
+> **Restrict or disable automated scripts**
+> 
+> CI/CD automated runs may have to be disabled or restricted while the investigation is ongoing.
+> 
+> **Rotate all credentials**
+> 
+> Supply chain attacks often targets credentials in your system or DevOps.
+> Revoke and regenerate `npm` tokens, GitHub PATs, SSH keys, and cloud provider credentials.
+>
+> **Monitoring suspicious activities**
+> 
+> Review and monitor for unauthorized activities in your projects or organizations.
+> Limit outbound network access to trusted domains only. Limit or revovke access from outsiders or third-party tools.
+> Resume work on a brand new system if you can!
+
+Pick the best practices below based on your needs to strengthen your system against the next attack.
 
 ## For Developers
 

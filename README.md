@@ -314,6 +314,11 @@ Here are some resources that you might find useful:
 - https://github.com/you-dont-need/You-Dont-Need-Momentjs
 - Visualise NPM dependencies: https://npmgraph.js.org
 - Knip (remove unused dependencies): https://github.com/webpro-nl/knip
+- Erase unwanted `node_modules` in your system: https://github.com/voidcosmos/npkill
+```sh
+cd ~
+npx npkill
+```
 
 ## For Maintainers
 

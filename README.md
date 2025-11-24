@@ -194,6 +194,14 @@ sfw npm install <package-name>
 # echo "alias npm='sfw npm'" >> ~/.zshrc
 ```
 
+https://github.com/AikidoSec/safe-chain
+
+The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `bun`, `bunx`, and `pip` to provide extra checks before installing new packages
+
+```sh
+npm install -g @aikidosec/safe-chain
+```
+
 https://github.com/lirantal/npq
 
 ```sh

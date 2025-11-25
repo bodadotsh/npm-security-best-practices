@@ -294,7 +294,7 @@ Examples of other tools that offer similar functionality:
 
 ### 5. Runtime Protections
 
-Most techniques focus on the _install_ and _build_ phrases, we can add an extra layer of security during the _runtime_ phrase of JavaScript applications.
+Most techniques focus on the _install_ and _build_ phases, we can add an extra layer of security during the _runtime_ phase of JavaScript applications.
 
 #### Permission Model
 
@@ -316,7 +316,7 @@ node --permission --allow-fs-read=* --allow-fs-write=* index.js
 npx --node-options="--permission" <package-name>
 ```
 
-Deno enables permissions by default. See https://docs.deno.com/runtime/fundamentals/security/
+Deno disables permissions by default. See https://docs.deno.com/runtime/fundamentals/security/
 
 ```sh
 # by default, restrict access

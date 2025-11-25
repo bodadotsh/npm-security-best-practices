@@ -17,7 +17,7 @@
 ## Table of Contents
 
 - [Got Compromised?](#got-compromised)
-  - [0. Immediate actions to take](#0-immediate-actions-to-take)
+  - [Immediate actions to take](#immediate-actions-to-take)
 - [For Developers](#for-developers)
   - [1. Pin dependency versions](#1-pin-dependency-versions)
   - [2. Include lockfiles](#2-include-lockfiles)
@@ -38,34 +38,49 @@
 
 ## Got Compromised?
 
-### 0. Immediate Actions to take
+### Immediate Actions to take
 
 > [!CAUTION]
 > In the case of a npm supply chain compromise, here's what you can do immediately:
 > 
+> **Identify compromised packages**
+> 
+> Keep up with the latest updates about the attack from trusted newsfeed[^20][^21][^22][^23].
+> 
+> Confirm with vulnerability databases like https://security.snyk.io or https://socket.dev/search?e=npm
+> 
 > **Remove and replace compromised packages**
 >
 > ```sh
-> npm cache clean --force # remove other package manager's cache too
+> # remove project cache
 > rm -rf node_modules
+> yarn cache clean
+>
+> # remove global cache
+> npm cache clean --force
+> pnpm store prune
+> bun pm cache rm
+> yarn cache clean --mirror
 > ```
 > 
-> Downgrade and pin dependencies to a known clean version, or remove them entirely. 
+> Downgrade and pin dependencies to a known clean version, or remove them entirely.
+>
+> Remove unwanted `node_modules` folders from system: `cd ~ && npx npkill`
 > 
 > **Restrict or disable automated scripts**
 > 
-> CI/CD automated runs may have to be disabled or restricted while the investigation is ongoing.
+> Disable automated pipelines or restrict them while the investigation is ongoing.
 > 
 > **Rotate all credentials**
 > 
-> Supply chain attacks often targets credentials in your system or DevOps.
+> Supply chain attacks often targets credentials in the system.
 > Revoke and regenerate `npm` tokens, GitHub PATs, SSH keys, and cloud provider credentials.
 >
 > **Monitoring suspicious activities**
 > 
 > Review and monitor for unauthorized activities in your projects or organizations.
 > Limit outbound network access to trusted domains only. Limit or revovke access from outsiders or third-party tools.
-> Resume work on a brand new system if you can!
+> Resume work on a brand new system (_highly recommended!_)
 
 Pick the best practices below based on your needs to strengthen your system against the next attack.
 
@@ -359,11 +374,7 @@ Here are some resources that you might find useful:
 - https://github.com/you-dont-need/You-Dont-Need-Momentjs
 - Visualise NPM dependencies: https://npmgraph.js.org
 - Knip (remove unused dependencies): https://github.com/webpro-nl/knip
-- Erase unwanted `node_modules` in your system: https://github.com/voidcosmos/npkill
-```sh
-cd ~
-npx npkill
-```
+- Erase unwanted `node_modules` with [`npkill`](https://github.com/voidcosmos/npkill): `cd ~ && npx npkill`
 
 ## For Maintainers
 
@@ -655,3 +666,11 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 [^18]: https://stackoverflow.com/questions/54124033/deleting-package-lock-json-to-resolve-conflicts-quickly
 
 [^19]: https://pnpm.io/git#merge-conflicts
+
+[^20]: https://news.ycombinator.com
+
+[^21]: https://socket.dev/blog
+
+[^22]: https://www.aikido.dev/blog
+
+[^23]: https://www.wiz.io/blog

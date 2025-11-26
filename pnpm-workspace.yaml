@@ -2,6 +2,8 @@
 
 minimumReleaseAge: 1440
 savePrefix: ''
+strictDepBuilds: true
+trustPolicy: no-downgrade
 
 # The following options can be used to enforce stricter rules
 #
@@ -12,5 +14,4 @@ savePrefix: ''
 # packageManagerStrictVersion: true
 # preferWorkspacePackages: true
 # resolutionMode: time-based # https://stackoverflow.com/a/74935908
-# strictDepBuilds: true
 # strictPeerDependencies: true

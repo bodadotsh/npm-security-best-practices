@@ -4,6 +4,8 @@ minimumReleaseAge: 1440
 savePrefix: ''
 strictDepBuilds: true
 trustPolicy: no-downgrade
+trustPolicyExclude:
+  - chokidar@4.0.3
 
 # The following options can be used to enforce stricter rules
 #

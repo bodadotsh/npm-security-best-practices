@@ -17,3 +17,4 @@ trustPolicyExclude:
 # preferWorkspacePackages: true
 # resolutionMode: time-based # https://stackoverflow.com/a/74935908
 # strictPeerDependencies: true
+# verifyDepsBeforeRun: error

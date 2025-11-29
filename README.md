@@ -55,12 +55,13 @@
 > # remove project cache
 > rm -rf node_modules
 > yarn cache clean
+> pnpm cache delete
 >
 > # remove global cache
 > npm cache clean --force
-> pnpm store prune
-> bun pm cache rm
 > yarn cache clean --mirror
+> bun pm cache rm
+> pnpm store prune
 > ```
 > 
 > Downgrade and pin dependencies to a known clean version, or remove them entirely.

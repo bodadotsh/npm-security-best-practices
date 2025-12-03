@@ -544,6 +544,9 @@ npx jsr add <package-name> # replace npx with yarn dlx, pnpm dlx, or bunx
 Here are some private registries that you might find useful:
 
 - GitHub Packages https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry
+> [!IMPORTANT]
+> Currently, GitHub Packages only supports personal access token (classic), but classic PATs can be insecure as it has broad permissions and lacks of granular permissions![^24][^25] 
+> For this reason, you may want to pick an alternative package registry from below ⬇️
 - Verdaccio https://github.com/verdaccio/verdaccio
   - See Verdaccio best practices: https://verdaccio.org/docs/best/
 - Vlt https://www.vlt.sh/
@@ -675,3 +678,7 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 [^22]: https://www.aikido.dev/blog
 
 [^23]: https://www.wiz.io/blog
+
+[^24]: https://github.com/github/roadmap/issues/558
+
+[^25]: https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries

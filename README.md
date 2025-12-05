@@ -554,6 +554,12 @@ Here are some private registries that you might find useful:
 - JFrog Artifactory https://jfrog.com/integrations/npm-registry
 - Sonatype: https://help.sonatype.com/en/npm-registry.html
 
+#### No Registry?
+
+If the usage of a public registry like `npm` is a real concern, it is also possible to build and import the library yourself as long as you have access to the source code. 
+
+See https://boda.sh/blog/pnpm-workspace-git-submodules/ for adding packages without `npm` but with `pnpm workspace` and `git submodules`.
+
 ### 13. Audit, Monitor and Security Tools
 
 #### Audit

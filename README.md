@@ -177,7 +177,7 @@ For `deno`, see https://github.com/denoland/deno/issues/28664 for more details.
 
 ### 2. Include Lockfiles
 
-> Ensure to commit package managers lockfiles to `git` and share between different environments. Different lockfiles are: `package-lock.json` for `npm`, `pnpm-lock.yaml` for `pnpm`, `bun.lock` for `bun`, `yarn.lock` for `yarn` and `deno.lock` for `deno`.
+> Ensure to commit package managers lockfiles to `git` and share between different environments[^26]. Different lockfiles are: `package-lock.json` for `npm`, `pnpm-lock.yaml` for `pnpm`, `bun.lock` for `bun`, `yarn.lock` for `yarn` and `deno.lock` for `deno`.
 >
 > In automated environments such as continuous integration and deployments, we should install the exact dependencies as defined in the lockfile.
 
@@ -185,6 +185,7 @@ For `deno`, see https://github.com/denoland/deno/issues/28664 for more details.
 npm ci
 bun install --frozen-lockfile
 yarn install --frozen-lockfile
+pnpm install --frozen-lockfile
 deno install --frozen
 ```
 
@@ -689,3 +690,5 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 [^24]: https://github.com/github/roadmap/issues/558
 
 [^25]: https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries
+
+[^26]: https://nesbitt.io/2025/12/06/github-actions-package-manager.html#:~:text=The%20fix%20is%20a%20lockfile

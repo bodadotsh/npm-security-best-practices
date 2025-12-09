@@ -384,7 +384,7 @@ Here are some resources that you might find useful:
 
 https://docs.npmjs.com/about-two-factor-authentication
 
-> Two factor authentication (2FA) adds an extra layer of authentication to your `npm` account. 2FA is not required by default, but it is a good practice to enable it.
+> Two factor authentication (2FA) adds an extra layer of authentication to your `npm` account. 2FA is not required by default, but from December 2025, when you create a new package, 2FA will be enabled by default in the package settings.
 
 ```sh
 # ensure that 2FA is enabled for auth and writes (this is the default)
@@ -402,15 +402,17 @@ npm profile enable-2fa auth-and-writes
 
 ### 8. Create Tokens with Limited Access
 
-> [!IMPORTANT]
+> [!TIP]
 >
-> Prefer _trusted publishing_ over tokens if possible! See [the "trusted publishing" section below](#trusted-publishing) for more details.
+> Best practice: prefer _trusted publishing_ over tokens if possible! See [the "trusted publishing" section below](#trusted-publishing) for more details.
 
 https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens
 
-> At the end of 2025, NPM announced the [sunset of Legacy Tokens](https://github.blog/changelog/2025-09-29-strengthening-npm-security-important-changes-to-authentication-and-token-management/) to improve security. [Granular Access Tokens](https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens) will be the default going forward.
+> At the end of 2025, NPM announced the [sunset of Legacy Tokens](https://github.blog/changelog/2025-09-29-strengthening-npm-security-important-changes-to-authentication-and-token-management/) to improve security. [Granular Access Tokens](https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens) is the default going forward[^27].
 
-Currently, granular access tokens can only be created on the website: https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-granular-access-tokens-on-the-website (support for creating granular access tokens via npm token CLI command will be added [in the future](https://github.com/orgs/community/discussions/179562)).
+Create granular access tokens via the website: https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-granular-access-tokens-on-the-website or `npm` cli: https://docs.npmjs.com/cli/v11/commands/npm-token
+
+The `npm login` cli command enables a two-hour session token instead of long-lived tokens. During these sessions, 2FA is enforced for publishing operations, adding an extra layer of security.
 
 Here are some best practices when creating tokens:
 
@@ -692,3 +694,5 @@ In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was fou
 [^25]: https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries
 
 [^26]: https://nesbitt.io/2025/12/06/github-actions-package-manager.html#:~:text=The%20fix%20is%20a%20lockfile
+
+[^27]: https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/

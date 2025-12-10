@@ -374,7 +374,8 @@ Here are some resources that you might find useful:
 - https://lyra.horse/blog/2025/08/you-dont-need-js
 - https://blog.greenroots.info/10-lesser-known-web-apis-you-may-want-to-use
 - https://github.com/you-dont-need/You-Dont-Need-Momentjs
-- Visualise NPM dependencies: https://npmgraph.js.org
+- Visualise library dependencies: https://npmgraph.js.org
+- Another tool to visualise dependencies and more: https://node-modules.dev
 - Knip (remove unused dependencies): https://github.com/webpro-nl/knip
 - Erase unwanted `node_modules` with [`npkill`](https://github.com/voidcosmos/npkill): `cd ~ && npx npkill`
 

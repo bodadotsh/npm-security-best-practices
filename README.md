@@ -14,6 +14,10 @@
 <img src="https://img.shields.io/badge/hacker%20news%20discussion-ff6600" alt="hn discussion"/>
 </a>
 
+<a href="https://lessnews.dev">
+<img src="./lessnews.png" alt="lessnews.dev - webdev newsfeed for busy developers" />
+</a>
+
 ## Table of Contents
 
 - [Got Compromised?](#got-compromised)

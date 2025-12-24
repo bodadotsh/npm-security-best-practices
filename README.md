@@ -589,6 +589,12 @@ yarn npm audit
 yarn npm audit --recursive # audit transitive dependencies
 ```
 
+> [!TIP]
+> There is a `npm` SBOM command (https://docs.npmjs.com/cli/v11/commands/npm-sbom) that output SBOM which is often required for security auditing. See related [`pnpm` SBOM discussion](https://github.com/pnpm/pnpm/issues/9088).
+> ```sh
+> npm sbom
+> ```
+
 #### GitHub
 
 > https://github.com/security

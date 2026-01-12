@@ -563,11 +563,7 @@ Here are some private registries that you might find useful:
 - Sonatype: https://help.sonatype.com/en/npm-registry.html
 
 > [!TIP]
->#### No Registry?
->
-> If the usage of a public registry like `npm` is a real concern, it is also possible to build and import the library yourself as long as you have access to the source code. 
->
-> See https://boda.sh/blog/pnpm-workspace-git-submodules/ for adding packages without `npm` but with `pnpm workspace` and `git submodules`.
+> **No Registry?** If the usage of a public registry like `npm` is a real concern, it is also possible to build and import the library yourself as long as you have access to the source code. See https://boda.sh/blog/pnpm-workspace-git-submodules/ for adding packages without `npm` but with `pnpm workspace` and `git submodules`.
 
 ### 13. Audit, Monitor and Security Tools
 
@@ -585,15 +581,15 @@ pnpm audit --fix
 
 bun audit
 
+deno audit
+deno audit --socket
+
 yarn npm audit
 yarn npm audit --recursive # audit transitive dependencies
 ```
 
 > [!TIP]
-> There is a `npm` SBOM command (https://docs.npmjs.com/cli/v11/commands/npm-sbom) that output SBOM which is often required for security auditing. See related [`pnpm` SBOM discussion](https://github.com/pnpm/pnpm/issues/9088).
-> ```sh
-> npm sbom
-> ```
+> There is a `npm sbom` command (https://docs.npmjs.com/cli/v11/commands/npm-sbom) that output SBOM which is often required for security auditing. See related [`pnpm` SBOM discussion](https://github.com/pnpm/pnpm/issues/9088).
 
 #### GitHub
 

@@ -46,13 +46,13 @@
 
 > [!CAUTION]
 > In the case of a npm supply chain compromise, here's what you can do immediately:
-> 
+>
 > **Identify compromised packages**
-> 
+>
 > Keep up with the latest updates about the attack from trusted newsfeed[^20][^21][^22][^23].
-> 
-> Confirm with vulnerability databases like https://security.snyk.io or https://socket.dev/search?e=npm
-> 
+>
+> Confirm with vulnerability databases like <https://security.snyk.io> or <https://socket.dev/search?e=npm>
+>
 > **Remove and replace compromised packages**
 >
 > ```sh
@@ -67,22 +67,22 @@
 > bun pm cache rm
 > pnpm store prune
 > ```
-> 
+>
 > Downgrade and pin dependencies to a known clean version, or remove them entirely.
 >
 > Remove unwanted `node_modules` folders from system: `cd ~ && npx npkill`
-> 
+>
 > **Restrict or disable automated scripts**
-> 
+>
 > Disable automated pipelines or restrict them while the investigation is ongoing.
-> 
+>
 > **Rotate all credentials**
-> 
+>
 > Supply chain attacks often targets credentials in the system.
 > Revoke and regenerate `npm` tokens, GitHub PATs, SSH keys, and cloud provider credentials.
 >
 > **Monitoring suspicious activities**
-> 
+>
 > Review and monitor for unauthorized activities in your projects or organizations.
 > Limit outbound network access to trusted domains only. Limit or revovke access from outsiders or third-party tools.
 > Resume work on a brand new system (_highly recommended!_)
@@ -94,7 +94,7 @@ Pick the best practices below based on your needs to strengthen your system agai
 > [!TIP]
 > Here's a [sample `.npmrc` file](.npmrc) with the config options mentioned below:
 >
-> ```
+> ```txt
 > ignore-scripts=true
 > provenance=true
 > save-exact=true
@@ -110,7 +110,7 @@ Pick the best practices below based on your needs to strengthen your system agai
 
 ### 1. Pin Dependency Versions
 
-> On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.6.2`, etc. See https://docs.npmjs.com/about-semantic-versioning and try out the npm SemVer Calculator (https://semver.npmjs.com).
+> On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.6.2`, etc. See <https://docs.npmjs.com/about-semantic-versioning> and try out the npm SemVer Calculator (<https://semver.npmjs.com>).
 
 Here's how to pin exact version in various package managers:
 
@@ -139,7 +139,7 @@ exact = true
 
 #### Override the transitive dependencies
 
-> **_However_**, our direct dependencies also have their own dependencies (_transitive_ dependencies). Even if we pin our direct dependencies, their transitive dependencies might still use broad version range operators (like `^` or `~`). The solution is to override the transitive dependencies: https://docs.npmjs.com/cli/v11/configuring-npm/package-json#overrides
+> **_However_**, our direct dependencies also have their own dependencies (_transitive_ dependencies). Even if we pin our direct dependencies, their transitive dependencies might still use broad version range operators (like `^` or `~`). The solution is to override the transitive dependencies: <https://docs.npmjs.com/cli/v11/configuring-npm/package-json#overrides>
 
 In `package.json`, if we have the following `overrides` field:
 
@@ -158,9 +158,9 @@ In `package.json`, if we have the following `overrides` field:
 - Without the `⁠overrides` section, `⁠npm` might install `⁠lodash@4.17.22` (or any of the latest `⁠4.x.x` versions) as a transitive dependency of `⁠library-a`
 - However, by adding `"overrides": { "lodash": "4.17.21" }`, we are telling `⁠npm` that anywhere `⁠lodash` appears in the dependency tree, it must be resolved to exactly version `⁠4.17.21`
 
-For `pnpm`, we can also define the `overrides` field in the `pnpm-workspace.yaml` file: https://pnpm.io/settings#overrides
+For `pnpm`, we can also define the `overrides` field in the `pnpm-workspace.yaml` file: <https://pnpm.io/settings#overrides>
 
-For `yarn`, the `resolutions` field is introduced before the `overrides` field, and it also offers a similar functionality: https://yarnpkg.com/configuration/manifest#resolutions
+For `yarn`, the `resolutions` field is introduced before the `overrides` field, and it also offers a similar functionality: <https://yarnpkg.com/configuration/manifest#resolutions>
 
 ```json
 {
@@ -175,9 +175,9 @@ For `yarn`, the `resolutions` field is introduced before the `overrides` field, 
 yarn set resolution <descriptor> <resolution>
 ```
 
-For `bun`, it supports either the `overrides` field or the `resolutions` field: https://bun.com/docs/install/overrides
+For `bun`, it supports either the `overrides` field or the `resolutions` field: <https://bun.com/docs/install/overrides>
 
-For `deno`, see https://github.com/denoland/deno/issues/28664 for more details.
+For `deno`, see <https://github.com/denoland/deno/issues/28664> for more details.
 
 ### 2. Include Lockfiles
 
@@ -211,7 +211,7 @@ For `deno`, we can also set the following in a `deno.json` file:
 
 ### 3. Disable Lifecycle Scripts
 
-> Lifecycle scripts are special scripts that happen in addition to the `pre<event>`, `post<event>`, and `<event>` scripts. For instance, `preinstall` is run before `install` is run and `postinstall` is run after `install` is run. See how npm handles the "scripts" field: https://docs.npmjs.com/cli/v11/using-npm/scripts#life-cycle-scripts
+> Lifecycle scripts are special scripts that happen in addition to the `pre<event>`, `post<event>`, and `<event>` scripts. For instance, `preinstall` is run before `install` is run and `postinstall` is run after `install` is run. See how npm handles the "scripts" field: <https://docs.npmjs.com/cli/v11/using-npm/scripts#life-cycle-scripts>
 >
 > Lifecycle scripts are a common strategy from malicious actors. For example, the "Shai-Hulud" worms[^3] edit the `package.json` file to add a `postinstall` script that would then steal credentials.
 
@@ -238,7 +238,7 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 #### Preinstall Scanners
 
 > Socket Firewall Free
-> https://socket.dev/blog/introducing-socket-firewall
+> <https://socket.dev/blog/introducing-socket-firewall>
 
 ```sh
 npm i -g sfw
@@ -250,7 +250,7 @@ sfw npm install <package-name>
 ```
 
 > Aikido Safe Chain
-> https://github.com/AikidoSec/safe-chain
+> <https://github.com/AikidoSec/safe-chain>
 
 The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `bun`, `bunx`, and `pip` to provide extra checks before installing new packages
 
@@ -258,7 +258,7 @@ The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `
 npm install -g @aikidosec/safe-chain
 ```
 
-> https://github.com/lirantal/npq
+> <https://github.com/lirantal/npq>
 
 ```sh
 npq install express
@@ -281,7 +281,7 @@ scanner = "@socketsecurity/bun-security-scanner"
 
 #### Set Minimal Release Age
 
-> We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the `minimumReleaseAge` option: https://pnpm.io/settings#minimumreleaseage, which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
+> We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the `minimumReleaseAge` option: <https://pnpm.io/settings#minimumreleaseage>, which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
 
 ```sh
 npm install --before=2025-10-22
@@ -305,13 +305,13 @@ For `bun`, the `minimumReleaseAge` and `minimumReleaseAgeExcludes` options are s
 minimumReleaseAge = 604800 # 7 days in seconds
 ```
 
-For `deno`, they will soon ship a similar feature: https://github.com/denoland/deno/pull/30752
+For `deno`, they will soon ship a similar feature: <https://github.com/denoland/deno/pull/30752>
 
 Examples of other tools that offer similar functionality:
 
-- `npm-check-updates` (https://github.com/raineorshine/npm-check-updates) has the `--cooldown/-c` flag, for example: `npx npm-check-updates -i --format group -c 7`
-- Renovate CLI (https://github.com/renovatebot/renovate) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
-- Step Security (https://www.stepsecurity.io) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
+- `npm-check-updates` (<https://github.com/raineorshine/npm-check-updates>) has the `--cooldown/-c` flag, for example: `npx npm-check-updates -i --format group -c 7`
+- Renovate CLI (<https://github.com/renovatebot/renovate>) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
+- Step Security (<https://www.stepsecurity.io>) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
 
 ### 5. Runtime Protections
 
@@ -321,7 +321,7 @@ Most techniques focus on the _install_ and _build_ phases, we can add an extra l
 
 > In the latest LTS version of `nodejs`, we can use the Permission model to control what system resources a process has access to or what actions the process can take with those resources. **_However_**, this does not provide security guarantees in the presence of malicious code. Malicious code can still bypass the permission model and execute arbitrary code without the restrictions imposed by the permission model.
 
-Read about the Node.js permission model: https://nodejs.org/docs/latest/api/permissions.html
+Read about the Node.js permission model: <https://nodejs.org/docs/latest/api/permissions.html>
 
 ```sh
 # by default, granted full access
@@ -337,7 +337,7 @@ node --permission --allow-fs-read=* --allow-fs-write=* index.js
 npx --node-options="--permission" <package-name>
 ```
 
-Deno disables permissions by default. See https://docs.deno.com/runtime/fundamentals/security/
+Deno disables permissions by default. See <https://docs.deno.com/runtime/fundamentals/security/>
 
 ```sh
 # by default, restrict access
@@ -351,7 +351,7 @@ For Bun, the permission model is currently discussed [here](https://github.com/o
 
 #### Hardened JavaScript
 
-Companies like MetaMask and Moddable uses https://www.npmjs.com/package/ses and https://github.com/LavaMoat/LavaMoat to enable runtime protections like prevent modifying JavaScript's primordials (Object, String, Number, Array, ...), and limit access to the platform API (window, document, XHR, etc) per-package. These mechanism are also suggested as TC39 proposals like https://github.com/tc39/proposal-compartments
+Companies like MetaMask and Moddable uses <https://www.npmjs.com/package/ses> and <https://github.com/LavaMoat/LavaMoat> to enable runtime protections like prevent modifying JavaScript's primordials (Object, String, Number, Array, ...), and limit access to the platform API (window, document, XHR, etc) per-package. These mechanism are also suggested as TC39 proposals like <https://github.com/tc39/proposal-compartments>
 
 > Watch [The Attacker is Inside: Javascript Supplychain Security and LavaMoat (~20mins, Nov 2022)](https://youtu.be/Z5Bz0DYga1k) to get a quick high level overview of how this works.
 
@@ -373,21 +373,21 @@ Between `nodejs`, `bun` and `deno`, developers can use many of their modern feat
 
 Here are some resources that you might find useful:
 
-- https://obsidian.md/blog/less-is-safer
-- https://kashw1n.com/blog/nodejs-2025
-- https://lyra.horse/blog/2025/08/you-dont-need-js
-- https://blog.greenroots.info/10-lesser-known-web-apis-you-may-want-to-use
-- https://github.com/you-dont-need/You-Dont-Need-Momentjs
-- Visualise library dependencies: https://npmgraph.js.org
-- Another tool to visualise dependencies and more: https://node-modules.dev
-- Knip (remove unused dependencies): https://github.com/webpro-nl/knip
+- <https://obsidian.md/blog/less-is-safer>
+- <https://kashw1n.com/blog/nodejs-2025>
+- <https://lyra.horse/blog/2025/08/you-dont-need-js>
+- <https://blog.greenroots.info/10-lesser-known-web-apis-you-may-want-to-use>
+- <https://github.com/you-dont-need/You-Dont-Need-Momentjs>
+- Visualise library dependencies: <https://npmgraph.js.org>
+- Another tool to visualise dependencies and more: <https://node-modules.dev>
+- Knip (remove unused dependencies): <https://github.com/webpro-nl/knip>
 - Erase unwanted `node_modules` with [`npkill`](https://github.com/voidcosmos/npkill): `cd ~ && npx npkill`
 
 ## For Maintainers
 
 ### 7. Enable 2FA
 
-https://docs.npmjs.com/about-two-factor-authentication
+<https://docs.npmjs.com/about-two-factor-authentication>
 
 > Two factor authentication (2FA) adds an extra layer of authentication to your `npm` account. 2FA is not required by default, but from December 2025, when you create a new package, 2FA will be enabled by default in the package settings.
 
@@ -411,11 +411,11 @@ npm profile enable-2fa auth-and-writes
 >
 > Best practice: prefer _trusted publishing_ over tokens if possible! See [the "trusted publishing" section below](#trusted-publishing) for more details.
 
-https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens
+<https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens>
 
 > At the end of 2025, NPM announced the [sunset of Legacy Tokens](https://github.blog/changelog/2025-09-29-strengthening-npm-security-important-changes-to-authentication-and-token-management/) to improve security. [Granular Access Tokens](https://docs.npmjs.com/about-access-tokens#about-granular-access-tokens) is the default going forward[^27].
 
-Create granular access tokens via the website: https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-granular-access-tokens-on-the-website or `npm` cli: https://docs.npmjs.com/cli/v11/commands/npm-token
+Create granular access tokens via the website: <https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-granular-access-tokens-on-the-website> or `npm` cli: <https://docs.npmjs.com/cli/v11/commands/npm-token>
 
 The `npm login` cli command enables a two-hour session token instead of long-lived tokens. During these sessions, 2FA is enforced for publishing operations, adding an extra layer of security.
 
@@ -430,13 +430,13 @@ Here are some best practices when creating tokens:
 
 ### 9. Generate Provenance Statements
 
-https://docs.npmjs.com/generating-provenance-statements
+<https://docs.npmjs.com/generating-provenance-statements>
 
 > The _provenance attestation_ is established by publicly providing a link to a package's source code and build instructions from the build environment. This allows developers to verify where and how your package was built before they download it.
 >
 > The _publish attestations_ are generated by the registry when a package is published by an authorized user. When an npm package is published with provenance, it is signed by Sigstore public good servers and logged in a public transparency ledger, where users can view this information.
 >
-> For example, here's what a provenance statement look like on the `vue` package page: https://www.npmjs.com/package/vue#provenance
+> For example, here's what a provenance statement look like on the `vue` package page: <https://www.npmjs.com/package/vue#provenance>
 
 To establish provenance, use a supported CI/CD provider (e.g., GitHub Actions) and publish with the correct flag:
 
@@ -456,26 +456,26 @@ To publish without evoking the `npm publish` command, we can do one of the follo
 }
 ```
 
-> For those interested in [Reproducible Builds](https://reproducible-builds.org), check out OSS Rebuild (https://github.com/google/oss-rebuild) and the Supply-chain Levels for Software Artifacts (SLSA) framework (https://slsa.dev).
+> For those interested in [Reproducible Builds](https://reproducible-builds.org), check out OSS Rebuild (<https://github.com/google/oss-rebuild>) and the Supply-chain Levels for Software Artifacts (SLSA) framework (<https://slsa.dev>).
 
 #### Trusted Publishing
 
 > Use _trusted publishing_ over tokens whenever possible[^17]
 
-When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. This is called **trusted publishing** and read the GitHub announcement here: https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/
+When using OpenID Connect (OIDC) auth, one can publish packages _without_ npm tokens, and get _automatic_ provenance. This is called **trusted publishing** and read the GitHub announcement here: <https://github.blog/changelog/2025-07-31-npm-trusted-publishing-with-oidc-is-generally-available/>
 
-See https://docs.npmjs.com/trusted-publishers for instructions on how to configure trusted publishing.
+See <https://docs.npmjs.com/trusted-publishers> for instructions on how to configure trusted publishing.
 
 Related tools:
 
-- https://github.com/antfu/open-packages-on-npm (CLI to setup Trusted Publisher for monorepo packages)
-- https://github.com/sxzz/userscripts/blob/main/src/npm-trusted-publisher.md (Userscript to fill the form for Trusted Publisher on npmjs.com)
+- <https://github.com/antfu/open-packages-on-npm> (CLI to setup Trusted Publisher for monorepo packages)
+- <https://github.com/sxzz/userscripts/blob/main/src/npm-trusted-publisher.md> (Userscript to fill the form for Trusted Publisher on npmjs.com)
 
 ### 10. Review Published Files
 
 > Limiting the files in an npm package helps prevent malware by reducing the attack surface, and it avoids accidental leaking of sensitive data
 
-The `files` field in `package.json` is used to specify the files that should be included in the published package. Certain files are always included, see: https://docs.npmjs.com/cli/v11/configuring-npm/package-json#files for more details.
+The `files` field in `package.json` is used to specify the files that should be included in the published package. Certain files are always included, see: <https://docs.npmjs.com/cli/v11/configuring-npm/package-json#files> for more details.
 
 ```json
 {
@@ -519,7 +519,7 @@ In `deno.json`, use the `publish.include` and `publish.exclude` fields to specif
 
 ### 11. NPM Organization
 
-https://docs.npmjs.com/organizations
+<https://docs.npmjs.com/organizations>
 
 At the organization level, best practices are:
 
@@ -535,7 +535,7 @@ JSR is a modern JavaScript/TypeScript package registry with backwards compatibil
 > [!NOTE]
 > Not all npm packages are on JSR!
 >
-> Visit https://jsr.io to see if the package is available and read the [npm limitations](https://jsr.io/docs/npm-compatibility#limitations) documentation.
+> Visit <https://jsr.io> to see if the package is available and read the [npm limitations](https://jsr.io/docs/npm-compatibility#limitations) documentation.
 
 ```sh
 deno add jsr:<package-name>
@@ -551,19 +551,21 @@ npx jsr add <package-name> # replace npx with yarn dlx, pnpm dlx, or bunx
 
 Here are some private registries that you might find useful:
 
-- GitHub Packages https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry
+- GitHub Packages <https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry>
+
 > [!IMPORTANT]
-> Currently, GitHub Packages only supports personal access token (classic), but classic PATs can be insecure as it has broad permissions and lacks of granular permissions![^24][^25] 
+> Currently, GitHub Packages only supports personal access token (classic), but classic PATs can be insecure as it has broad permissions and lacks of granular permissions![^24][^25]
 > For this reason, you may want to pick an alternative package registry from below ⬇️
-- Verdaccio https://github.com/verdaccio/verdaccio
-  - See Verdaccio best practices: https://verdaccio.org/docs/best/
-- Vlt https://www.vlt.sh/
+
+- Verdaccio <https://github.com/verdaccio/verdaccio>
+  - See Verdaccio best practices: <https://verdaccio.org/docs/best/>
+- Vlt <https://www.vlt.sh/>
   - [vlt’s Serverless Registry](https://docs.vlt.sh/registry) (VSR) can be deployed to Cloudflare Workers in minutes.
-- JFrog Artifactory https://jfrog.com/integrations/npm-registry
-- Sonatype: https://help.sonatype.com/en/npm-registry.html
+- JFrog Artifactory <https://jfrog.com/integrations/npm-registry>
+- Sonatype: <https://help.sonatype.com/en/npm-registry.html>
 
 > [!TIP]
-> **No Registry?** If the usage of a public registry like `npm` is a real concern, it is also possible to build and import the library yourself as long as you have access to the source code. See https://boda.sh/blog/pnpm-workspace-git-submodules/ for adding packages without `npm` but with `pnpm workspace` and `git submodules`.
+> **No Registry?** If the usage of a public registry like `npm` is a real concern, it is also possible to build and import the library yourself as long as you have access to the source code. See <https://boda.sh/blog/pnpm-workspace-git-submodules/> for adding packages without `npm` but with `pnpm workspace` and `git submodules`.
 
 ### 13. Audit, Monitor and Security Tools
 
@@ -589,11 +591,11 @@ yarn npm audit --recursive # audit transitive dependencies
 ```
 
 > [!TIP]
-> There is a `npm sbom` command (https://docs.npmjs.com/cli/v11/commands/npm-sbom) that output SBOM which is often required for security auditing. See related [`pnpm` SBOM discussion](https://github.com/pnpm/pnpm/issues/9088).
+> There is a `npm sbom` command (<https://docs.npmjs.com/cli/v11/commands/npm-sbom>) that output SBOM which is often required for security auditing. See related [`pnpm` SBOM discussion](https://github.com/pnpm/pnpm/issues/9088).
 
 #### GitHub
 
-> https://github.com/security
+> <https://github.com/security>
 
 GitHub offers several services that can help protect against `npm` malwares, including:
 
@@ -604,12 +606,12 @@ GitHub offers several services that can help protect against `npm` malwares, inc
 > [!WARNING]
 > If you spot vulnerabilities or issues in NPM or Github, please report them using the following links:
 >
-> - https://docs.npmjs.com/reporting-malware-in-an-npm-package
-> - https://docs.github.com/en/communities/maintaining-your-safety-on-github/reporting-abuse-or-spam#reporting-a-repository
+> - <https://docs.npmjs.com/reporting-malware-in-an-npm-package>
+> - <https://docs.github.com/en/communities/maintaining-your-safety-on-github/reporting-abuse-or-spam#reporting-a-repository>
 
 #### OpenSSF Scorecard
 
-> https://securityscorecards.dev and https://github.com/ossf/scorecard
+> <https://securityscorecards.dev> and <https://github.com/ossf/scorecard>
 
 Free and open source automated tool that assesses a number of important heuristics ("checks") associated with software security and assigns each check a score of 0-10. Several risks mentioned in this repository are included as part of the checks: Pinned Dependencies, Token Permissions, Packaging, Signed Releases,...
 
@@ -620,21 +622,21 @@ Run the checks:
 
 #### Socket.dev
 
-> https://socket.dev
+> <https://socket.dev>
 
 Socket.dev is a security platform that protects code from both vulnerable and malicious dependencies. It offers various tools such as a [GitHub App](https://socket.dev/features/github) scans pull requests, [CLI tool](https://socket.dev/features/cli), [web extension](https://socket.dev/features/web-extension), [VSCode extension](https://docs.socket.dev/docs/socket-for-vs-code) and more. Here's their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY). Plus the Socket Firewall `sfw` tool in the [Preinstall Scanners section](https://github.com/bodadotsh/npm-security-best-practices/tree/main?tab=readme-ov-file#preinstall-scanners).
 
 #### Snyk
 
-> https://snyk.io
+> <https://snyk.io>
 
 Snyk offers a suite of tools to fix vulnerabilities in open source dependencies, including a CLI to run vulnerability scans on local machine, IDE integrations to embed into development environment, and API to integrate with Snyk programmatically. For example, you can [test public npm packages before use](https://docs.snyk.io/developer-tools/snyk-cli/scan-and-maintain-projects-using-the-cli/test-public-npm-packages-before-use) or [create automatic PRs for known vulnerabilities](https://docs.snyk.io/scan-with-snyk/pull-requests/snyk-pull-or-merge-requests/create-automatic-prs-for-backlog-issues-and-known-vulnerabilities-backlog-prs).
 
 #### FOSSA
 
-> https://fossa.com/ 
+> <https://fossa.com/>
 
-FOSSA is a compliance and security platform that helps organizations manage the complexities of their software supply chain. It achieves this by providing visibility into all software components, from [packages and containers to binaries](https://fossa.com/products/scan/). By generating comprehensive SBOMs (Software Bill of Materials), companies reduce legal and IP risk, consolidate vulnerability management across their codebase, and [comply with regulatory reporting requirements](https://fossa.com/solutions/due-diligence/). 
+FOSSA is a compliance and security platform that helps organizations manage the complexities of their software supply chain. It achieves this by providing visibility into all software components, from [packages and containers to binaries](https://fossa.com/products/scan/). By generating comprehensive SBOMs (Software Bill of Materials), companies reduce legal and IP risk, consolidate vulnerability management across their codebase, and [comply with regulatory reporting requirements](https://fossa.com/solutions/due-diligence/).
 
 ### 14. Support OSS
 
@@ -644,68 +646,68 @@ FOSSA is a compliance and security platform that helps organizations manage the 
 
 > OSS donations also help create a more sustainable model for open-source development. Foundations can help support the business, marketing, legal, technical assistance and direct support behind hundreds of open source projects that so many rely upon[^15][^16].
 
-In the JavaScript ecosystem, the OpenJS Foundation (https://openjsf.org) was founded in 2019 from a merger of JS Foundation and Node.js Foundation to support some of the most important JS projects. And few other platforms are listed below where you can donate and support the OSS you use everyday:
+In the JavaScript ecosystem, the OpenJS Foundation (<https://openjsf.org>) was founded in 2019 from a merger of JS Foundation and Node.js Foundation to support some of the most important JS projects. And few other platforms are listed below where you can donate and support the OSS you use everyday:
 
-- GitHub Sponsors https://github.com/sponsors
-- Open Collective https://opencollective.com
-- Thanks.dev https://thanks.dev
-- Open Source Pledge https://opensourcepledge.com
-- Ecosystem Funds: https://funds.ecosyste.ms
+- GitHub Sponsors <https://github.com/sponsors>
+- Open Collective <https://opencollective.com>
+- Thanks.dev <https://thanks.dev>
+- Open Source Pledge <https://opensourcepledge.com>
+- Ecosystem Funds: <https://funds.ecosyste.ms>
 
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=bodadotsh/npm-security-best-practices&type=date&legend=top-left)](https://www.star-history.com/#bodadotsh/npm-security-best-practices&type=date&legend=top-left)
 
-[^1]: https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised
+[^1]: <https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised>
 
-[^2]: https://socket.dev/blog/nx-packages-compromised
+[^2]: <https://socket.dev/blog/nx-packages-compromised>
 
-[^3]: https://socket.dev/blog/ongoing-supply-chain-attack-targets-crowdstrike-npm-packages
+[^3]: <https://socket.dev/blog/ongoing-supply-chain-attack-targets-crowdstrike-npm-packages>
 
-[^4]: https://www.reversinglabs.com/blog/malicious-npm-patch-delivers-reverse-shell
+[^4]: <https://www.reversinglabs.com/blog/malicious-npm-patch-delivers-reverse-shell>
 
-[^5]: https://socket.dev/blog/north-korean-apt-lazarus-targets-developers-with-malicious-npm-package
+[^5]: <https://socket.dev/blog/north-korean-apt-lazarus-targets-developers-with-malicious-npm-package>
 
-[^6]: https://socket.dev/blog/npm-registry-spam-john-wick
+[^6]: <https://socket.dev/blog/npm-registry-spam-john-wick>
 
-[^7]: https://github.com/duckdb/duckdb-node/security/advisories/GHSA-w62p-hx95-gf2c
+[^7]: <https://github.com/duckdb/duckdb-node/security/advisories/GHSA-w62p-hx95-gf2c>
 
-[^8]: https://en.wikipedia.org/wiki/Npm_left-pad_incident
+[^8]: <https://en.wikipedia.org/wiki/Npm_left-pad_incident>
 
-[^9]: https://socket.dev/blog/when-everything-becomes-too-much
+[^9]: <https://socket.dev/blog/when-everything-becomes-too-much>
 
-[^10]: https://nodejs.org/en/learn/typescript/run-natively
+[^10]: <https://nodejs.org/en/learn/typescript/run-natively>
 
-[^11]: https://libraries.io/npm
+[^11]: <https://libraries.io/npm>
 
-[^12]: https://www.theregister.com/2016/03/29/npmgate_followup
+[^12]: <https://www.theregister.com/2016/03/29/npmgate_followup>
 
-[^13]: https://github.com/dominictarr/event-stream/issues/116
+[^13]: <https://github.com/dominictarr/event-stream/issues/116>
 
-[^14]: https://en.wikipedia.org/wiki/XZ_Utils_backdoor
+[^14]: <https://en.wikipedia.org/wiki/XZ_Utils_backdoor>
 
-[^15]: https://openssf.org/blog/2024/04/15/open-source-security-openssf-and-openjs-foundations-issue-alert-for-social-engineering-takeovers-of-open-source-projects/
+[^15]: <https://openssf.org/blog/2024/04/15/open-source-security-openssf-and-openjs-foundations-issue-alert-for-social-engineering-takeovers-of-open-source-projects/>
 
-[^16]: https://xkcd.com/2347
+[^16]: <https://xkcd.com/2347>
 
-[^17]: https://docs.npmjs.com/trusted-publishers#prefer-trusted-publishing-over-tokens
+[^17]: <https://docs.npmjs.com/trusted-publishers#prefer-trusted-publishing-over-tokens>
 
-[^18]: https://stackoverflow.com/questions/54124033/deleting-package-lock-json-to-resolve-conflicts-quickly
+[^18]: <https://stackoverflow.com/questions/54124033/deleting-package-lock-json-to-resolve-conflicts-quickly>
 
-[^19]: https://pnpm.io/git#merge-conflicts
+[^19]: <https://pnpm.io/git#merge-conflicts>
 
-[^20]: https://news.ycombinator.com
+[^20]: <https://news.ycombinator.com>
 
-[^21]: https://socket.dev/blog
+[^21]: <https://socket.dev/blog>
 
-[^22]: https://www.aikido.dev/blog
+[^22]: <https://www.aikido.dev/blog>
 
-[^23]: https://www.wiz.io/blog
+[^23]: <https://www.wiz.io/blog>
 
-[^24]: https://github.com/github/roadmap/issues/558
+[^24]: <https://github.com/github/roadmap/issues/558>
 
-[^25]: https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries
+[^25]: <https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages#about-scopes-and-permissions-for-package-registries>
 
-[^26]: https://nesbitt.io/2025/12/06/github-actions-package-manager.html#:~:text=The%20fix%20is%20a%20lockfile
+[^26]: <https://nesbitt.io/2025/12/06/github-actions-package-manager.html#:~:text=The%20fix%20is%20a%20lockfile>
 
-[^27]: https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/
+[^27]: <https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/>

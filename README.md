@@ -29,16 +29,17 @@
   - [4. Preinstall preventions](#4-preinstall-preventions)
   - [5. Runtime protections](#5-runtime-protections)
   - [6. Reduce external dependencies](#6-reduce-external-dependencies)
+  - [7. Isolated development](#7-isolated-development)
 - [For Maintainers](#for-maintainers)
-  - [7. Enable 2FA](#7-enable-2fa)
-  - [8. Create tokens with limited access](#8-create-tokens-with-limited-access)
-  - [9. Generate provenance statements](#9-generate-provenance-statements)
-  - [10. Review published files](#10-review-published-files)
+  - [8. Enable 2FA](#8-enable-2fa)
+  - [9. Create tokens with limited access](#9-create-tokens-with-limited-access)
+  - [10. Generate provenance statements](#10-generate-provenance-statements)
+  - [11. Review published files](#11-review-published-files)
 - [Miscellaneous](#miscellaneous)
-  - [11. NPM organization](#11-npm-organization)
-  - [12. Alternative registry](#12-alternative-registry)
-  - [13. Audit, monitor and security tools](#13-audit-monitor-and-security-tools)
-  - [14. Support OSS](#14-support-oss)
+  - [12. NPM organization](#12-npm-organization)
+  - [13. Alternative registry](#13-alternative-registry)
+  - [14. Audit, monitor and security tools](#14-audit-monitor-and-security-tools)
+  - [15. Support OSS](#15-support-oss)
 
 ## Got Compromised?
 
@@ -383,9 +384,23 @@ Here are some resources that you might find useful:
 - Knip (remove unused dependencies): <https://github.com/webpro-nl/knip>
 - Erase unwanted `node_modules` with [`npkill`](https://github.com/voidcosmos/npkill): `cd ~ && npx npkill`
 
+### 7. Isolated development
+
+Developing code in an isolated environment is a popular and effective way of preventing supply-chain attacks. Some wellknown local virtual machines (VMs) solutions are: [VirtualBox](https://www.virtualbox.org/), [VMware Fusion](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion), [Parallels Desktop](https://www.parallels.com/), and [OrbStack](https://orbstack.dev/).
+
+> Example of [Mitchell Hashimoto](https://github.com/mitchellh) running NixOS through VMware Fusion on macOS: <https://youtu.be/ubDMLoWz76U>
+
+Cloud sandbox also offer an easier setup path and can be used directly within browsers, popular products are: [CodeSandbox](https://codesandbox.io), [Ona (prev Gitpod)](https://ona.com/), [GitHub Codespaces](https://github.com/features/codespaces), and many more.
+
+Container-based development are also gaining adoptions, especially with the [Development Containers](https://containers.dev/) specification that is focused on enriching containers with development specific content and settings.
+
+> Great tutorial by [CJ](https://github.com/w3cj) on setting up dev container: <https://youtu.be/kPMA9cnpScU?t=100>
+
+If you know any great tips or feedback, [join the discussion](https://github.com/bodadotsh/npm-security-best-practices/issues/3) here!
+
 ## For Maintainers
 
-### 7. Enable 2FA
+### 8. Enable 2FA
 
 <https://docs.npmjs.com/about-two-factor-authentication>
 
@@ -405,7 +420,7 @@ npm profile enable-2fa auth-and-writes
 >
 > It is advised to configure a security-key that support [WebAuthn](https://caniuse.com/?search=webauthn), instead of time-based one-time password (TOTP)[^17]
 
-### 8. Create Tokens with Limited Access
+### 9. Create Tokens with Limited Access
 
 > [!TIP]
 >
@@ -428,7 +443,7 @@ Here are some best practices when creating tokens:
 - Select between read-only or read and write access
 - Don't use the same token for multiple purposes
 
-### 9. Generate Provenance Statements
+### 10. Generate Provenance Statements
 
 <https://docs.npmjs.com/generating-provenance-statements>
 
@@ -471,7 +486,7 @@ Related tools:
 - <https://github.com/antfu/open-packages-on-npm> (CLI to setup Trusted Publisher for monorepo packages)
 - <https://github.com/sxzz/userscripts/blob/main/src/npm-trusted-publisher.md> (Userscript to fill the form for Trusted Publisher on npmjs.com)
 
-### 10. Review Published Files
+### 11. Review Published Files
 
 > Limiting the files in an npm package helps prevent malware by reducing the attack surface, and it avoids accidental leaking of sensitive data
 
@@ -517,7 +532,7 @@ In `deno.json`, use the `publish.include` and `publish.exclude` fields to specif
 
 ## Miscellaneous
 
-### 11. NPM Organization
+### 12. NPM Organization
 
 <https://docs.npmjs.com/organizations>
 
@@ -528,7 +543,7 @@ At the organization level, best practices are:
 - If multiple package teams in same organization, set the `developers` Team permission for all packages to `READ`
 - Create separate Teams to manage permissions for each package
 
-### 12. Alternative Registry
+### 13. Alternative Registry
 
 JSR is a modern JavaScript/TypeScript package registry with backwards compatibility with npm.
 
@@ -567,7 +582,7 @@ Here are some private registries that you might find useful:
 > [!TIP]
 > **No Registry?** If the usage of a public registry like `npm` is a real concern, it is also possible to build and import the library yourself as long as you have access to the source code. See <https://boda.sh/blog/pnpm-workspace-git-submodules/> for adding packages without `npm` but with `pnpm workspace` and `git submodules`.
 
-### 13. Audit, Monitor and Security Tools
+### 14. Audit, Monitor and Security Tools
 
 #### Audit
 
@@ -638,7 +653,7 @@ Snyk offers a suite of tools to fix vulnerabilities in open source dependencies,
 
 FOSSA is a compliance and security platform that helps organizations manage the complexities of their software supply chain. It achieves this by providing visibility into all software components, from [packages and containers to binaries](https://fossa.com/products/scan/). By generating comprehensive SBOMs (Software Bill of Materials), companies reduce legal and IP risk, consolidate vulnerability management across their codebase, and [comply with regulatory reporting requirements](https://fossa.com/solutions/due-diligence/).
 
-### 14. Support OSS
+### 15. Support OSS
 
 > Maintainer burnout is a significant problem in the open-source community. Many popular `npm` packages are maintained by volunteers who work in their spare time, often without any compensation. Over time, this can lead to exhaustion and a lack of motivation, making them more susceptible to social engineering where a malicious actor pretends to be a helpful contributor and eventually injects malicious code.
 

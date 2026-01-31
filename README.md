@@ -50,7 +50,7 @@
 >
 > **Identify compromised packages**
 >
-> Keep up with the latest updates about the attack from trusted newsfeed[^20][^21][^22][^23].
+> Keep up to update from trusted newsfeed[^20][^21][^22][^23]. My personal choice is <https://socket.dev/blog>. The Socket team has done a great job in posting high quality blogs about all the latest news in the ecosystem.
 >
 > Confirm with vulnerability databases like <https://security.snyk.io> or <https://socket.dev/search?e=npm>
 >

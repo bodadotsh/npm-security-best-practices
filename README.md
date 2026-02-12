@@ -115,7 +115,7 @@ Pick the best practices below based on your needs to strengthen your system agai
 > [!IMPORTANT]
 > Before installing any external dependencies, it's always best to validate it against multiple metrics (security, size, health, etc). The npmjs.com suggest a list of sources, or use a modern registry browser like https://npmx.dev and its features like [detailed package packages](https://npmx.dev/package/react), [compare](https://npmx.dev/compare), [source code and more](https://docs.npmx.dev/guide/features). 
 >
-> <img width="30%" alt="npmjs.com package page options" src="https://github.com/user-attachments/assets/fe67c51f-0e1e-4fea-94c2-37ac0bcce1fb" /><a href="https://npmx.dev/compare" target="_blank" rel="noopener noreferrer"><img width="70%" alt="npmx.dev compare page" src="https://github.com/user-attachments/assets/fc6908f0-461b-46ed-b3a8-50d8d1d478db" /></a>
+> <img width="723" height="709" alt="npmjs.com and npmx.dev comparison" src="https://github.com/user-attachments/assets/53369e18-6c63-43ed-9231-6de959366c2b" />
 
 ### 1. Pin Dependency Versions
 

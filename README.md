@@ -23,6 +23,7 @@
 - [Got Compromised?](#got-compromised)
   - [Immediate actions to take](#immediate-actions-to-take)
 - [For Developers](#for-developers)
+  - [0. Know thy package](#0-know-thy-package) 
   - [1. Pin dependency versions](#1-pin-dependency-versions)
   - [2. Include lockfiles](#2-include-lockfiles)
   - [3. Disable lifecycle scripts](#3-disable-lifecycle-scripts)
@@ -108,6 +109,13 @@ Pick the best practices below based on your needs to strengthen your system agai
 > - [`pnpm-workspace.yaml`](pnpm-workspace.yaml)
 > - [`deno.json`](deno.json)
 > - [`.yarnrc.yml`](.yarnrc.yml)
+
+### 0. Know Thy Package
+
+> [!IMPORTANT]
+> Before installing any external dependencies, it's always best to validate it against multiple metrics (security, size, health, etc). The npmjs.com suggest a list of sources, or use a modern registry browser like https://npmx.dev and its features like detailed package packages, compare, source code and more. 
+>
+> <img width="30%" alt="npmjs.com package page options" src="https://github.com/user-attachments/assets/fe67c51f-0e1e-4fea-94c2-37ac0bcce1fb" /><a href="https://npmx.dev/compare" target="_blank" rel="noopener noreferrer"><img width="70%" alt="npmx.dev compare page" src="https://github.com/user-attachments/assets/fc6908f0-461b-46ed-b3a8-50d8d1d478db" /></a>
 
 ### 1. Pin Dependency Versions
 

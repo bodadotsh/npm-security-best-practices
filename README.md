@@ -380,6 +380,9 @@ Between `nodejs`, `bun` and `deno`, developers can use many of their modern feat
 | `esbuild`, `rollup`, etc          | `bun build` and `deno bundle`                                      |
 | `prettier`, `eslint`, etc         | `deno lint` and `deno fmt`                                         |
 
+> [!TIP]
+> Check out <https://github.com/es-tooling/module-replacements> where they have an excellent list of module replacements (i.e. possible alternative packages).
+
 Here are some resources that you might find useful:
 
 - <https://obsidian.md/blog/less-is-safer>

@@ -368,7 +368,7 @@ Companies like MetaMask and Moddable uses <https://www.npmjs.com/package/ses> an
 
 > Because `npm` has a low barrier for publishing packages, the ecosystem quickly grew to be the biggest package registry with over 5 million packages to date[^11]. But not all packages are created equal. There are small utility packages[^8] that are downloaded as dependencies when we could write them ourselves and raise the question of "have we forgotten how to code?[^12]"
 
-Between `nodejs`, `bun` and `deno`, developers can use many of their modern features instead of relying on third-party libraries. The native modules may not provide the same level of functionality, but they should be considered whenever possible. Here are few examples:
+Between `nodejs`, `bun`, `deno` and the Web APIs, developers can use many of their modern features instead of relying on third-party libraries. The native modules may not provide the same level of functionality, but they should be considered whenever possible. Here are few examples:
 
 | NPM libraries                     | Built-in modules                                                   |
 | --------------------------------- | ------------------------------------------------------------------ |

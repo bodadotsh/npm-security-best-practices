@@ -186,7 +186,15 @@ yarn set resolution <descriptor> <resolution>
 
 For `bun`, it supports either the `overrides` field or the `resolutions` field: <https://bun.com/docs/install/overrides>
 
-For `deno`, see <https://github.com/denoland/deno/issues/28664> for more details.
+For `deno` and `deno.json`, see <https://docs.deno.com/runtime/fundamentals/modules/#overriding-dependencies>:
+
+```json
+{
+  "links": [
+    "../path/to/local_npm_package"
+  ]
+}
+```
 
 ### 2. Include Lockfiles
 

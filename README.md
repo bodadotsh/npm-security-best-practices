@@ -257,8 +257,7 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 
 #### Preinstall Scanners
 
-> Socket Firewall Free
-> <https://socket.dev/blog/introducing-socket-firewall>
+Socket Firewall Free <https://socket.dev/blog/introducing-socket-firewall>
 
 ```sh
 npm i -g sfw
@@ -269,8 +268,15 @@ sfw npm install <package-name>
 # echo "alias npm='sfw npm'" >> ~/.zshrc
 ```
 
-> Aikido Safe Chain
-> <https://github.com/AikidoSec/safe-chain>
+brin (from superagent.sh) <https://github.com/superagent-ai/brin>
+
+Safe packge installations especially for the agents era
+
+```sh
+npm install -g brin
+```
+
+Aikido Safe Chain <https://github.com/AikidoSec/safe-chain>
 
 The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `bun`, `bunx`, and `pip` to provide extra checks before installing new packages
 
@@ -278,7 +284,7 @@ The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `
 npm install -g @aikidosec/safe-chain
 ```
 
-> <https://github.com/lirantal/npq>
+<https://github.com/lirantal/npq>
 
 ```sh
 npq install express

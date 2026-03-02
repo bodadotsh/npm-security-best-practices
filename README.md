@@ -119,6 +119,9 @@ Pick the best practices below based on your needs to strengthen your system agai
 
 ### 1. Pin Dependency Versions
 
+> [!TIP]
+> It is debatable whether pinning versions is a best practice. There are sound basis on either side. Here, I am following the best practice suggested by the node.js security best practices[^28]. But feel free to [join the discussion](https://github.com/bodadotsh/npm-security-best-practices/issues/14) to see why you may not want to pin exact versions.
+
 > On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.6.2`, etc. See <https://docs.npmjs.com/about-semantic-versioning> and try out the npm SemVer Calculator (<https://semver.npmjs.com>).
 
 Here's how to pin exact version in various package managers:
@@ -745,3 +748,5 @@ In the JavaScript ecosystem, the OpenJS Foundation (<https://openjsf.org>) was f
 [^26]: <https://nesbitt.io/2025/12/06/github-actions-package-manager.html#:~:text=The%20fix%20is%20a%20lockfile>
 
 [^27]: <https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/>
+
+[^28]: <https://nodejs.org/en/learn/getting-started/security-best-practices#supply-chain-attacks>

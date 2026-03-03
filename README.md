@@ -310,30 +310,22 @@ scanner = "@socketsecurity/bun-security-scanner"
 > We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the `minimumReleaseAge` option: <https://pnpm.io/settings#minimumreleaseage>, which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
 
 ```sh
-npm install --before=2025-10-22
-# only install packages published at least 1 day ago
-npm install --before="$(date -v -1d)"                               # for Mac or BSD users
-npm install --before="$(date -d '1 days ago' +%Y-%m-%dT%H:%M:%S%z)" # for Linux users
+# since npm v11.10.0
+npm config set min-release-age=7
+npm install --min-release-age=7
 
-# other related flags: minimumReleaseAgeExclude
+bun add <package> --minimum-release-age <seconds>
+
 pnpm config set minimumReleaseAge <minutes>
 
-# other related flags: npmPreapprovedPackages
 yarn config set npmMinimalAgeGate <minutes>
+
+deno install --minimum-dependency-age=P7D
 ```
 
-For `npm`, there is [a proposal](https://github.com/npm/cli/issues/8570) to add `minimumReleaseAge` option and `minimumReleaseAgeExclude` option.
+See [.npmrc](./npmrc), [.yarnrc.yml](.yarnrc.yml), [bunfig.toml](./bunfig.toml), [deno.json](./deno.json) for sample config files.
 
-For `bun`, the `minimumReleaseAge` and `minimumReleaseAgeExcludes` options are supported since [`v1.3`](https://bun.com/docs/cli/install#minimum-release-age).
-
-```toml
-[install]
-minimumReleaseAge = 604800 # 7 days in seconds
-```
-
-For `deno`, they will soon ship a similar feature: <https://github.com/denoland/deno/pull/30752>
-
-Examples of other tools that offer similar functionality:
+Examples of other tools that offer similar functionalities:
 
 - `npm-check-updates` (<https://github.com/raineorshine/npm-check-updates>) has the `--cooldown/-c` flag, for example: `npx npm-check-updates -i --format group -c 7`
 - Renovate CLI (<https://github.com/renovatebot/renovate>) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.

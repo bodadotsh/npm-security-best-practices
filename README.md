@@ -323,7 +323,7 @@ yarn config set npmMinimalAgeGate <minutes>
 deno install --minimum-dependency-age=P7D
 ```
 
-See [.npmrc](./npmrc), [.yarnrc.yml](.yarnrc.yml), [bunfig.toml](./bunfig.toml), [deno.json](./deno.json) for sample config files.
+See [.npmrc](.npmrc), [.yarnrc.yml](.yarnrc.yml), [bunfig.toml](bunfig.toml), [deno.json](deno.json) for sample config files.
 
 Examples of other tools that offer similar functionalities:
 

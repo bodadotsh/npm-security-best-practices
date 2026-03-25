@@ -119,6 +119,9 @@ Pick the best practices below based on your needs to strengthen your system agai
 
 ### 1. Pin Dependency Versions
 
+> [!TIP]
+> It is debatable whether pinning versions is a best practice. There are sound basis on either side. Here, I am following the best practice suggested by the node.js security best practices[^28]. But feel free to [join the discussion](https://github.com/bodadotsh/npm-security-best-practices/issues/14) to see why you may not want to pin exact versions.
+
 > On `npm`, by default, a new dependency will be installed with the Caret `^` operator. This operator installs the most recent `minor` or `patch` releases. E.g., `^1.2.3` will install `1.2.3`, `1.6.2`, etc. See <https://docs.npmjs.com/about-semantic-versioning> and try out the npm SemVer Calculator (<https://semver.npmjs.com>).
 
 Here's how to pin exact version in various package managers:
@@ -186,7 +189,15 @@ yarn set resolution <descriptor> <resolution>
 
 For `bun`, it supports either the `overrides` field or the `resolutions` field: <https://bun.com/docs/install/overrides>
 
-For `deno`, see <https://github.com/denoland/deno/issues/28664> for more details.
+For `deno` and `deno.json`, see <https://docs.deno.com/runtime/fundamentals/modules/#overriding-dependencies>:
+
+```json
+{
+  "links": [
+    "../path/to/local_npm_package"
+  ]
+}
+```
 
 ### 2. Include Lockfiles
 
@@ -246,8 +257,7 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 
 #### Preinstall Scanners
 
-> Socket Firewall Free
-> <https://socket.dev/blog/introducing-socket-firewall>
+Socket Firewall Free <https://socket.dev/blog/introducing-socket-firewall>
 
 ```sh
 npm i -g sfw
@@ -258,8 +268,15 @@ sfw npm install <package-name>
 # echo "alias npm='sfw npm'" >> ~/.zshrc
 ```
 
-> Aikido Safe Chain
-> <https://github.com/AikidoSec/safe-chain>
+brin (from superagent.sh) <https://github.com/superagent-ai/brin>
+
+Safe packge installations especially for the agents era
+
+```sh
+npm install -g brin
+```
+
+Aikido Safe Chain <https://github.com/AikidoSec/safe-chain>
 
 The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `bun`, `bunx`, and `pip` to provide extra checks before installing new packages
 
@@ -267,7 +284,7 @@ The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `
 npm install -g @aikidosec/safe-chain
 ```
 
-> <https://github.com/lirantal/npq>
+<https://github.com/lirantal/npq>
 
 ```sh
 npq install express
@@ -293,30 +310,22 @@ scanner = "@socketsecurity/bun-security-scanner"
 > We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the `minimumReleaseAge` option: <https://pnpm.io/settings#minimumreleaseage>, which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
 
 ```sh
-npm install --before=2025-10-22
-# only install packages published at least 1 day ago
-npm install --before="$(date -v -1d)"                               # for Mac or BSD users
-npm install --before="$(date -d '1 days ago' +%Y-%m-%dT%H:%M:%S%z)" # for Linux users
+# since npm v11.10.0
+npm config set min-release-age=7
+npm install --min-release-age=7
 
-# other related flags: minimumReleaseAgeExclude
+bun add <package> --minimum-release-age <seconds>
+
 pnpm config set minimumReleaseAge <minutes>
 
-# other related flags: npmPreapprovedPackages
 yarn config set npmMinimalAgeGate <minutes>
+
+deno install --minimum-dependency-age=P7D
 ```
 
-For `npm`, there is [a proposal](https://github.com/npm/cli/issues/8570) to add `minimumReleaseAge` option and `minimumReleaseAgeExclude` option.
+See [.npmrc](.npmrc), [.yarnrc.yml](.yarnrc.yml), [bunfig.toml](bunfig.toml), [deno.json](deno.json) for sample config files.
 
-For `bun`, the `minimumReleaseAge` and `minimumReleaseAgeExcludes` options are supported since [`v1.3`](https://bun.com/docs/cli/install#minimum-release-age).
-
-```toml
-[install]
-minimumReleaseAge = 604800 # 7 days in seconds
-```
-
-For `deno`, they will soon ship a similar feature: <https://github.com/denoland/deno/pull/30752>
-
-Examples of other tools that offer similar functionality:
+Examples of other tools that offer similar functionalities:
 
 - `npm-check-updates` (<https://github.com/raineorshine/npm-check-updates>) has the `--cooldown/-c` flag, for example: `npx npm-check-updates -i --format group -c 7`
 - Renovate CLI (<https://github.com/renovatebot/renovate>) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
@@ -743,3 +752,5 @@ In the JavaScript ecosystem, the OpenJS Foundation (<https://openjsf.org>) was f
 [^26]: <https://nesbitt.io/2025/12/06/github-actions-package-manager.html#:~:text=The%20fix%20is%20a%20lockfile>
 
 [^27]: <https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/>
+
+[^28]: <https://nodejs.org/en/learn/getting-started/security-best-practices#supply-chain-attacks>

@@ -3,6 +3,7 @@
 minimumReleaseAge: 1440
 savePrefix: ''
 strictDepBuilds: true
+blockExoticSubdeps: true
 trustPolicy: no-downgrade
 trustPolicyExclude:
   - chokidar@4.0.3

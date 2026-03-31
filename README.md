@@ -114,6 +114,12 @@ Pick the best practices below based on your needs to strengthen your system agai
 > - [`deno.json`](deno.json)
 > - [`.yarnrc.yml`](.yarnrc.yml)
 
+There's also a simple script `default.sh` that setup few sensible defaults across package managers for you:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.sh | bash
+```
+
 ### 0. Know Thy Package
 
 > [!IMPORTANT]

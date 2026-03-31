@@ -96,7 +96,7 @@ Pick the best practices below based on your needs to strengthen your system agai
 
 | Project | Weekly Downloads | Date of Compromise | Links |
 | --- | --- | --- | --- |
-| `axios` | 100M | 2026-03-31 | [Socket blog](https://socket.dev/blog/axios-npm-package-compromised) |
+| `axios` | 100M | 2026-03-31 | [Socket blog](https://socket.dev/blog/axios-npm-package-compromised), [StepSecurity blog](https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan) |
 
 ## For Developers
 

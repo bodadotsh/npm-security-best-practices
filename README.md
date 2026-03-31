@@ -73,7 +73,7 @@
 >
 > Downgrade and pin dependencies to a known clean version, or remove them entirely.
 >
-> Remove `node_modules` folders from system: `cd ~ && npx npkill`, for example: `npx npkill --delete-all`.
+> Remove `node_modules` folders from system: `cd ~ && npx npkill`, for example: `npx npkill --delete-all` or without `npkill`: `find . -name 'node_modules' -type d -prune -print -exec trash '{}' \;`
 >
 > **Restrict or disable automated scripts**
 >

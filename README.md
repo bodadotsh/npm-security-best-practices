@@ -313,14 +313,13 @@ scanner = "@socketsecurity/bun-security-scanner"
 
 ```sh
 # since npm v11.10.0
-npm config set min-release-age=7
-npm install --min-release-age=7
+npm config set min-release-age=7 --global
 
 bun add <package> --minimum-release-age <seconds>
 
-pnpm config set minimumReleaseAge <minutes>
+pnpm config set minimumReleaseAge <minutes> --global
 
-yarn config set npmMinimalAgeGate <minutes>
+yarn config set -H npmMinimalAgeGate '7d'
 
 deno install --minimum-dependency-age=P7D
 ```

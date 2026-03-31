@@ -52,9 +52,7 @@
 >
 > **Identify compromised packages**
 >
-> Keep up to update from trusted newsfeed[^20][^21][^22][^23]. My personal choice is <https://socket.dev/blog>. The Socket team has done a great job in posting high quality blogs about all the latest news in the ecosystem.
->
-> Confirm with vulnerability databases like <https://security.snyk.io> or <https://socket.dev/search?e=npm>
+> Keep up to update from trusted newsfeed[^20][^21][^22][^23]. My personal choice is <https://socket.dev/blog>. Confirm with vulnerability databases like <https://security.snyk.io> or <https://socket.dev/search?e=npm>
 >
 > **Remove and replace compromised packages**
 >
@@ -81,8 +79,7 @@
 >
 > **Rotate all credentials**
 >
-> Supply chain attacks often targets credentials in the system.
-> Revoke and regenerate `npm` tokens, GitHub PATs, SSH keys, and cloud provider credentials.
+> Supply chain attacks often targets credentials in the system. Revoke and regenerate `npm` tokens, GitHub PATs, SSH keys, and cloud provider credentials.
 >
 > **Monitoring suspicious activities**
 >

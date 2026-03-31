@@ -22,8 +22,9 @@
 
 - [Got Compromised?](#got-compromised)
   - [Immediate actions to take](#immediate-actions-to-take)
+  - [Case Studies](#case-studies)
 - [For Developers](#for-developers)
-  - [0. Know thy package](#0-know-thy-package) 
+  - [0. Know thy package](#0-know-thy-package)
   - [1. Pin dependency versions](#1-pin-dependency-versions)
   - [2. Include lockfiles](#2-include-lockfiles)
   - [3. Disable lifecycle scripts](#3-disable-lifecycle-scripts)
@@ -91,6 +92,12 @@
 
 Pick the best practices below based on your needs to strengthen your system against the next attack.
 
+### Case Studies
+
+| Project | Weekly Downloads | Date of Compromise | Links |
+| --- | --- | --- | --- |
+| `axios` | 100M | 2026-03-31 | [Socket blog](https://socket.dev/blog/axios-npm-package-compromised) |
+
 ## For Developers
 
 > [!TIP]
@@ -110,16 +117,10 @@ Pick the best practices below based on your needs to strengthen your system agai
 > - [`deno.json`](deno.json)
 > - [`.yarnrc.yml`](.yarnrc.yml)
 
-## Case Studies
-
-| Project | Weekly Downloads | Date of Compromise | Links |
-| --- | --- | --- | --- |
-| `axios` | 100M | 2026-03-31 | [Socket blog](https://socket.dev/blog/axios-npm-package-compromised) |
-
 ### 0. Know Thy Package
 
 > [!IMPORTANT]
-> Before installing any external dependencies, it's always best to validate it against multiple metrics (security, size, health, etc). The npmjs.com suggest a list of sources, or use a modern registry browser like https://npmx.dev and its features like [detailed package packages](https://npmx.dev/package/react), [compare](https://npmx.dev/compare), [source code and more](https://docs.npmx.dev/guide/features).
+> Before installing any external dependencies, it's always best to validate it against multiple metrics (security, size, health, etc). The npmjs.com suggest a list of sources, or use a modern registry browser like <https://npmx.dev> and its features like [detailed package packages](https://npmx.dev/package/react), [compare](https://npmx.dev/compare), [source code and more](https://docs.npmx.dev/guide/features).
 
 ### 1. Pin Dependency Versions
 

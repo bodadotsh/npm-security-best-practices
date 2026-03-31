@@ -22,13 +22,13 @@ Usage:
 Hosted usage (replace <URL> with your raw script URL):
   curl -fsSL "<URL>" | bash
 
-Behavior:
+Behaviour:
   - Applies npm settings: ignore-scripts=true and save-exact=true (global).
   - Tries npm min-release-age=<days> (global) and skips it if unsupported.
   - Applies pnpm setting: save-exact=true (global).
   - Tries pnpm minimumReleaseAge=<minutes> (global) and skips it if unsupported.
-  - Probes Yarn capabilities:
-    - If home-scoped config works, applies Berry settings: enableScripts=false and defaultSemverRangePrefix="".
+  - Yarn capabilities:
+    - If global-scoped config works, applies Berry settings: enableScripts=false and defaultSemverRangePrefix="".
     - Otherwise falls back to Yarn Classic settings: ignore-scripts=true and save-prefix="".
     - For Berry, also tries npmMinimalAgeGate=<minutes> and skips it if unsupported.
   - Checks Bun config and prints a manual bunfig.toml snippet when exact=true or minimumReleaseAge=<seconds> is missing.
@@ -226,20 +226,32 @@ print_bun_manual_instructions() {
   fi
 }
 
-check_bun_settings() {
-  local bunfig_path
-  local min_release_age_seconds
+create_bunfig() {
+  local bunfig_path="$1"
+  local min_release_age_seconds="$2"
   local display_path
 
-  bunfig_path="$(resolve_bunfig_path)"
   display_path="$(tildify "$bunfig_path")"
+
+  if printf '[install]\nexact = true\nminimumReleaseAge = %s\n' "$min_release_age_seconds" >"$bunfig_path"; then
+    info "bun created $display_path"
+    did_apply=true
+    return 0
+  fi
+
+  error "failed to create $display_path"
+  had_failure=true
+  return 1
+}
+
+check_bun_settings() {
+  local bunfig_path="${HOME}/.bunfig.toml"
+  local min_release_age_seconds
   ensure_min_release_age_days
   min_release_age_seconds="$(days_to_seconds "$min_release_age_days")"
 
-  if bunfig_setting_matches "$bunfig_path" "exact" "true" &&
-    bunfig_setting_matches "$bunfig_path" "minimumReleaseAge" "$min_release_age_seconds"; then
-    info "bun $display_path already configured"
-    did_apply=true
+  if [ ! -f "$bunfig_path" ]; then
+    create_bunfig "$bunfig_path" "$min_release_age_seconds"
     return
   fi
 

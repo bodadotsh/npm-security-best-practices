@@ -17,7 +17,7 @@ readonly Dim='\033[0;2m'
 print_usage() {
   cat <<EOF
 Usage:
-  bash checker.sh
+  bash default.sh
 
 Hosted usage (replace <URL> with your raw script URL):
   curl -fsSL "<URL>" | bash

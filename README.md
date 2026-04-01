@@ -24,7 +24,7 @@
   - [Immediate actions to take](#immediate-actions-to-take)
   - [Case Studies](#case-studies)
 - [For Developers](#for-developers)
-  - [0. Know thy package](#0-know-thy-package)
+  - [0. Helper script](#0-helper-script)
   - [1. Pin dependency versions](#1-pin-dependency-versions)
   - [2. Include lockfiles](#2-include-lockfiles)
   - [3. Disable lifecycle scripts](#3-disable-lifecycle-scripts)
@@ -98,32 +98,29 @@ Pick the best practices below based on your needs to strengthen your system agai
 ## For Developers
 
 > [!TIP]
-> Here's a [sample `.npmrc` file](.npmrc) with the config options mentioned below:
->
-> ```txt
-> ignore-scripts=true
-> provenance=true
-> save-exact=true
-> save-prefix=''
-> ```
->
-> And other configuration files examples are here:
->
-> - [`bunfig.toml`](bunfig.toml)
-> - [`pnpm-workspace.yaml`](pnpm-workspace.yaml)
-> - [`deno.json`](deno.json)
-> - [`.yarnrc.yml`](.yarnrc.yml)
+> Highly recommend <https://npmx.dev> over npmjs.com, as it is a modern registry browser with features like [detailed package packages](https://npmx.dev/package/react), [compare](https://npmx.dev/compare), [source code and more](https://docs.npmx.dev/guide/features).
 
-There's also a simple script `default.sh` that setup few sensible defaults across package managers for you:
+### 0. Helper Script
+
+In this repository, there is a [sample `.npmrc` file](.npmrc) with safer configurations:
+
+```txt
+ignore-scripts=true
+save-exact=true
+provenance=true
+```
+
+And other configuration files examples are here:
+- [`bunfig.toml`](bunfig.toml)
+- [`pnpm-workspace.yaml`](pnpm-workspace.yaml)
+- [`deno.json`](deno.json)
+- [`.yarnrc.yml`](.yarnrc.yml)
+
+But there's also a helper script [`default.sh`](default.sh) that setup few global defaults across package managers to make your system safer:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.sh | bash
 ```
-
-### 0. Know Thy Package
-
-> [!IMPORTANT]
-> Before installing any external dependencies, it's always best to validate it against multiple metrics (security, size, health, etc). The npmjs.com suggest a list of sources, or use a modern registry browser like <https://npmx.dev> and its features like [detailed package packages](https://npmx.dev/package/react), [compare](https://npmx.dev/compare), [source code and more](https://docs.npmx.dev/guide/features).
 
 ### 1. Pin Dependency Versions
 
@@ -330,7 +327,8 @@ yarn config set -H npmMinimalAgeGate '7d'
 deno install --minimum-dependency-age=P7D
 ```
 
-See [.npmrc](.npmrc), [.yarnrc.yml](.yarnrc.yml), [bunfig.toml](bunfig.toml), [deno.json](deno.json) for sample config files.
+> [!TIP]
+> Want to quickly set these as defaults globally? Check the [helper script](#0-helper-script).
 
 Examples of other tools that offer similar functionalities:
 

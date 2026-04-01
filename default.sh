@@ -39,7 +39,7 @@ This script sets global package-manager defaults for npm, pnpm, yarn, and bun:
     - Otherwise, falls back to Yarn Classic settings: ignore-scripts=true and save-prefix="".
     - For Yarn Berry, also tries npmMinimalAgeGate=<minutes> and leaves it unchanged if unsupported.
   
-  - Bun: checks for exact=true and minimumReleaseAge=<seconds>; if either is missing, prints a bunfig.toml snippet for manual setup.
+  - Bun: creates ~/.bunfig.toml when missing; if an existing ~/.bunfig.toml is missing exact=true or minimumReleaseAge=<seconds>, prints a manual update snippet.
   
   - Interactive mode prompts for the release-age in days; pressing Enter uses ${DEFAULT_MIN_RELEASE_AGE_DAYS}.
   - Non-interactive mode uses ${DEFAULT_MIN_RELEASE_AGE_DAYS} days (${DEFAULT_MIN_RELEASE_AGE_MINUTES} minutes, ${DEFAULT_MIN_RELEASE_AGE_SECONDS} seconds).
@@ -257,11 +257,11 @@ print_bun_manual_instructions() {
   needs_manual_action=true
 
   if [[ -t 2 ]]; then
-    printf '%bmanual%b: create or update %s so Bun install config includes:\n\n' "$Yellow" "$Color_Off" "$display_path" >&2
+    printf '%bmanual%b: we detected you already have %s; check its contents and make sure the following Bun install config values are set:\n\n' "$Yellow" "$Color_Off" "$display_path" >&2
     printf '%b[install]\nexact = true\nminimumReleaseAge = %s%b\n\n' "$Green" "$min_release_age_seconds" "$Color_Off" >&2
     printf '%s\n' 'If [install] already exists, update those keys in that section.' >&2
   else
-    printf 'manual: create or update %s so Bun install config includes:\n\n' "$display_path" >&2
+    printf 'manual: we detected you already have %s; check its contents and make sure the following Bun install config values are set:\n\n' "$display_path" >&2
     printf '[install]\nexact = true\nminimumReleaseAge = %s\n\n' "$min_release_age_seconds" >&2
     printf '%s\n' 'If [install] already exists, update those keys in that section.' >&2
   fi
@@ -420,9 +420,6 @@ run_bun
 printf '\n'
 
 if [[ $did_apply == true ]]; then
-  if [[ $needs_manual_action == true ]]; then
-    warn "manual bun update still required"
-  fi
   success "done"
   exit 0
 fi

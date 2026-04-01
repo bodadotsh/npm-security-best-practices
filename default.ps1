@@ -54,7 +54,7 @@ function Show-Usage {
         '    - Otherwise, falls back to Yarn Classic settings: ignore-scripts=true and save-prefix="".'
         '    - For Yarn Berry, also tries npmMinimalAgeGate=<minutes> and leaves it unchanged if unsupported.'
         ''
-        '  - Bun: checks for exact=true and minimumReleaseAge=<seconds>; if either is missing, prints a bunfig.toml snippet for manual setup.'
+        '  - Bun: creates ~/.bunfig.toml when missing; if an existing ~/.bunfig.toml is missing exact=true or minimumReleaseAge=<seconds>, prints a manual update snippet.'
         ''
         "  - Interactive mode prompts for the release-age in days; pressing Enter uses $DEFAULT_MIN_RELEASE_AGE_DAYS."
         "  - Non-interactive mode uses $DEFAULT_MIN_RELEASE_AGE_DAYS days ($DEFAULT_MIN_RELEASE_AGE_MINUTES minutes, $DEFAULT_MIN_RELEASE_AGE_SECONDS seconds)."
@@ -363,7 +363,7 @@ function Write-BunManualInstructions {
     $displayPath = Format-HomeRelativePath -Path $BunfigPath
     $script:needsManualAction = $true
 
-    Write-Stderr "manual: create or update $displayPath so Bun install config includes:"
+    Write-Stderr "manual: we've detected you already have $displayPath; check the file contents and make sure the following Bun install config values are set:"
     Write-Stderr ''
     Write-Stderr '[install]'
     Write-Stderr 'exact = true'
@@ -532,10 +532,6 @@ Invoke-BunDefaults
 Write-Stdout ''
 
 if ($script:didApply) {
-    if ($script:needsManualAction) {
-        Write-WarnMessage 'manual bun update still required'
-    }
-
     Write-Success 'done'
     exit 0
 }

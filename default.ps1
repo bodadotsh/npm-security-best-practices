@@ -43,14 +43,14 @@ function Show-Usage {
     $lines = @(
         'This script sets global package-manager defaults for npm, pnpm, yarn, and bun:'
         ''
-        '  - npm: sets ignore-scripts=true and save-exact=true globally.'
+        '  - npm: sets ignore-scripts=true, save-exact=true, and provenance=true globally.'
         '  - npm: tries min-release-age=<days> globally and leaves it unchanged if unsupported.'
         ''
         '  - pnpm: sets save-exact=true globally.'
         '  - pnpm: tries minimumReleaseAge=<minutes> globally and leaves it unchanged if unsupported.'
         ''
         '  - Yarn:'
-        '    - If global home config is supported, applies Yarn Berry settings: enableScripts=false and defaultSemverRangePrefix="".'
+        '    - If global home config is supported, applies Yarn Berry settings: enableScripts=false, defaultSemverRangePrefix="", and npmPublishProvenance=true.'
         '    - Otherwise, falls back to Yarn Classic settings: ignore-scripts=true and save-prefix="".'
         '    - For Yarn Berry, also tries npmMinimalAgeGate=<minutes> and leaves it unchanged if unsupported.'
         ''
@@ -449,6 +449,7 @@ function Invoke-NpmDefaults {
 
     Apply-GlobalSetting -Manager 'npm' -Key 'ignore-scripts' -Value 'true'
     Apply-GlobalSetting -Manager 'npm' -Key 'save-exact' -Value 'true'
+    Apply-GlobalSetting -Manager 'npm' -Key 'provenance' -Value 'true'
 
     Ensure-MinReleaseAgeDays
     [void](Probe-GlobalSetting `
@@ -486,6 +487,7 @@ function Invoke-YarnDefaults {
         -Value 'false' `
         -SkipMessage 'yarn home-scoped config unsupported; falling back to Yarn Classic') {
         Apply-YarnHomeSetting -Key 'defaultSemverRangePrefix' -Value ''
+        Apply-YarnHomeSetting -Key 'npmPublishProvenance' -Value 'true'
 
         Ensure-MinReleaseAgeDays
         $minReleaseAgeMinutes = Convert-DaysToMinutes -Days $script:minReleaseAgeDays

@@ -122,6 +122,15 @@ But there's also a helper script [`default.sh`](default.sh) that setup few globa
 curl -fsSL https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.sh | bash
 ```
 
+Afterwards, you can run the following commands to check the package manager's global configs:
+
+```sh
+npm config list
+pnpm config list
+yarn config
+cat ~/.bunfig.toml
+```
+
 ### 1. Pin Dependency Versions
 
 > [!TIP]

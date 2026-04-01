@@ -696,7 +696,13 @@ In the JavaScript ecosystem, the OpenJS Foundation (<https://openjsf.org>) was f
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=bodadotsh/npm-security-best-practices&type=date&legend=top-left)](https://www.star-history.com/#bodadotsh/npm-security-best-practices&type=date&legend=top-left)
+<a href="https://www.star-history.com/?repos=bodadotsh%2Fnpm-security-best-practices&type=date&legend=bottom-right">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=bodadotsh/npm-security-best-practices&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=bodadotsh/npm-security-best-practices&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=bodadotsh/npm-security-best-practices&type=date&legend=top-left" />
+ </picture>
+</a>
 
 [^1]: <https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised>
 

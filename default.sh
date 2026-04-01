@@ -16,27 +16,58 @@ readonly Dim='\033[0;2m'
 
 print_usage() {
   cat <<EOF
-Usage:
-  bash default.sh
+This script sets global package-manager defaults for npm, pnpm, yarn, and bun:
 
-Hosted usage (replace <URL> with your raw script URL):
-  curl -fsSL "<URL>" | bash
+  - npm: sets ignore-scripts=true and save-exact=true globally.
+  - npm: tries min-release-age=<days> globally and leaves it unchanged if unsupported.
 
-Behaviour:
-  - Applies npm settings: ignore-scripts=true and save-exact=true (global).
-  - Tries npm min-release-age=<days> (global) and skips it if unsupported.
-  - Applies pnpm setting: save-exact=true (global).
-  - Tries pnpm minimumReleaseAge=<minutes> (global) and skips it if unsupported.
-  - Yarn capabilities:
-    - If global-scoped config works, applies Berry settings: enableScripts=false and defaultSemverRangePrefix="".
-    - Otherwise falls back to Yarn Classic settings: ignore-scripts=true and save-prefix="".
-    - For Berry, also tries npmMinimalAgeGate=<minutes> and skips it if unsupported.
-  - Checks Bun config and prints a manual bunfig.toml snippet when exact=true or minimumReleaseAge=<seconds> is missing.
-  - Prompts for <days> in interactive mode (Enter defaults to ${DEFAULT_MIN_RELEASE_AGE_DAYS}).
-  - Uses default ${DEFAULT_MIN_RELEASE_AGE_DAYS} days (${DEFAULT_MIN_RELEASE_AGE_MINUTES} minutes, ${DEFAULT_MIN_RELEASE_AGE_SECONDS} seconds) in non-interactive mode.
-  - Skips npm, pnpm, yarn, or bun if they are not installed.
-  - Exits non-zero only when no package manager could be handled.
+  - pnpm: sets save-exact=true globally.
+  - pnpm: tries minimumReleaseAge=<minutes> globally and leaves it unchanged if unsupported.
+
+  - Yarn:
+    - If global home config is supported, applies Yarn Berry settings: enableScripts=false and defaultSemverRangePrefix="".
+    - Otherwise, falls back to Yarn Classic settings: ignore-scripts=true and save-prefix="".
+    - For Yarn Berry, also tries npmMinimalAgeGate=<minutes> and leaves it unchanged if unsupported.
+  
+  - Bun: checks for exact=true and minimumReleaseAge=<seconds>; if either is missing, prints a bunfig.toml snippet for manual setup.
+  
+  - Interactive mode prompts for the release-age in days; pressing Enter uses ${DEFAULT_MIN_RELEASE_AGE_DAYS}.
+  - Non-interactive mode uses ${DEFAULT_MIN_RELEASE_AGE_DAYS} days (${DEFAULT_MIN_RELEASE_AGE_MINUTES} minutes, ${DEFAULT_MIN_RELEASE_AGE_SECONDS} seconds).
+  - Skips any package manager that is not installed.
+  - Exits non-zero only if none of npm, pnpm, yarn, or bun could be handled.
 EOF
+}
+
+confirm_continue() {
+  local input=""
+
+  print_usage
+  printf '\n'
+
+  if [ -t 0 ]; then
+    printf 'Continue? [Y/n]: ' >&2
+    read -r input
+  elif [ -r /dev/tty ]; then
+    printf 'Continue? [Y/n]: ' >/dev/tty
+    read -r input </dev/tty
+  else
+    info "non-interactive: continuing by default" >&2
+    return 0
+  fi
+
+  case "$input" in
+    ""|[Yy]|[Yy][Ee][Ss])
+      return 0
+      ;;
+    [Nn]|[Nn][Oo])
+      info "exiting"
+      exit 0
+      ;;
+    *)
+      warn "unrecognized response '$input'; continuing by default"
+      return 0
+      ;;
+  esac
 }
 
 info() {
@@ -368,6 +399,8 @@ did_apply=false
 had_failure=false
 needs_manual_action=false
 min_release_age_days=""
+
+confirm_continue
 
 run_npm
 run_pnpm

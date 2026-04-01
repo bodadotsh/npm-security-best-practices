@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-set -u
+readonly DEFAULT_POWERSHELL_URL='https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.ps1'
+
+platform="$(uname -ms 2>/dev/null || true)"
+
+if [[ ${OS:-} = Windows_NT ]]; then
+  if [[ $platform != MINGW64* ]]; then
+    powershell -c "irm '$DEFAULT_POWERSHELL_URL'|iex"
+    exit $?
+  fi
+fi
 
 readonly DEFAULT_MIN_RELEASE_AGE_DAYS=3
 readonly MINUTES_PER_DAY=1440

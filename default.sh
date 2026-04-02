@@ -54,13 +54,7 @@ confirm_continue() {
   print_usage
   printf '\n'
 
-  if [ -t 0 ]; then
-    printf 'Continue? [Y/n]: ' >&2
-    read -r input
-  elif [ -r /dev/tty ]; then
-    printf 'Continue? [Y/n]: ' >/dev/tty
-    read -r input </dev/tty
-  else
+  if ! input="$(read_prompt_input 'Continue? [Y/n]: ')"; then
     info "non-interactive: continuing by default" >&2
     return 0
   fi
@@ -114,6 +108,23 @@ success() {
 
 skip() {
   info "skip $*"
+}
+
+read_prompt_input() {
+  local prompt="$1"
+  local input=""
+
+  if [ -t 0 ]; then
+    printf '%s' "$prompt" >&2
+    read -r input || return 1
+  elif [ -r /dev/tty ]; then
+    printf '%s' "$prompt" >/dev/tty
+    read -r input </dev/tty || return 1
+  else
+    return 1
+  fi
+
+  printf '%s\n' "$input"
 }
 
 apply_setting() {
@@ -306,9 +317,7 @@ ensure_min_release_age_days() {
 get_min_release_age_days() {
   local input=""
 
-  if [ -t 0 ]; then
-    printf 'Enter min-release-age in days [default: %s]: ' "$DEFAULT_MIN_RELEASE_AGE_DAYS" >&2
-    read -r input
+  if input="$(read_prompt_input "Enter min-release-age in days [default: $DEFAULT_MIN_RELEASE_AGE_DAYS]: ")"; then
     if [ -z "$input" ]; then
       input="$DEFAULT_MIN_RELEASE_AGE_DAYS"
     fi

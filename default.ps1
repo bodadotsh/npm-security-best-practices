@@ -111,8 +111,12 @@ function Skip-Message {
 }
 
 function Test-CanPrompt {
+    if (-not [Environment]::UserInteractive) {
+        return $false
+    }
+
     try {
-        return -not [Console]::IsInputRedirected
+        return $null -ne $Host -and $null -ne $Host.UI -and $null -ne $Host.UI.RawUI
     } catch {
         return $false
     }

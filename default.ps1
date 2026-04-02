@@ -101,6 +101,15 @@ function Write-Success {
     Write-Stdout $Message
 }
 
+function Show-GlobalConfigHint {
+    Write-Stdout ''
+    Write-Stdout 'You can inspect global package manager configuration with:'
+    Write-Stdout '  npm config list'
+    Write-Stdout '  pnpm config list'
+    Write-Stdout '  yarn config'
+    Write-Stdout '  cat ~/.bunfig.toml'
+}
+
 function Skip-Message {
     param(
         [Parameter(Mandatory = $true)]
@@ -539,18 +548,22 @@ Write-Stdout ''
 
 if ($script:didApply) {
     Write-Success 'done'
+    Show-GlobalConfigHint
     exit 0
 }
 
 if ($script:hadFailure) {
     Write-ErrorMessage 'nothing applied'
+    Show-GlobalConfigHint
     exit 1
 }
 
 if ($script:needsManualAction) {
     Write-WarnMessage 'manual bun update required'
+    Show-GlobalConfigHint
     exit 0
 }
 
 Write-ErrorMessage 'npm/pnpm/yarn/bun unavailable; nothing applied'
+Show-GlobalConfigHint
 exit 2

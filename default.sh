@@ -106,6 +106,11 @@ success() {
   fi
 }
 
+print_global_config_hint() {
+  printf '\n%s\n' 'You can inspect global package manager configuration with:'
+  printf '  %s\n' 'npm config list' 'pnpm config list' 'yarn config' 'cat ~/.bunfig.toml'
+}
+
 skip() {
   info "skip $*"
 }
@@ -432,18 +437,22 @@ printf '\n'
 
 if [[ $did_apply == true ]]; then
   success "done"
+  print_global_config_hint
   exit 0
 fi
 
 if [[ $had_failure == true ]]; then
   error "nothing applied"
+  print_global_config_hint
   exit 1
 fi
 
 if [[ $needs_manual_action == true ]]; then
   warn "manual bun update required"
+  print_global_config_hint
   exit 0
 fi
 
 error "npm/pnpm/yarn/bun unavailable; nothing applied"
+print_global_config_hint
 exit 2

@@ -687,6 +687,12 @@ Snyk offers a suite of tools to fix vulnerabilities in open source dependencies,
 
 FOSSA is a compliance and security platform that helps organizations manage the complexities of their software supply chain. It achieves this by providing visibility into all software components, from [packages and containers to binaries](https://fossa.com/products/scan/). By generating comprehensive SBOMs (Software Bill of Materials), companies reduce legal and IP risk, consolidate vulnerability management across their codebase, and [comply with regulatory reporting requirements](https://fossa.com/solutions/due-diligence/).
 
+#### Xygeni
+
+> <https://xygeni.io/open-source-security/>
+
+Xygeni is an AI-powered security platform that protects code from both vulnerable and malicious dependencies. It offers various tools such as a [SCA](https://xygeni.io/open-source-security/) for deep dependency analysis, [NPM Analyzer](https://docs.xygeni.io/xygeni-products/open-source-security-oss/dependency-scanner/dependency-analyzers#npm_analyzer) documentation for technical integration, [CI/CD Security](https://xygeni.io/cicd-security/) to protect pipelines and more. Here's their research on [NPM flooding and registry spam](https://xygeni.io/blog/npm-flooding-case-study-down-the-rabbit-hole-looking-for-a-tea/). Plus the Xygeni [AutoFix](https://xygeni.io/autofix/) tool for automated remediation.
+
 ### 15. Support OSS
 
 > Maintainer burnout is a significant problem in the open-source community. Many popular `npm` packages are maintained by volunteers who work in their spare time, often without any compensation. Over time, this can lead to exhaustion and a lack of motivation, making them more susceptible to social engineering where a malicious actor pretends to be a helpful contributor and eventually injects malicious code.

@@ -122,14 +122,13 @@ And other configuration files examples are here:
 - [`deno.json`](deno.json)
 - [`.yarnrc.yml`](.yarnrc.yml)
 
-But there's also a helper script [`default.sh`](default.sh) that setup few global defaults across package managers to make your system safer
+There's also a helper script [`default.sh`](default.sh) that setup few global defaults across package managers automatically.
+
+> I am aware of the irony that a security best practice guide asks you to `curl` a remote script 😅 Feel free to review the code manually or ask an agent (e.g., `claude` or `codex`) to review the script first before execution. Otherwise, the rest of this README acts as a reference to configure manually.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.sh | bash
+curl -fsSL https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.sh | sh
 ```
-
-> I'm aware of the irony a security best practice repo asks you to `curl | sh` a remote script 😅 this is for those who'll read
-> the source code and want to have this process automated. The rest, this README acts as a reference to manually configure as you like.
 
 Afterwards, you can run the following commands to check the package manager's global configs:
 

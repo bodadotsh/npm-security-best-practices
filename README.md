@@ -279,7 +279,7 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 
 #### Preinstall Scanners
 
-Socket Firewall Free <https://socket.dev/blog/introducing-socket-firewall>
+Socket Firewall Free: <https://socket.dev/blog/introducing-socket-firewall>
 
 ```sh
 npm i -g sfw
@@ -290,13 +290,7 @@ sfw npm install <package-name>
 # echo "alias npm='sfw npm'" >> ~/.zshrc
 ```
 
-brin (from superagent.sh) <https://github.com/superagent-ai/brin>
-
-Safe packge installations especially for the agents era
-
-```sh
-npm install -g brin
-```
+`zizmor` (static analysis for GitHub Actions): <https://github.com/zizmorcore/zizmor>
 
 Aikido Safe Chain <https://github.com/AikidoSec/safe-chain>
 
@@ -306,7 +300,7 @@ The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `
 npm install -g @aikidosec/safe-chain
 ```
 
-<https://github.com/lirantal/npq>
+`npq`: <https://github.com/lirantal/npq>
 
 ```sh
 npq install express
@@ -325,6 +319,12 @@ From Bun v1.3+, you can [integrate Socket with Bun](https://socket.dev/blog/sock
 # in bunfig.toml
 [install.security]
 scanner = "@socketsecurity/bun-security-scanner"
+```
+
+brin (for the agents): <https://github.com/superagent-ai/brin>
+
+```sh
+npm install -g brin
 ```
 
 #### Set Minimal Release Age
@@ -426,6 +426,9 @@ Here are some resources that you might find useful:
 - Analyse dependencies metadata online: <https://node-modules.dev>, or locally: `pnpm dlx node-modules-inspector`
 - Knip (remove unused dependencies): <https://github.com/webpro-nl/knip>
 - Erase unwanted `node_modules` with [`npkill`](https://github.com/voidcosmos/npkill): `cd ~ && npx npkill`
+
+> [!IMPORTANT]
+> Remember, given the prevalence of `npm` packages, there are more `node_modules` folders in your system than you think! For example, VSCode extensions, browser extensions, desktop applications, CLIs, etc. Any of them could be a liability in the future.
 
 ### 7. Isolated development
 

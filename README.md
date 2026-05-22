@@ -275,11 +275,11 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 
 ### 4. Preinstall Preventions
 
-> How do we know and trust that whenever we do `npm install <package-name>`, everything will be fine? We shouldn't. Here's how we can ensure that the `install` command is safer to run:
+> How do we know and trust that whenever we install a package (either `npm` or `github actions`), everything will be fine? We shouldn't. Here are few ways we can increase our confidence that `install` command is safer to run:
 
 #### Preinstall Scanners
 
-Socket Firewall Free: <https://socket.dev/blog/introducing-socket-firewall>
+⭐ Socket Firewall Free: <https://socket.dev/blog/introducing-socket-firewall>
 
 ```sh
 npm i -g sfw
@@ -289,8 +289,6 @@ sfw npm install <package-name>
 # example: alias `npm` to `sfw npm` in zsh
 # echo "alias npm='sfw npm'" >> ~/.zshrc
 ```
-
-`zizmor` (static analysis for GitHub Actions): <https://github.com/zizmorcore/zizmor>
 
 Aikido Safe Chain <https://github.com/AikidoSec/safe-chain>
 
@@ -326,6 +324,13 @@ brin (for the agents): <https://github.com/superagent-ai/brin>
 ```sh
 npm install -g brin
 ```
+
+> [!TIP]
+> GitHub Actions has became a popular target for attacks, see [Megalodon](https://safedep.io/megalodon-mass-github-repo-backdooring-ci-workflows/) and [TanStack Postmortem](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem). Therefore, it is _highly recommended_ to not only secure/audit `npm` dependencies, but also other dependencies like `github actions` or `docker images`.
+
+⭐ `zizmor` (static analysis for GitHub Actions): <https://github.com/zizmorcore/zizmor>
+
+`pinact` edit/pin GitHub action files and more: <https://github.com/suzuki-shunsuke/pinact>
 
 #### Set Minimal Release Age
 

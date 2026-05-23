@@ -95,10 +95,13 @@ Pick the best practices below based on your needs to strengthen your system agai
 
 ### Case Studies
 
-| Project | Weekly Downloads | Date of Compromise | Links |
-| --- | --- | --- | --- |
-| `@tanstack/*` | ~ | 2026-05-11 | [TanStack Blog](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem), [StepSecurity](https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem), [HN](https://news.ycombinator.com/item?id=48100706) |
-| `axios` | 100M | 2026-03-31 | [Socket](https://socket.dev/blog/axios-npm-package-compromised), [StepSecurity](https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan), [HN](https://news.ycombinator.com/item?id=47582220) |
+| Project | Date of Compromise | Links |
+| --- | --- | --- |
+| `@tanstack/*` | 2026-05-11 | [TanStack Blog](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem), [StepSecurity](https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem), [HN](https://news.ycombinator.com/item?id=48100706) |
+| `axios` | 2026-03-31 | [Socket](https://socket.dev/blog/axios-npm-package-compromised), [StepSecurity](https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan), [HN](https://news.ycombinator.com/item?id=47582220) |
+| PostHog | 2025-11-24 | [PostHog Blog](https://posthog.com/blog/nov-24-shai-hulud-attack-post-mortem) |
+| CrowdStrike | 2025-09-24 | [Socket](https://socket.dev/blog/ongoing-supply-chain-attack-targets-crowdstrike-npm-packages) |
+| `@nx/*` | 2025-08-26 | [Socket](https://socket.dev/blog/nx-packages-compromised) |
 
 ## For Developers
 

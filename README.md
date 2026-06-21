@@ -276,6 +276,44 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 >
 > `npm ci --omit=dev --ignore-scripts`
 
+#### `ignore-scripts` vs `allowScripts`
+
+To use `ignore-scripts`, it looks like this in a project level `.npmrc` file or global `~/.npmrc` file:
+
+```txt
+ignore-scripts=true
+```
+
+This is a strict, all-or-nothing binary toggle. It blocks all lifecycle scripts (including your own project's scripts and every dependencies), with no built-in way to make exceptions for specific trusted packages.
+
+While `⁠allowScripts` manages dependency-level scripts (it does not affect your own defined root lifecycle scripts).
+
+To use `allowScripts`, you can run `npm approve-scripts canvas sharp` and it will add the following to your `package.json` file:
+
+```json
+"dependencies": {
+  "canvas": "^3.2.3",
+  "sharp": "^0.35.2"
+},
+"allowScripts": {
+  "sharp@0.35.2": true,
+  "canvas@3.2.3": true
+}
+```
+
+Or, you can run `npm config set allow-scripts=canvas,sharp --location=[project|user|global]` and it will add the following to specified `.npmrc` file:
+
+```txt
+allow-scripts=canvas,sharp
+```
+
+From `npm v12+`, [`allowScripts` defaults to `false`](https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12/), meaning all dependencies' lifecycle scripts are blocked by default.
+
+If you have `⁠ignore-scripts=true`, it will take precedence over any `⁠allowScripts` configurations. Therefore, developers have two options:
+
+- The all-or-nothing `⁠ignore-scripts` approach, where all dependencies' lifecycle scripts (including your own) are blocked.
+- The more granular `⁠allowScripts` approach, where by default, dependencies' lifecycle scripts are blocked, but not your own, and you can allow specific dependencies' lifecycle scripts.
+
 ### 4. Preinstall Preventions
 
 > How do we know and trust that whenever we install a package (either `npm` or `github actions`), everything will be fine? We shouldn't. Here are few ways we can increase our confidence that `install` command is safer to run:

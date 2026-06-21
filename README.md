@@ -278,13 +278,13 @@ For `bun`, `deno` and `pnpm`, they are disabled by default.
 
 #### `ignore-scripts` vs `allowScripts`
 
-To use `ignore-scripts`, it looks like this in a project level `.npmrc` file or global `~/.npmrc` file:
+To use `ignore-scripts`, define the following key and value pair in a project level `.npmrc` file or `~/.npmrc` file:
 
 ```txt
 ignore-scripts=true
 ```
 
-This is a strict, all-or-nothing binary toggle. It blocks all lifecycle scripts (including your own project's scripts and every dependencies), with no built-in way to make exceptions for specific trusted packages.
+This is a strict, all-or-nothing binary toggle. It blocks all lifecycle scripts (including your own project's lifecycle scripts and every dependencies'), with no built-in way to make exceptions for specific trusted packages.
 
 While `⁠allowScripts` manages dependency-level scripts (it does not affect your own defined root lifecycle scripts).
 
@@ -307,9 +307,7 @@ Or, you can run `npm config set allow-scripts=canvas,sharp --location=[project|u
 allow-scripts=canvas,sharp
 ```
 
-From `npm v12+`, [`allowScripts` defaults to `false`](https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12/), meaning all dependencies' lifecycle scripts are blocked by default.
-
-If you have `⁠ignore-scripts=true`, it will take precedence over any `⁠allowScripts` configurations. Therefore, developers have two options:
+From `npm v12+`, [`allowScripts` defaults to `false`](https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12/), meaning all dependencies' lifecycle scripts are blocked by default. If you have `⁠ignore-scripts=true`, it will take precedence over any `⁠allowScripts` configurations. Therefore, developers have two options:
 
 - The all-or-nothing `⁠ignore-scripts` approach, where all dependencies' lifecycle scripts (including your own) are blocked.
 - The more granular `⁠allowScripts` approach, where by default, dependencies' lifecycle scripts are blocked, but not your own, and you can allow specific dependencies' lifecycle scripts.

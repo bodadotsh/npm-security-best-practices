@@ -288,7 +288,7 @@ This is a strict, all-or-nothing binary toggle. It blocks all lifecycle scripts 
 
 While `⁠allowScripts` manages dependency-level scripts (it does not affect your own defined root lifecycle scripts).
 
-To use `allowScripts`, you can run `npm approve-scripts canvas sharp` and it will add the following to your `package.json` file:
+To use `allowScripts`, you can run `npm approve-scripts canvas sharp` and it will add the following to local `package.json` file:
 
 ```json
 "dependencies": {
@@ -301,7 +301,7 @@ To use `allowScripts`, you can run `npm approve-scripts canvas sharp` and it wil
 }
 ```
 
-Or, you can run `npm config set allow-scripts=canvas,sharp --location=[project|user|global]` and it will add the following to specified `.npmrc` file:
+Or, you can run `npm config set allow-scripts=canvas,sharp --location=project` and it will add the following to local `.npmrc` file:
 
 ```txt
 allow-scripts=canvas,sharp

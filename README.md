@@ -102,6 +102,7 @@ Pick the best practices below based on your needs to strengthen your system agai
 | PostHog | 2025-11-24 | [PostHog Blog](https://posthog.com/blog/nov-24-shai-hulud-attack-post-mortem) |
 | CrowdStrike | 2025-09-24 | [Socket](https://socket.dev/blog/ongoing-supply-chain-attack-targets-crowdstrike-npm-packages) |
 | `@nx/*` | 2025-08-26 | [Socket](https://socket.dev/blog/nx-packages-compromised) |
+| `tj-actions/changed-files` | 2025-03-15 | [StepSecurity](https://www.stepsecurity.io/blog/harden-runner-detection-tj-actions-changed-files-action-is-compromised) |
 
 ## For Developers
 
@@ -397,6 +398,9 @@ Examples of other tools that offer similar functionalities:
 - `npm-check-updates` (<https://github.com/raineorshine/npm-check-updates>) has the `--cooldown/-c` flag, for example: `npx npm-check-updates -i --format group -c 7`
 - Renovate CLI (<https://github.com/renovatebot/renovate>) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
 - Step Security (<https://www.stepsecurity.io>) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
+
+> [!TIP]
+> Be careful when using autoamted updates like Renovate or Dependabot, they can [enable faster malware delivery](https://blog.gitguardian.com/renovate-dependabot-the-new-malware-delivery-system/).
 
 ### 5. Runtime Protections
 

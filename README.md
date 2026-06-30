@@ -400,7 +400,7 @@ Examples of other tools that offer similar functionalities:
 - Step Security (<https://www.stepsecurity.io>) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
 
 > [!TIP]
-> Be careful when using autoamted updates like Renovate or Dependabot, they can [enable faster malware delivery](https://blog.gitguardian.com/renovate-dependabot-the-new-malware-delivery-system/).
+> Read how automated tools like Renovate or Dependabot can [enable faster malware delivery](https://blog.gitguardian.com/renovate-dependabot-the-new-malware-delivery-system/).
 
 ### 5. Runtime Protections
 

@@ -673,6 +673,7 @@ Here are some private registries that you might find useful:
 - JFrog Artifactory <https://jfrog.com/integrations/npm-registry>
 - Sonatype: <https://help.sonatype.com/en/npm-registry.html>
 - Cloudsmith: <https://cloudsmith.com/>
+- pnpr: <https://pnpm.io/pnpr/>
 
 > [!IMPORTANT]
 > Private registries have the advantages of separating the supply chain from the public registry, and enforce custom security policies. But they also have the disadvantages of being more complex to setup and maintain, and can be more expensive (cost of storage and bandwidth) to use.

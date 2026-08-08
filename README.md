@@ -97,6 +97,7 @@ Pick the best practices below based on your needs to strengthen your system agai
 
 | Project | Date | Links |
 | --- | --- | --- |
+| Keyv & friends | 2026-08-04 | [Aikido](https://www.aikido.dev/blog/keyv-and-friends-compromised-in-npm-supply-chain-attack), [Socket](https://socket.dev/blog/popular-npm-packages-in-the-keyv-and-cacheable-namespaces-compromised-in-active-supply-chain), [HN](https://news.ycombinator.com/item?id=49166874) |
 | `@tanstack/*` | 2026-05-11 | [TanStack Blog](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem), [StepSecurity](https://www.stepsecurity.io/blog/mini-shai-hulud-is-back-a-self-spreading-supply-chain-attack-hits-the-npm-ecosystem), [HN](https://news.ycombinator.com/item?id=48100706) |
 | `axios` | 2026-03-31 | [Socket](https://socket.dev/blog/axios-npm-package-compromised), [StepSecurity](https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan), [HN](https://news.ycombinator.com/item?id=47582220) |
 | PostHog | 2025-11-24 | [PostHog Blog](https://posthog.com/blog/nov-24-shai-hulud-attack-post-mortem) |

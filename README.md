@@ -101,6 +101,7 @@ Pick the best practices below based on your needs to strengthen your system agai
 | `axios` | 2026-03-31 | [Socket](https://socket.dev/blog/axios-npm-package-compromised), [StepSecurity](https://www.stepsecurity.io/blog/axios-compromised-on-npm-malicious-versions-drop-remote-access-trojan), [HN](https://news.ycombinator.com/item?id=47582220) |
 | PostHog | 2025-11-24 | [PostHog Blog](https://posthog.com/blog/nov-24-shai-hulud-attack-post-mortem) |
 | CrowdStrike | 2025-09-24 | [Socket](https://socket.dev/blog/ongoing-supply-chain-attack-targets-crowdstrike-npm-packages) |
+| debug, chalk | 2025-09-08 | [Aikido](https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised), [HN](https://news.ycombinator.com/item?id=45169657) |
 | `@nx/*` | 2025-08-26 | [Socket](https://socket.dev/blog/nx-packages-compromised) |
 | `tj-actions/changed-files` | 2025-03-15 | [StepSecurity](https://www.stepsecurity.io/blog/harden-runner-detection-tj-actions-changed-files-action-is-compromised) |
 

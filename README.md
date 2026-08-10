@@ -754,6 +754,12 @@ Snyk offers a suite of tools to fix vulnerabilities in open source dependencies,
 
 FOSSA is a compliance and security platform that helps organizations manage the complexities of their software supply chain. It achieves this by providing visibility into all software components, from [packages and containers to binaries](https://fossa.com/products/scan/). By generating comprehensive SBOMs (Software Bill of Materials), companies reduce legal and IP risk, consolidate vulnerability management across their codebase, and [comply with regulatory reporting requirements](https://fossa.com/solutions/due-diligence/).
 
+#### Commit
+
+> <https://getcommit.dev>
+
+Commit scores `npm`, PyPI, Cargo, and Go packages on behavioral supply-chain signals — maintainer depth, release cadence, trusted-publishing adoption, transitive dependency exposure — rather than waiting on CVE feeds. Anonymous [HTTP API](https://getcommit.dev/docs/) and `npx proof-of-commitment` CLI both run free at 200 audits/day per IP without signup. Also ships as an [MCP server](https://getcommit.dev/quickstart/) so Claude, Cursor, and Windsurf agents can score packages before installing them. Methodology is open at [`getcommit.dev/scoring-methodology`](https://getcommit.dev/scoring-methodology/).
+
 ### 15. Support OSS
 
 > Maintainer burnout is a significant problem in the open-source community. Many popular `npm` packages are maintained by volunteers who work in their spare time, often without any compensation. Over time, this can lead to exhaustion and a lack of motivation, making them more susceptible to social engineering where a malicious actor pretends to be a helpful contributor and eventually injects malicious code.

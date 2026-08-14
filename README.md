@@ -709,6 +709,23 @@ yarn npm audit --recursive # audit transitive dependencies
 > [!TIP]
 > The `npm sbom` command (<https://docs.npmjs.com/cli/v11/commands/npm-sbom>) outputs SBOM which is often required for security auditing. Since pnpm v11+, there is a [`pnpm sbom`](https://pnpm.io/cli/sbom) command too.
 
+#### SCA Tools
+
+> Package managers like `npm audit` only inspects package lockfiles. If a library was downloaded manually, copied into a `public/js/` or `vendor/` directory, or bundled directly into the codebase, `npm audit` will not see it. SCA (Software Composition Analysis) tools scans the actual filesystem and finds standalone JS files, vendor scripts, and client-side assets regardless of whether they exist in a package manifest. If your applications have standalone JS files, it is recommended to do both.
+
+[OWASP dependency-check](https://github.com/dependency-check/DependencyCheck) 
+
+```sh
+brew update && brew install dependency-check
+dependency-check -h
+```
+
+[retire.js](https://github.com/retirejs/retire.js/)
+
+```sh
+npx retire
+```
+
 #### GitHub
 
 > <https://github.com/security>

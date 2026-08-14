@@ -726,6 +726,8 @@ dependency-check -h
 npx retire
 ```
 
+Most of the premium services below offer SCA scanning too.
+
 #### GitHub
 
 > <https://github.com/security>

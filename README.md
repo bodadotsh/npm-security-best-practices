@@ -791,9 +791,9 @@ In the JavaScript ecosystem, the OpenJS Foundation (<https://openjsf.org>) was f
 
 <a href="https://www.star-history.com/?repos=bodadotsh%2Fnpm-security-best-practices&type=date&legend=bottom-right">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=bodadotsh/npm-security-best-practices&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=bodadotsh/npm-security-best-practices&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=bodadotsh/npm-security-best-practices&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=bodadotsh/npm-security-best-practices&type=date&theme=dark&legend=bottom-right&sealed_token=YTDzHLb7y7N3zI_wTiTWkZ2L04g0fdsy0gzdYDwlhzLTren2CqTckDG_h8OQ-P7Jck5LrqPXj_1yma2Q6_t6_nxT9NT2trHLdWW33fBERIYkiDFl9ulHNh6ijYSMFZZH4x3rqKVZlVvn_ex6zGNM_NWqgBQXjwHWs9A-doQNwQEKGTbIfgFWAgc3RmB8" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=bodadotsh/npm-security-best-practices&type=date&legend=bottom-right&sealed_token=YTDzHLb7y7N3zI_wTiTWkZ2L04g0fdsy0gzdYDwlhzLTren2CqTckDG_h8OQ-P7Jck5LrqPXj_1yma2Q6_t6_nxT9NT2trHLdWW33fBERIYkiDFl9ulHNh6ijYSMFZZH4x3rqKVZlVvn_ex6zGNM_NWqgBQXjwHWs9A-doQNwQEKGTbIfgFWAgc3RmB8" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=bodadotsh/npm-security-best-practices&type=date&legend=bottom-right&sealed_token=YTDzHLb7y7N3zI_wTiTWkZ2L04g0fdsy0gzdYDwlhzLTren2CqTckDG_h8OQ-P7Jck5LrqPXj_1yma2Q6_t6_nxT9NT2trHLdWW33fBERIYkiDFl9ulHNh6ijYSMFZZH4x3rqKVZlVvn_ex6zGNM_NWqgBQXjwHWs9A-doQNwQEKGTbIfgFWAgc3RmB8" />
  </picture>
 </a>
 

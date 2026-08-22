@@ -25,23 +25,24 @@
   - [Case Studies](#case-studies)
 - [For Developers](#for-developers)
   - [0. Helper script](#0-helper-script)
-  - [1. Pin dependency versions](#1-pin-dependency-versions)
-  - [2. Include lockfiles](#2-include-lockfiles)
-  - [3. Disable lifecycle scripts](#3-disable-lifecycle-scripts)
-  - [4. Preinstall preventions](#4-preinstall-preventions)
-  - [5. Runtime protections](#5-runtime-protections)
-  - [6. Reduce external dependencies](#6-reduce-external-dependencies)
-  - [7. Isolated development](#7-isolated-development)
+  - [1. Disable lifecycle scripts](#1-disable-lifecycle-scripts)
+  - [2. Set cooldowns / minimum release age](#2-set-cooldowns--minimum-release-age)
+  - [3. Include lockfiles](#3-include-lockfiles)
+  - [4. Pin dependency versions](#4-pin-dependency-versions)
+  - [5. Preinstall preventions](#5-preinstall-preventions)
+  - [6. Runtime protections](#6-runtime-protections)
+  - [7. Reduce external dependencies](#7-reduce-external-dependencies)
+  - [8. Isolated development](#8-isolated-development)
 - [For Maintainers](#for-maintainers)
-  - [8. Enable 2FA](#8-enable-2fa)
-  - [9. Create tokens with limited access](#9-create-tokens-with-limited-access)
-  - [10. Generate provenance statements](#10-generate-provenance-statements)
-  - [11. Review published files](#11-review-published-files)
+  - [9. Enable 2FA](#9-enable-2fa)
+  - [10. Create tokens with limited access](#10-create-tokens-with-limited-access)
+  - [11. Generate provenance statements](#11-generate-provenance-statements)
+  - [12. Review published files](#12-review-published-files)
 - [Miscellaneous](#miscellaneous)
-  - [12. NPM organization](#12-npm-organization)
-  - [13. Alternative registry](#13-alternative-registry)
-  - [14. Audit, monitor and security tools](#14-audit-monitor-and-security-tools)
-  - [15. Support OSS](#15-support-oss)
+  - [13. NPM organization](#13-npm-organization)
+  - [14. Alternative registry](#14-alternative-registry)
+  - [15. Audit, monitor and security tools](#15-audit-monitor-and-security-tools)
+  - [16. Support OSS](#16-support-oss)
 
 ## Got Compromised?
 
@@ -145,7 +146,125 @@ yarn config
 cat ~/.bunfig.toml
 ```
 
-### 1. Pin Dependency Versions
+### 1. Disable Lifecycle Scripts
+
+> Lifecycle scripts are special scripts that happen in addition to the `pre<event>`, `post<event>`, and `<event>` scripts. For instance, `preinstall` is run before `install` is run and `postinstall` is run after `install` is run. See how npm handles the "scripts" field: <https://docs.npmjs.com/cli/v11/using-npm/scripts#life-cycle-scripts>. Lifecycle scripts are a common strategy from malicious actors. For example, the "Shai-Hulud" worms[^3] edit the `package.json` file to add a `postinstall` script that would then steal credentials.
+
+```sh
+npm config set --global ignore-scripts true
+
+# since yarn v4.14, enableScripts defaults to false
+yarn config set --home enableScripts false
+```
+
+For `bun`, `deno` and `pnpm`, they are disabled by default.
+
+> [!NOTE]
+>
+> For `bun`, the [top 500 npm packages](https://github.com/oven-sh/bun/blob/main/src/install/default-trusted-dependencies.txt) with lifecycle scripts are allowed by default.
+
+> [!TIP]
+> We can combine many of the flags above. For example, the following `npm` command would install only production dependencies as defined in the lockfile and ignore lifecycle scripts:
+>
+> `npm ci --omit=dev --ignore-scripts`
+
+#### `ignore-scripts` vs `allowScripts`
+
+To use `ignore-scripts`, define the following key and value pair in a project level `.npmrc` file or `~/.npmrc` file:
+
+```txt
+ignore-scripts=true
+```
+
+This is a strict, all-or-nothing binary toggle. It blocks all lifecycle scripts (including your own project's lifecycle scripts and every dependencies'), with no built-in way to make exceptions for specific trusted packages.
+
+While `⁠allowScripts` manages dependency-level scripts (it does not affect your own defined root lifecycle scripts).
+
+To use `allowScripts`, you can run `npm approve-scripts canvas sharp` and it will add the following to local `package.json` file:
+
+```json
+"dependencies": {
+  "canvas": "^3.2.3",
+  "sharp": "^0.35.2"
+},
+"allowScripts": {
+  "sharp@0.35.2": true,
+  "canvas@3.2.3": true
+}
+```
+
+Or, you can run `npm config set allow-scripts=canvas,sharp --location=project` and it will add the following to local `.npmrc` file:
+
+```txt
+allow-scripts=canvas,sharp
+```
+
+From `npm v12+`, [`allowScripts` defaults to `false`](https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12/), meaning all dependencies' lifecycle scripts are blocked by default. If you have `⁠ignore-scripts=true`, it will take precedence over any `⁠allowScripts` configurations. Therefore, developers have two options:
+
+- The all-or-nothing `⁠ignore-scripts` approach, where all dependencies' lifecycle scripts (including your own) are blocked.
+- The more granular `⁠allowScripts` approach, where by default, dependencies' lifecycle scripts are blocked, but not your own, and you can allow specific dependencies' lifecycle scripts.
+
+### 2. Set Cooldowns / Minimum Release Age
+
+> We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the `minimumReleaseAge` option: <https://pnpm.io/settings#minimumreleaseage>, which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
+
+```sh
+# since npm v11.10.0
+npm config set --global min-release-age=7 
+
+bun add <package> --minimum-release-age <seconds>
+
+# since pnpm v11, minimumReleaseAge defaults to 1440 (1 day)
+pnpm config set --global minimumReleaseAge <minutes>
+
+yarn config set --home npmMinimalAgeGate '7d'
+
+deno install --minimum-dependency-age=P7D
+```
+
+> [!TIP]
+> Want to quickly set these as defaults globally? Check the [helper script](#0-helper-script).
+
+Examples of other tools that offer similar functionalities:
+
+- `npm-check-updates` (<https://github.com/raineorshine/npm-check-updates>) has the `--cooldown/-c` flag, for example: `npx npm-check-updates -i --format group -c 7`
+- Renovate CLI (<https://github.com/renovatebot/renovate>) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
+- Step Security (<https://www.stepsecurity.io>) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
+
+> [!TIP]
+> Read how automated tools like Renovate or Dependabot can [enable faster malware delivery](https://blog.gitguardian.com/renovate-dependabot-the-new-malware-delivery-system/).
+
+### 3. Include Lockfiles
+
+> Ensure to commit package managers lockfiles to `git` and share between different environments[^26]. Different lockfiles are: `package-lock.json` for `npm`, `pnpm-lock.yaml` for `pnpm`, `bun.lock` for `bun`, `yarn.lock` for `yarn` and `deno.lock` for `deno`.
+>
+> In automated environments such as continuous integration and deployments, we should install the exact dependencies as defined in the lockfile.
+
+```sh
+npm ci
+bun install --frozen-lockfile
+yarn install --frozen-lockfile
+pnpm install --frozen-lockfile
+deno install --frozen
+```
+
+For `deno`, we can also set the following in a `deno.json` file:
+
+```json
+{
+  "lock": {
+    "frozen": true
+  }
+}
+```
+
+> [!TIP]
+>
+> When dealing with merge conflicts in lockfiles, it is _not_ necessary to delete the lockfile. When dependencies (including transitive) are defined with version range operators (`^`, `~`, etc), re-building the lockfile from scratch can result in unexpected updates.
+>
+> Modern package managers have built-in conflict resolutions[^18][^19], just [checkout main and re-run `install`](https://github.com/yarnpkg/yarn/issues/1776#issuecomment-269539948). `pnpm` also allows [Git Branch Lockfiles](https://pnpm.io/git_branch_lockfiles) where it creates a new lockfile based on branch name, and automatically merge it back into the main lockfile later.
+
+### 4. Pin Dependency Versions
 
 > [!TIP]
 > It is debatable whether pinning versions is a best practice. There are sound basis on either side. Here, I am following the best practice suggested by the node.js security best practices[^28]. But feel free to [join the discussion](https://github.com/bodadotsh/npm-security-best-practices/issues/14) to see why you may not want to pin exact versions.
@@ -227,95 +346,7 @@ For `deno` and `deno.json`, see <https://docs.deno.com/runtime/fundamentals/modu
 }
 ```
 
-### 2. Include Lockfiles
-
-> Ensure to commit package managers lockfiles to `git` and share between different environments[^26]. Different lockfiles are: `package-lock.json` for `npm`, `pnpm-lock.yaml` for `pnpm`, `bun.lock` for `bun`, `yarn.lock` for `yarn` and `deno.lock` for `deno`.
->
-> In automated environments such as continuous integration and deployments, we should install the exact dependencies as defined in the lockfile.
-
-```sh
-npm ci
-bun install --frozen-lockfile
-yarn install --frozen-lockfile
-pnpm install --frozen-lockfile
-deno install --frozen
-```
-
-For `deno`, we can also set the following in a `deno.json` file:
-
-```json
-{
-  "lock": {
-    "frozen": true
-  }
-}
-```
-
-> [!TIP]
->
-> When dealing with merge conflicts in lockfiles, it is _not_ necessary to delete the lockfile. When dependencies (including transitive) are defined with version range operators (`^`, `~`, etc), re-building the lockfile from scratch can result in unexpected updates.
->
-> Modern package managers have built-in conflict resolutions[^18][^19], just [checkout main and re-run `install`](https://github.com/yarnpkg/yarn/issues/1776#issuecomment-269539948). `pnpm` also allows [Git Branch Lockfiles](https://pnpm.io/git_branch_lockfiles) where it creates a new lockfile based on branch name, and automatically merge it back into the main lockfile later.
-
-### 3. Disable Lifecycle Scripts
-
-> Lifecycle scripts are special scripts that happen in addition to the `pre<event>`, `post<event>`, and `<event>` scripts. For instance, `preinstall` is run before `install` is run and `postinstall` is run after `install` is run. See how npm handles the "scripts" field: <https://docs.npmjs.com/cli/v11/using-npm/scripts#life-cycle-scripts>. Lifecycle scripts are a common strategy from malicious actors. For example, the "Shai-Hulud" worms[^3] edit the `package.json` file to add a `postinstall` script that would then steal credentials.
-
-```sh
-npm config set --global ignore-scripts true
-
-# since yarn v4.14, enableScripts defaults to false
-yarn config set --home enableScripts false
-```
-
-For `bun`, `deno` and `pnpm`, they are disabled by default.
-
-> [!NOTE]
->
-> For `bun`, the [top 500 npm packages](https://github.com/oven-sh/bun/blob/main/src/install/default-trusted-dependencies.txt) with lifecycle scripts are allowed by default.
-
-> [!TIP]
-> We can combine many of the flags above. For example, the following `npm` command would install only production dependencies as defined in the lockfile and ignore lifecycle scripts:
->
-> `npm ci --omit=dev --ignore-scripts`
-
-#### `ignore-scripts` vs `allowScripts`
-
-To use `ignore-scripts`, define the following key and value pair in a project level `.npmrc` file or `~/.npmrc` file:
-
-```txt
-ignore-scripts=true
-```
-
-This is a strict, all-or-nothing binary toggle. It blocks all lifecycle scripts (including your own project's lifecycle scripts and every dependencies'), with no built-in way to make exceptions for specific trusted packages.
-
-While `⁠allowScripts` manages dependency-level scripts (it does not affect your own defined root lifecycle scripts).
-
-To use `allowScripts`, you can run `npm approve-scripts canvas sharp` and it will add the following to local `package.json` file:
-
-```json
-"dependencies": {
-  "canvas": "^3.2.3",
-  "sharp": "^0.35.2"
-},
-"allowScripts": {
-  "sharp@0.35.2": true,
-  "canvas@3.2.3": true
-}
-```
-
-Or, you can run `npm config set allow-scripts=canvas,sharp --location=project` and it will add the following to local `.npmrc` file:
-
-```txt
-allow-scripts=canvas,sharp
-```
-
-From `npm v12+`, [`allowScripts` defaults to `false`](https://github.blog/changelog/2026-06-09-upcoming-breaking-changes-for-npm-v12/), meaning all dependencies' lifecycle scripts are blocked by default. If you have `⁠ignore-scripts=true`, it will take precedence over any `⁠allowScripts` configurations. Therefore, developers have two options:
-
-- The all-or-nothing `⁠ignore-scripts` approach, where all dependencies' lifecycle scripts (including your own) are blocked.
-- The more granular `⁠allowScripts` approach, where by default, dependencies' lifecycle scripts are blocked, but not your own, and you can allow specific dependencies' lifecycle scripts.
-
-### 4. Preinstall Preventions
+### 5. Preinstall Preventions
 
 > How do we know and trust that whenever we install a package (either `npm` or `github actions`), everything will be fine? We shouldn't. Here are few ways we can increase our confidence that `install` command is safer to run:
 
@@ -374,37 +405,7 @@ npm install -g brin
 
 `pinact` edit/pin GitHub action files and more: <https://github.com/suzuki-shunsuke/pinact>
 
-#### Set Minimal Release Age
-
-> We can set a delay to avoid installing newly published packages. This applies to all dependencies, including transitive ones. For example, `pnpm v10.16` introduced the `minimumReleaseAge` option: <https://pnpm.io/settings#minimumreleaseage>, which defines the minimum number of minutes that must pass after a version is published before pnpm will install it. If `minimumReleaseAge` is set to `1440`, then pnpm will not install a version that was published less than 24 hours ago.
-
-```sh
-# since npm v11.10.0
-npm config set --global min-release-age=7 
-
-bun add <package> --minimum-release-age <seconds>
-
-# since pnpm v11, minimumReleaseAge defaults to 1440 (1 day)
-pnpm config set --global minimumReleaseAge <minutes>
-
-yarn config set --home npmMinimalAgeGate '7d'
-
-deno install --minimum-dependency-age=P7D
-```
-
-> [!TIP]
-> Want to quickly set these as defaults globally? Check the [helper script](#0-helper-script).
-
-Examples of other tools that offer similar functionalities:
-
-- `npm-check-updates` (<https://github.com/raineorshine/npm-check-updates>) has the `--cooldown/-c` flag, for example: `npx npm-check-updates -i --format group -c 7`
-- Renovate CLI (<https://github.com/renovatebot/renovate>) has a [`minimumReleaseAge`](https://docs.renovatebot.com/configuration-options/#minimumreleaseage) config option.
-- Step Security (<https://www.stepsecurity.io>) has a [NPM Package Cooldown Check](https://www.stepsecurity.io/blog/introducing-the-npm-package-cooldown-check) feature.
-
-> [!TIP]
-> Read how automated tools like Renovate or Dependabot can [enable faster malware delivery](https://blog.gitguardian.com/renovate-dependabot-the-new-malware-delivery-system/).
-
-### 5. Runtime Protections
+### 6. Runtime Protections
 
 Most techniques focus on the _install_ and _build_ phases, we can add an extra layer of security during the _runtime_ phase of JavaScript applications.
 
@@ -446,7 +447,7 @@ Companies like MetaMask and Moddable uses <https://www.npmjs.com/package/ses> an
 
 > Watch [The Attacker is Inside: Javascript Supplychain Security and LavaMoat (~20mins, Nov 2022)](https://youtu.be/Z5Bz0DYga1k) to get a quick high level overview of how this works.
 
-### 6. Reduce External Dependencies
+### 7. Reduce External Dependencies
 
 > Because `npm` has a low barrier for publishing packages, the ecosystem quickly grew to be the biggest package registry with over 5 million packages to date[^11]. But not all packages are created equal. There are small utility packages[^8] that are downloaded as dependencies when we could write them ourselves and raise the question of "have we forgotten how to code?[^12]"
 
@@ -480,7 +481,7 @@ Here are some resources that you might find useful:
 > [!IMPORTANT]
 > Remember, given the prevalence of `npm` packages, there are more `node_modules` folders in your system than you think! For example, VSCode extensions, browser extensions, desktop applications, CLIs, etc. Any of them could be a liability in the future.
 
-### 7. Isolated development
+### 8. Isolated development
 
 Developing code in an isolated environment is a popular and effective way of preventing supply-chain attacks. Some wellknown local virtual machines (VMs) solutions are: [VirtualBox](https://www.virtualbox.org/), [VMware Fusion](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion), [Parallels Desktop](https://www.parallels.com/), and [OrbStack](https://orbstack.dev/).
 
@@ -496,7 +497,7 @@ If you know any great tips or feedback, [join the discussion](https://github.com
 
 ## For Maintainers
 
-### 8. Enable 2FA
+### 9. Enable 2FA
 
 <https://docs.npmjs.com/about-two-factor-authentication>
 
@@ -516,7 +517,7 @@ npm profile enable-2fa auth-and-writes
 >
 > It is advised to configure a security-key that support [WebAuthn](https://caniuse.com/?search=webauthn), instead of time-based one-time password (TOTP)[^17]
 
-### 9. Create Tokens with Limited Access
+### 10. Create Tokens with Limited Access
 
 > [!TIP]
 >
@@ -539,7 +540,7 @@ Here are some best practices when creating tokens:
 - Select between read-only or read and write access
 - Don't use the same token for multiple purposes
 
-### 10. Generate Provenance Statements
+### 11. Generate Provenance Statements
 
 <https://docs.npmjs.com/generating-provenance-statements>
 
@@ -582,7 +583,7 @@ Related tools:
 - <https://github.com/antfu/open-packages-on-npm> (CLI to setup Trusted Publisher for monorepo packages)
 - <https://github.com/sxzz/userscripts/blob/main/src/npm-trusted-publisher.md> (Userscript to fill the form for Trusted Publisher on npmjs.com)
 
-### 11. Review Published Files
+### 12. Review Published Files
 
 > Limiting the files in an npm package helps prevent malware by reducing the attack surface, and it avoids accidental leaking of sensitive data
 
@@ -628,7 +629,7 @@ In `deno.json`, use the `publish.include` and `publish.exclude` fields to specif
 
 ## Miscellaneous
 
-### 12. NPM Organization
+### 13. NPM Organization
 
 <https://docs.npmjs.com/organizations>
 
@@ -639,7 +640,7 @@ At the organization level, best practices are:
 - If multiple package teams in same organization, set the `developers` Team permission for all packages to `READ`
 - Create separate Teams to manage permissions for each package
 
-### 13. Alternative Registry
+### 14. Alternative Registry
 
 JSR is a modern JavaScript/TypeScript package registry with backwards compatibility with npm.
 
@@ -683,7 +684,7 @@ Here are some private registries that you might find useful:
 > [!TIP]
 > **No Registry?** If the usage of a public registry like `npm` is a real concern, it is also possible to build and import the library yourself as long as you have access to the source code. See <https://boda.sh/blog/pnpm-workspace-git-submodules/> for adding packages without `npm` but with `pnpm workspace` and `git submodules`.
 
-### 14. Audit, Monitor and Security Tools
+### 15. Audit, Monitor and Security Tools
 
 #### Audit
 
@@ -773,7 +774,7 @@ Snyk offers a suite of tools to fix vulnerabilities in open source dependencies,
 
 FOSSA is a compliance and security platform that helps organizations manage the complexities of their software supply chain. It achieves this by providing visibility into all software components, from [packages and containers to binaries](https://fossa.com/products/scan/). By generating comprehensive SBOMs (Software Bill of Materials), companies reduce legal and IP risk, consolidate vulnerability management across their codebase, and [comply with regulatory reporting requirements](https://fossa.com/solutions/due-diligence/).
 
-### 15. Support OSS
+### 16. Support OSS
 
 > Maintainer burnout is a significant problem in the open-source community. Many popular `npm` packages are maintained by volunteers who work in their spare time, often without any compensation. Over time, this can lead to exhaustion and a lack of motivation, making them more susceptible to social engineering where a malicious actor pretends to be a helpful contributor and eventually injects malicious code.
 

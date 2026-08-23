@@ -44,7 +44,7 @@ function Show-Usage {
     $lines = @(
         'This script sets global package-manager defaults for npm, pnpm, yarn, and bun:'
         ''
-        '  - npm: sets ignore-scripts=true, save-exact=true, and provenance=true globally.'
+        '  - npm: sets ignore-scripts=true, save-exact=true, and provenance=true in user config (~/.npmrc).'
         '  - npm: requires npm >= 11 for min-release-age; older versions skip this setting with a warning.'
         ''
         '  - pnpm: sets save-exact=true globally.'
@@ -228,11 +228,8 @@ function Probe-Setting {
     return $false
 }
 
-function Apply-GlobalSetting {
+function Apply-NpmUserSetting {
     param(
-        [Parameter(Mandatory = $true)]
-        [string]$Manager,
-
         [Parameter(Mandatory = $true)]
         [string]$Key,
 
@@ -241,17 +238,14 @@ function Apply-GlobalSetting {
     )
 
     Apply-Setting `
-        -SuccessMessage "$Manager $Key=$Value" `
-        -FailureMessage "failed to set $Manager $Key=$Value" `
-        -Command $Manager `
-        -Arguments @('config', 'set', $Key, $Value, '--global')
+        -SuccessMessage "npm $Key=$Value" `
+        -FailureMessage "failed to set npm $Key=$Value" `
+        -Command 'npm' `
+        -Arguments @('config', 'set', $Key, $Value, '--location=user')
 }
 
-function Probe-GlobalSetting {
+function Probe-NpmUserSetting {
     param(
-        [Parameter(Mandatory = $true)]
-        [string]$Manager,
-
         [Parameter(Mandatory = $true)]
         [string]$Key,
 
@@ -263,10 +257,10 @@ function Probe-GlobalSetting {
     )
 
     return Probe-Setting `
-        -SuccessMessage "$Manager $Key=$Value" `
+        -SuccessMessage "npm $Key=$Value" `
         -SkipMessage $SkipMessage `
-        -Command $Manager `
-        -Arguments @('config', 'set', $Key, $Value, '--global')
+        -Command 'npm' `
+        -Arguments @('config', 'set', $Key, $Value, '--location=user')
 }
 
 function Apply-YarnHomeSetting {
@@ -542,9 +536,9 @@ function Invoke-NpmDefaults {
         return
     }
 
-    Apply-GlobalSetting -Manager 'npm' -Key 'ignore-scripts' -Value 'true'
-    Apply-GlobalSetting -Manager 'npm' -Key 'save-exact' -Value 'true'
-    Apply-GlobalSetting -Manager 'npm' -Key 'provenance' -Value 'true'
+    Apply-NpmUserSetting -Key 'ignore-scripts' -Value 'true'
+    Apply-NpmUserSetting -Key 'save-exact' -Value 'true'
+    Apply-NpmUserSetting -Key 'provenance' -Value 'true'
 
     $npmVersionInfo = Get-NpmVersionInfo
     if ($null -eq $npmVersionInfo) {
@@ -558,8 +552,7 @@ function Invoke-NpmDefaults {
     }
 
     Ensure-MinReleaseAgeDays
-    [void](Probe-GlobalSetting `
-        -Manager 'npm' `
+    [void](Probe-NpmUserSetting `
         -Key 'min-release-age' `
         -Value $script:minReleaseAgeDays.ToString() `
         -SkipMessage 'npm min-release-age unsupported; unchanged')

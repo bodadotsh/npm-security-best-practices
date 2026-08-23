@@ -28,7 +28,7 @@ print_usage() {
   cat <<EOF
 This script sets global package-manager defaults for npm, pnpm, yarn, and bun:
 
-  - npm: sets ignore-scripts=true, save-exact=true, and provenance=true globally.
+  - npm: sets ignore-scripts=true, save-exact=true, and provenance=true in user config (~/.npmrc).
   - npm: requires npm >= 11 for min-release-age; older versions skip this setting with a warning.
 
   - pnpm: sets save-exact=true globally.
@@ -161,27 +161,25 @@ probe_setting() {
   fi
 }
 
-apply_global_setting() {
-  local manager="$1"
-  local key="$2"
-  local value="$3"
+apply_npm_user_setting() {
+  local key="$1"
+  local value="$2"
 
   apply_setting \
-    "$manager $key=$value" \
-    "failed to set $manager $key=$value" \
-    "$manager" config set "$key" "$value" --global
+    "npm $key=$value" \
+    "failed to set npm $key=$value" \
+    npm config set "$key" "$value" --location=user
 }
 
-probe_global_setting() {
-  local manager="$1"
-  local key="$2"
-  local value="$3"
-  local skip_message="$4"
+probe_npm_user_setting() {
+  local key="$1"
+  local value="$2"
+  local skip_message="$3"
 
   probe_setting \
-    "$manager $key=$value" \
+    "npm $key=$value" \
     "$skip_message" \
-    "$manager" config set "$key" "$value" --global
+    npm config set "$key" "$value" --location=user
 }
 
 apply_yarn_home_setting() {
@@ -394,9 +392,9 @@ run_npm() {
     return
   fi
 
-  apply_global_setting "npm" "ignore-scripts" "true"
-  apply_global_setting "npm" "save-exact" "true"
-  apply_global_setting "npm" "provenance" "true"
+  apply_npm_user_setting "ignore-scripts" "true"
+  apply_npm_user_setting "save-exact" "true"
+  apply_npm_user_setting "provenance" "true"
 
   npm_major="$(get_npm_major_version || true)"
   if [[ -z "$npm_major" ]]; then
@@ -410,8 +408,7 @@ run_npm() {
   fi
 
   ensure_min_release_age_days
-  probe_global_setting \
-    "npm" \
+  probe_npm_user_setting \
     "min-release-age" \
     "$min_release_age_days" \
     "npm min-release-age unsupported; unchanged"

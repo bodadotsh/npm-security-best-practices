@@ -137,6 +137,18 @@ There's also a helper script [`default.sh`](default.sh) that setup few global de
 curl -fsSL https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.sh | sh
 ```
 
+Or alternatively, ask your own agent to setup these defaults with a prompt like so:
+
+```txt
+Configure the following global defaults for npm, pnpm, Yarn, and Bun:
+- Disable lifecycle scripts
+- Set dependency cooldowns (default: 3 days)
+- Pin exact dependency versions
+- Enable package provenance where supported
+Skip package managers that aren't installed. Check against current package
+manager versions and official documentations. Ask the user questions when necessary.
+```
+
 Afterwards, you can run the following commands to check the package manager's global configs:
 
 ```sh

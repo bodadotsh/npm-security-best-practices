@@ -24,7 +24,7 @@
   - [Immediate actions to take](#immediate-actions-to-take)
   - [Case Studies](#case-studies)
 - [For Developers](#for-developers)
-  - [0. Helper script](#0-helper-script)
+  - [0. Helpers](#0-helpers)
   - [1. Disable lifecycle scripts](#1-disable-lifecycle-scripts)
   - [2. Set cooldowns / minimum release age](#2-set-cooldowns--minimum-release-age)
   - [3. Include lockfiles](#3-include-lockfiles)
@@ -112,7 +112,27 @@ Pick the best practices below based on your needs to strengthen your system agai
 > [!TIP]
 > Highly recommend <https://npmx.dev> over npmjs.com, as it is a modern registry browser with features like [detailed package packages](https://npmx.dev/package/react), [compare](https://npmx.dev/compare), [source code and more](https://docs.npmx.dev/guide/features).
 
-### 0. Helper Script
+### 0. Helpers
+
+<details open>
+<summary>Agent Skill</summary>
+
+<br>
+
+This repository includes an agent [SKILL.md](skills/npm-security/SKILL.md) that guides coding agents to apply these security best practices (lifecycle scripts off, cooldowns, exact versions, and more).
+
+Install it with:
+
+```sh
+npx skills add bodadotsh/npm-security-best-practices
+```
+
+</details>
+
+<details>
+<summary>Helper script</summary>
+
+<br>
 
 In this repository, there is a [sample `.npmrc` file](.npmrc) with safer configurations:
 
@@ -157,6 +177,8 @@ pnpm config list
 yarn config
 cat ~/.bunfig.toml
 ```
+
+</details>
 
 ### 1. Disable Lifecycle Scripts
 
@@ -235,7 +257,7 @@ deno install --minimum-dependency-age=P7D
 ```
 
 > [!TIP]
-> Want to quickly set these as defaults globally? Check the [helper script](#0-helper-script).
+> Want to quickly set these as defaults globally? Check the [helpers](#0-helpers).
 
 Examples of other tools that offer similar functionalities:
 

@@ -29,6 +29,8 @@ Unless explicitly defined otherwise, package installations should install the ex
 
 In `.npmrc`, this can be set as `save-exact=true`, or through install command `npm install --save-exact <package>`
 
+> Persist these defaults in the project `.npmrc` (or the package manager’s equivalent), merging only keys that are unset; never overwrite existing values unless the user asks.
+
 ## Planning stage / package scorer
 
 When planning third-party dependencies, we should score package candidates first. This reduces risk of using greyware (dependencies are not exactly malware, but can be trollware, abandonware, low quality, etc).

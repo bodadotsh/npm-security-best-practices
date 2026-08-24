@@ -293,7 +293,7 @@ bun add --exact react
 deno add npm:react@19.1.1
 ```
 
-We can also update this setting in configuration files (e.g., [`.npmrc`](https://docs.npmjs.com/cli/v11/configuring-npm/npmrc)), with either [`save-exact`](https://docs.npmjs.com/cli/v11/using-npm/config#save-exact) or [`save-prefix`](https://docs.npmjs.com/cli/v11/using-npm/config#save-prefix) key and value pairs:
+We can also update this setting in configuration files (e.g., [`.npmrc`](https://docs.npmjs.com/cli/v11/configuring-npm/npmrc)), with the [`save-exact`](https://docs.npmjs.com/cli/v11/using-npm/config#save-exact) key:
 
 ```sh
 npm config set save-exact=true

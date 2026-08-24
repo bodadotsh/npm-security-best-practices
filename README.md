@@ -377,7 +377,11 @@ sfw npm install <package-name>
 
 OSV <https://github.com/google/osv.dev>
 
-Google's OSV (Open Source Vulnerabilities) project offers database, API, scanner <https://github.com/google/osv-scanner>, etc that you can use to query and secure dependenceis in various ecosystems. 
+Google's OSV (Open Source Vulnerabilities) project offers database, API, scanner <https://github.com/google/osv-scanner>, etc that you can use to query vulnerability data in various ecosystems. 
+
+deps.dev <https://deps.dev/>
+
+Another Google project. The difference is that deps.dev offers a broader package intelligence report, such as metadata, licenses, and health signals etc.
 
 Aikido Safe Chain <https://github.com/AikidoSec/safe-chain>
 

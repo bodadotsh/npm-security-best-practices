@@ -375,6 +375,10 @@ sfw npm install <package-name>
 # echo "alias npm='sfw npm'" >> ~/.zshrc
 ```
 
+OSV <https://github.com/google/osv.dev>
+
+Google's OSV (Open Source Vulnerabilities) project offers database, API, scanner <https://github.com/google/osv-scanner>, etc that you can use to query and secure dependenceis in various ecosystems. 
+
 Aikido Safe Chain <https://github.com/AikidoSec/safe-chain>
 
 The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `bun`, `bunx`, and `pip` to provide extra checks before installing new packages

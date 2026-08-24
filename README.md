@@ -119,6 +119,8 @@ Pick the best practices below based on your needs to strengthen your system agai
 
 <br>
 
+> Use SKILL.md to add security to your agents
+
 This repository includes an agent [SKILL.md](skills/npm-security/SKILL.md) that guides coding agents to apply these security best practices (lifecycle scripts off, cooldowns, exact versions, and more).
 
 Install it with:
@@ -134,24 +136,19 @@ npx skills add bodadotsh/npm-security-best-practices
 
 <br>
 
-In this repository, there is a [sample `.npmrc` file](.npmrc) with safer configurations:
+> Use the helper script to add security to your local machine
 
-```txt
-ignore-scripts=true
-save-exact=true
-provenance=true
-```
+In this repository, there are exmaples of safer default configurations:
 
-And other configuration files examples are here:
-
+- [`.npmrc`](.npmrc)
 - [`bunfig.toml`](bunfig.toml)
 - [`pnpm-workspace.yaml`](pnpm-workspace.yaml)
 - [`deno.json`](deno.json)
 - [`.yarnrc.yml`](.yarnrc.yml)
 
-There's also a helper script [`default.sh`](default.sh) that setup few global defaults across package managers automatically.
+Use the helper script [`default.sh`](default.sh) to setup these defaults across package managers automatically.
 
-> I am aware of the irony that a security best practice guide asks you to `curl` a remote script 😅 Feel free to review the code manually or ask an agent (e.g., `claude` or `codex`) to review the script first before execution. Otherwise, the rest of this README acts as a reference to configure manually.
+> Always review remote code or at least ask an agent (e.g., `claude` or `codex`) to review it first before execution.
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.sh | sh

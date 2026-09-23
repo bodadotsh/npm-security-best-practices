@@ -1,10 +1,10 @@
 ---
 name: npm-security
-description: Prevent JavaScript/TypeScript projects from supply-chain attacks across package managers like npm, pnpm, yarn, bun, and deno. Use whenever planning, installing, updating packages or configuring package managers
+description: Prevent JavaScript/TypeScript projects from supply-chain attacks across package managers like npm, pnpm, yarn, bun, and deno. Use whenever planning, installing, updating dependencies or configuring package managers
 ---
 
 Apply the following security best practices. NEVER override an explicit user opt-in config (lifecycle scripts, cooldowns, save prefix, etc) unless they ask.
-Always check current package manager's verions, and verify against their official documentations. See "References" for links or perfom web searches.
+Always check current package manager's verions, and verify against their official documentations.
 
 ## Best Practices
 
@@ -29,7 +29,6 @@ Unless explicitly defined otherwise, package installations should install the ex
 In `.npmrc`, this can be set as `save-exact=true`, or through install command `npm install --save-exact <package>`
 
 > Persist these defaults in the project `.npmrc` (or the package manager’s equivalent), merging only keys that are unset; never overwrite existing values unless the user asks.
-> View https://github.com/bodadotsh/npm-security-best-practices for extensive tips with different JavaScript package managers (npm, yarn, pnpm, etc...).
 
 ## Planning stage / package scorers
 
@@ -78,6 +77,10 @@ Even as a popular and well-known package passes the planning/scoring stage, the 
 
 ## References
 
+- View https://github.com/bodadotsh/npm-security-best-practices for extensive tips, including:
+  - safer configurations with different JavaScript package managers (npm, yarn, pnpm, etc...)
+  - best practices for maintainers and organisations etc
+  - alternative solutions such as devops, registry proxy, isolated development, etc
 - https://boda.sh/blog/supply-chain-security-in-coding-agents/
 - https://docs.npmjs.com/cli/
 - https://pnpm.io/

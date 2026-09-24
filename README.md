@@ -24,7 +24,7 @@
   - [Immediate actions to take](#immediate-actions-to-take)
   - [Case Studies](#case-studies)
 - [For Developers](#for-developers)
-  - [0. Helpers](#0-helpers)
+  - [0. SKILL & Helpers](#0-skill-helpers)
   - [1. Disable lifecycle scripts](#1-disable-lifecycle-scripts)
   - [2. Set cooldowns / minimum release age](#2-set-cooldowns--minimum-release-age)
   - [3. Include lockfiles](#3-include-lockfiles)
@@ -112,7 +112,7 @@ Pick the best practices below based on your needs to strengthen your system agai
 > [!TIP]
 > Highly recommend <https://npmx.dev> over npmjs.com, as it is a modern registry browser with features like [detailed package packages](https://npmx.dev/package/react), [compare](https://npmx.dev/compare), [source code and more](https://docs.npmx.dev/guide/features).
 
-### 0. Helpers
+### 0. SKILL & Helpers
 
 <details open>
 <summary>Agent Skill</summary>

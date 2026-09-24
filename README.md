@@ -24,7 +24,7 @@
   - [Immediate actions to take](#immediate-actions-to-take)
   - [Case Studies](#case-studies)
 - [For Developers](#for-developers)
-  - [0. SKILL & Helpers](#0-skill-helpers)
+  - [0. SKILL & Helpers](#0-skill--helpers)
   - [1. Disable lifecycle scripts](#1-disable-lifecycle-scripts)
   - [2. Set cooldowns / minimum release age](#2-set-cooldowns--minimum-release-age)
   - [3. Include lockfiles](#3-include-lockfiles)

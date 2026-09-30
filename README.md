@@ -503,7 +503,7 @@ Between `nodejs`, `bun`, `deno` and the Web APIs, developers can use many of the
 | `prettier`, `eslint`, etc         | `deno lint` and `deno fmt`                                         |
 
 > [!TIP]
-> Check out <https://github.com/es-tooling/module-replacements> where they have an excellent list of module replacements (i.e. possible alternative packages).
+> Check out <https://github.com/e18e/module-replacements> where they have an excellent list of module replacements (i.e. possible alternative packages).
 
 Here are some resources that you might find useful:
 

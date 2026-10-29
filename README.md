@@ -416,6 +416,15 @@ The Aikido Safe Chain wraps around the npm cli, `npx`, `yarn`, `pnpm`, `pnpx`, `
 npm install -g @aikidosec/safe-chain
 ```
 
+Chainsaw <https://github.com/Chain305/chainsaw-core>
+
+Chainsaw's open-source (Apache-2.0) guard hooks `npm`, `pip`, `cargo`, `gem` and `go` in your shell and refuses known-malicious packages and typosquats before they download, checking against the OpenSSF malicious-packages feed offline. It can also run as a registry proxy for a whole team.
+
+```sh
+curl -fsSL https://chain305.com/install.sh | sh
+chainsaw guard init --install
+```
+
 `npq`: <https://github.com/lirantal/npq>
 
 ```sh

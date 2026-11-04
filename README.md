@@ -721,6 +721,7 @@ Here are some private registries that you might find useful:
 - JFrog Artifactory <https://jfrog.com/integrations/npm-registry>
 - Sonatype: <https://help.sonatype.com/en/npm-registry.html>
 - Cloudsmith: <https://cloudsmith.com/>
+- CloudRepo: <https://www.cloudrepo.io/docs/formats/npm.html>
 - pnpr: <https://pnpm.io/pnpr/>
 
 > [!IMPORTANT]

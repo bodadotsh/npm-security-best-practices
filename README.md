@@ -144,7 +144,7 @@ npx skills add bodadotsh/npm-security-best-practices
 
 > Use the helper script to add security to your local machine
 
-In this repository, there are exmaples of safer default configurations:
+In this repository, there are examples of safer default configurations:
 
 - [`.npmrc`](.npmrc)
 - [`bunfig.toml`](bunfig.toml)
@@ -157,7 +157,7 @@ Use the helper script [`default.sh`](default.sh) to setup these defaults across 
 > Always review remote code or at least ask an agent (e.g., `claude` or `codex`) to review it first before execution.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.sh | sh
+curl -fsSL https://raw.githubusercontent.com/bodadotsh/npm-security-best-practices/refs/heads/main/default.sh | bash
 ```
 
 Or alternatively, ask your own agent to setup these defaults with a prompt like so:

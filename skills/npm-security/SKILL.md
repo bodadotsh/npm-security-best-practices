@@ -4,7 +4,7 @@ description: Prevent JavaScript/TypeScript projects from supply-chain attacks ac
 ---
 
 Apply the following security best practices. NEVER override an explicit user opt-in config (lifecycle scripts, cooldowns, save prefix, etc) unless they ask.
-Always check current package manager's verions, and verify against their official documentations.
+Always check current package manager's versions, and verify against their official documentations.
 
 ## Best Practices
 
@@ -24,7 +24,7 @@ In `.npmrc`, this can be set as `min-release-age=3`, or through install command 
 
 ### Exact versions
 
-Unless explicitly defined otherwise, package installations should install the expact version instead of a semver range.
+Unless explicitly defined otherwise, package installations should install the exact version instead of a semver range.
 
 In `.npmrc`, this can be set as `save-exact=true`, or through install command `npm install --save-exact <package>`
 
@@ -71,7 +71,7 @@ Few free and trustworthy scanners are:
 - osv-scanner by osv.dev: https://github.com/google/osv-scanner
 - Aikido Safe Chain: https://github.com/AikidoSec/safe-chain
 
-FOr example, the `sfw` cli can be downloaded first through `npm i -g sfw` or through `npx`: `npx sfw npm install <package>`
+For example, the `sfw` cli can be downloaded first through `npm i -g sfw` or through `npx`: `npx sfw npm install <package>`
 
 Even as a popular and well-known package passes the planning/scoring stage, the installation/scanning stage can catch it if they get compromised.
 

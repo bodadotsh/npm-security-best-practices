@@ -443,6 +443,10 @@ brin (for the agents): <https://github.com/superagent-ai/brin>
 npm install -g brin
 ```
 
+npm-install-audit: <https://github.com/cryptostrapon/npm-install-audit>
+
+A small read only Node script with no dependencies. It lists the install hooks (`preinstall`, `install`, `postinstall`, `prepare`) and flags risky patterns such as shell execution and runtime base64 decoding in a cloned repo, without running it. Useful for take-home tasks and unknown repos before the first install.
+
 > [!TIP]
 > GitHub Actions has became a popular target for attacks, see [Megalodon](https://safedep.io/megalodon-mass-github-repo-backdooring-ci-workflows/) and [TanStack Postmortem](https://tanstack.com/blog/npm-supply-chain-compromise-postmortem). Therefore, it is _highly recommended_ to not only secure/audit `npm` dependencies, but also other dependencies like `github actions` or `docker images`.
 

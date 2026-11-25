@@ -807,6 +807,12 @@ Run the checks:
 
 Socket.dev is a security platform that protects code from both vulnerable and malicious dependencies. It offers various tools such as a [GitHub App](https://socket.dev/features/github) scans pull requests, [CLI tool](https://socket.dev/features/cli), [web extension](https://socket.dev/features/web-extension), [VSCode extension](https://docs.socket.dev/docs/socket-for-vs-code) and more. Here's their talk on [AI powered malware hunting at scale, Jan 2025](https://youtu.be/cxJPiMwoIyY). Plus the Socket Firewall `sfw` tool in the [Preinstall Scanners section](https://github.com/bodadotsh/npm-security-best-practices/tree/main?tab=readme-ov-file#preinstall-scanners).
 
+#### Protet Intel
+
+> <https://protet.io/intel>
+
+Protet Intel is a free, public record of malicious npm package versions from Protet, CI/CD runtime security designed for GitLab. Newly published versions are screened as they appear on the registry, and a person reviews every flagged version before it is listed. You can look up a package at <https://protet.io/check> (a name without a record is not cleared) or consume the feed as NDJSON, Atom or OSV.
+
 #### Snyk
 
 > <https://snyk.io>
